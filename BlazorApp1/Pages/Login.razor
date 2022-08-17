@@ -15,12 +15,7 @@
             
             @if (loginModel != null)
             {
-                <EditForm Model="@loginModel" OnvalidSubmit="Login_click">
-                    <DataAnnotationValidator/>
-                    <InputText type="email" name="email" class="email" placeholder="email" @bind-Value="loginModel.email"
-
-                    />
-                </EditForm>
+              
                  }
         </div>
     </div>
