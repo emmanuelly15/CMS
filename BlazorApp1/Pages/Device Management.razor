@@ -7,8 +7,14 @@
 <div class="card"> 
     <div class="card-body">
         <h4>Add Device</h4>
-
-
+        Device IMEI <input @bind="imei">
+        <br><br />
+        Select User <input @bind="name">
+        <br><br />
+        Select group <input @bind="group">
+        <br><br />
+        Authorised? <input @bind="authorisation">
+        <br><br />
         <button class="btn btn-primary">
             <span class="oi oi-plus"></span>
             Add Device
@@ -33,7 +39,7 @@
     </thead>
     <tbody>
          <tr>
-            <td>IdNo.1</td>
+            <td>Idno1</td>
             <td>2901987979</td>
             <td>Mark</td>
             <td>Finance</td>
@@ -42,10 +48,10 @@
             <td>LocationLink</td>
             <td>Yes/no</td>
             <td>
-                <button class="btn">
+                <button class="btn btn-primary">
                     <span class="oi oi-pencil"></span>
                 </button>
-                <button class="btn">
+                <button class="btn btn-danger">
                     <span class="oi oi-trash"></span>
                 </button>
             </td>
@@ -54,5 +60,11 @@
     </table>
 
 @code {
-
+    private int id;
+    private string imei;
+    private string name;
+    private string group;
+    private string regdate;
+    private string lastupdate;
+    private string authorisation;
 }
