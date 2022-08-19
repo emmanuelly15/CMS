@@ -10,8 +10,9 @@ namespace CommonModels.Model
 
         public string email { get; set; }
         [Required(ErrorMessage = "Email is required")]
+
         public string password { get; set; }
         [Required(ErrorMessage = "password is required")]
 
-    } 
+    }
 }
