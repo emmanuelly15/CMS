@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Text;
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics;
 
 namespace CommonModels.Model
 {
+    [DebuggerDisplay("{" + nameof(GetDebuggerDisplay) + "(),nq}")]
     public class LoginModel
     {
 
@@ -14,5 +16,9 @@ namespace CommonModels.Model
         public string password { get; set; }
         [Required(ErrorMessage = "password is required")]
 
+        private string GetDebuggerDisplay()
+        {
+            return ToString();
+        }
     }
 }
