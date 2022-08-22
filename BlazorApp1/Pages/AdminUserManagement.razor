@@ -1,6 +1,7 @@
 ﻿@page "/AdminUserManagement"
 <h3>Admin User Management</h3>
 <br />
+<style>
 {
   border-radius: 25px;
   background: grey;
@@ -9,12 +10,13 @@
   padding: 20px;
   width: 200px;
   height: 150px;
+}</style>
 
 <div class="card">
     <div class="card-body">
         <h4>Add admin</h4>
-        Enter name: <input @bind="name" />
-        Enter email address:  <input @bind="email"/>
+        Enter name: <input @bind="name" /><br /><br />
+        Enter email address:  <input @bind="email"/><br /><br />
         Enter password: <input @bind="password"/>
         <br><br />
        
@@ -24,7 +26,9 @@
         </button>
     </div>
 </div>
-}
+<br />
+<br />
+
 <p>
     Show
     <select>
