@@ -1,6 +1,79 @@
 ﻿@page "/AdminUserManagement"
 <h3>Admin User Management</h3>
+<br />
+<div class="card">
+    <div class="card-body">
+        <h4>Add admin</h4>
+        Enter name: <input @bind="name" />
+        Enter email address:  <input @bind="email"/>
+        Enter password: <input @bind="password"/>
+        <br><br />
+       
+        <button class="btn btn-primary">
+            <span class="oi oi-plus"></span>
+            Add User
+        </button>
+    </div>
+</div>
 
+<p>
+    Show
+    <select>
+        <option>1</option>
+        <option>5</option>
+        <option>10</option>
+        <option>15</option>
+        <option>20</option>
+        <option>25</option>
+        <option>30</option>
+        <option>35</option>
+        <option>40</option>
+        <option>45</option>
+        <option>50</option>
+        <option>55</option>
+        <option>60</option>
+        <option>65</option>
+        <option>70</option>
+        <option>75</option>
+    </select>
+    entries
+
+    Search
+    <input type="text" name=" " />
+</p>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Password</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>1</td>
+            <td>Mark</td>
+            <td>mark.doe@gmail.com</td>
+            <td>****************</td>
+            <td>
+                <button class="btn btn-primary">
+                    <span class="oi oi-pencil"></span>
+                </button>
+                <button class="btn btn-danger">
+                    <span class="oi oi-trash"></span>
+                </button>
+            </td>
+        </tr>
+    </tbody>
+</table>
 @code {
-
+    private string name;
+    private string email;
+    private string password;
 }
+
+
