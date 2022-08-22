@@ -1,6 +1,70 @@
-﻿@page "/Device management "
+﻿@page "/DeviceManagement"
+
 <h3>Device Management</h3>
 
-@code {
+<p>Add, edit, or delete a device.</p>
 
+<div class="card"> 
+    <div class="card-body">
+        <h4>Add Device</h4>
+        Device IMEI <input @bind="imei">
+        <br><br />
+        Select User <input @bind="name">
+        <br><br />
+        Select group <input @bind="group">
+        <br><br />
+        Authorised? <input @bind="authorisation">
+        <br><br />
+        <button class="btn btn-primary">
+            <span class="oi oi-plus"></span>
+            Add Device
+        </button>
+    </div>
+</div>
+
+
+<table class="table">
+    <thead>
+         <tr>
+            <th>#</th>
+            <th>IMEI</th>
+            <th>User name</th>
+            <th>Group</th>
+            <th>Registered On</th>
+            <th>Last Update</th>
+            <th>Last Location</th>
+            <th>Authorised</th>
+            <th>Actions</th>
+         </tr>
+    </thead>
+    <tbody>
+         <tr>
+            <td>Idno1</td>
+            <td>2901987979</td>
+            <td>Mark</td>
+            <td>Finance</td>
+            <td>Date...</td>
+            <td>Date...</td>
+            <td>LocationLink</td>
+            <td>Yes/no</td>
+            <td>
+                <button class="btn btn-primary">
+                    <span class="oi oi-pencil"></span>
+                </button>
+                <button class="btn btn-danger">
+                    <span class="oi oi-trash"></span>
+                </button>
+            </td>
+         </tr>
+    </tbody>
+    </table>
+
+@code {
+    private int id;
+    private string imei;
+    private string name;
+    private string group;
+    private string regdate;
+    private string lastupdate;
+    private string authorisation;
 }
