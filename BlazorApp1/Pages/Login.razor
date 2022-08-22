@@ -1,0 +1,26 @@
+﻿@page "/Login"
+@using CommonModels.Model;
+
+@inject NavigationManager navManager;
+<h3>Login</h3>
+<style></style>
+<div style="min-height:400px;"> 
+
+    <div class="loginBox">
+
+        <div class="Box">
+
+            <br />
+            <h1>Login</h1>
+            
+            @if (loginModel != null)
+            {
+              
+                 }
+        </div>
+    </div>
+</div>
+
+@code {
+    LoginModel loginModel { get; set; }
+}
