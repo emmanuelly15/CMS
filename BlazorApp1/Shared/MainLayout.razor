@@ -1,21 +1,19 @@
 ﻿@inherits LayoutComponentBase
 @inject NavigationManager navManager;
 
-@if (isAdminLoggedIn)
-{
+
     <div class="sidebar">
         <NavMenu />
     </div>
-}
+
 
 <div class="main">
-    @if (isAdminLoggedIn)
-    {
+   
         <div class="top-row px-4 auth">
             <LoginDisplay />
         <a href="https://docs.microsoft.com/aspnet/" target="_blank">About</a>
     </div>
-    }
+    
     <div class="content px-4">
         @Body
     </div>
@@ -23,6 +21,6 @@
 
 @code
 {
-    public bool isAdminLoggedIn = false;
+   // public bool isAdminLoggedIn = false;
    
 }

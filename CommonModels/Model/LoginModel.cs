@@ -9,12 +9,13 @@ namespace CommonModels.Model
     [DebuggerDisplay("{" + nameof(GetDebuggerDisplay) + "(),nq}")]
     public class LoginModel
     {
-
-        public string email { get; set; }
         [Required(ErrorMessage = "Email is required")]
+        public string email { get; set; }
+      
 
-        public string password { get; set; }
         [Required(ErrorMessage = "password is required")]
+        public string password { get; set; }
+        
 
         private string GetDebuggerDisplay()
         {
