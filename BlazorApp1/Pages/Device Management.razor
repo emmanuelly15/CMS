@@ -9,11 +9,32 @@
         <h4>Add Device</h4>
         Device IMEI <input @bind="imei">
         <br><br />
-        Select User <input @bind="name">
+        Select User 
+        <select>
+            <option>--Select a user--</option>
+            <option>Mark Joe</option>
+            <option>James Robertson</option>
+            <option>Alice Williams</option>
+            <option>Elizabeth Porter</option>
+        </select>
         <br><br />
-        Select group <input @bind="group">
+        Select group
+        <select>
+            <option>--Select a group--</option>
+            <option>Strategy</option>
+            <option>Marketing</option>
+            <option>Finance</option>
+            <option>Human Resources</option>
+            <option>Operations</option>
+            <option>Logistics</option>
+        </select>
         <br><br />
-        Authorised? <input @bind="authorisation">
+        Authorised? 
+         <select>
+            <option>--Select authorisation--</option>
+            <option>Yes</option>
+            <option>No</option>
+        </select>
         <br><br />
         <button class="btn btn-primary">
             <span class="oi oi-plus"></span>
