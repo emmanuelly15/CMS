@@ -1,27 +1,43 @@
 ﻿@page "/MailingList"
-<h1>Mailing List</h1>
+<h3>Mailing List</h3>
 <br />
-<p>Add An Email</p>
-<form>
-    <input type ="text" name = "Enter Email Address"/> <br />
-    <select>
-        <option>--Select a group--</option>
-        <option>Strategy</option>
-        <option>Marketing</option>
+<style>
+{
+  border-radius: 25px;
+  background: grey;
+  background-position: left top;
+  background-repeat: repeat;
+  padding: 20px;
+  width: 200px;
+  height: 150px;
+}</style>
+
+<div class="card">
+    <div class="card-body">
+        <h4>Add an email</h4>
+        Enter email address:  <input @bind="email"/>
+        <br />
+        <select>
+        <option>--Select A Group--</option>
         <option>Finance</option>
-        <option>Human Resources</option>
-        <option>Operations</option>
         <option>Logistics</option>
-    </select> <br />
+        <option>Marketing</option>
+        <option>Human Resources</option>
+        <option>Other...</option>
+        </select>
+        <br /><br />
+        <button class="btn btn-primary">
+            <span class="oi oi-plus"></span>
+            ADD
+        </button>
+    </div>
+</div>
 
-
-    <input type ="button" value ="Add" /> <br /> 
-    <br />
-    <br />
-    <br />
-    <br />
-
-    <p>Show
+<br />
+<br>
+<br />
+<p>
+    Show
     <select>
         <option>1</option>
         <option>5</option>
@@ -41,14 +57,39 @@
         <option>75</option>
     </select>
     entries
-    
+
     Search
-    <input type="text" name =" "/></p>
+    <input type="text" name=" " />
+</p>
 
 
-    
-
-</form>
+<table class="table">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Email</th>
+            <th>Group</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>1</td>
+            <td>mark.doe@gmail.com</td>
+            <td>Finance</td>
+            <td>
+                <button class="btn btn-primary">
+                    <span class="oi oi-pencil"></span>
+                </button>
+                <button class="btn btn-danger">
+                    <span class="oi oi-trash"></span>
+                </button>
+            </td>
+        </tr>
+    </tbody>
+</table>
 @code {
-
+    private string name;
+    private string email;
+    private string password;
 }
