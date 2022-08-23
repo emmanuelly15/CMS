@@ -17,7 +17,7 @@ namespace WebApplication1.Controllers
             "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
         };
 
-        private readonly ILogger<DocumentController> _logger;
+        private readonly ILogger<DocumentController>_logger;
 
         public DocumentController(ILogger<DocumentController> logger)
         {
@@ -63,7 +63,6 @@ namespace WebApplication1.Controllers
                 CreationDate = DateTime.Now,
                 Creator = "Shanon",
                 CellphoneNumber = "0729981533"
-
             });
 
             return docList;
