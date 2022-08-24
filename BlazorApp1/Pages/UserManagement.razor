@@ -59,6 +59,7 @@
     protected async Task Save()
     {
         await UserService.SaveAsync(user);
+        NavigationManager.NavigateTo("UserList");
     }
             void Cancel()
             {
