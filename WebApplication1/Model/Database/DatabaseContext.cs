@@ -9,6 +9,7 @@ namespace Api.Model.Database
     public class DatabaseContext : DbContext
     {
         public DbSet<DbNotification> Notifications { get; set; }
+        public DbSet<DbUser> Users { get; set; }
 
         public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options)
         {
