@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Remove="Pages\DocumentSubmition.razor" />
+    <Content Remove="Pages\DocumentSubmission.razor" />
     <Content Remove="Pages\Login.razor" />
     <Content Remove="Shared\SurveyPrompt.razor" />
   </ItemGroup>
@@ -28,16 +28,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <UpToDateCheckInput Remove="Pages\DocumentSubmition.razor" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <_ContentIncludedByDefault Remove="Pages\DocumentSubmition.razor" />
     <_ContentIncludedByDefault Remove="Pages\Login.razor" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="Pages\DocumentSubmition.razor" />
+    <None Include="Pages\DocumentSubmission.razor" />
     <None Include="Pages\Login.razor" />
   </ItemGroup>
 
