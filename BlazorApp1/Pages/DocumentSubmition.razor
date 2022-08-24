@@ -1,22 +1,42 @@
-﻿@page "/Document Submissions"
+
+﻿@page "/Document Submition"
+
 <h3>Document Submissions</h3>
 
+<br />
+<style>
+    {
+        border-radius: 25px;
+        background: grey;
+        background-position: left top;
+        background-repeat: repeat;
+        padding: 20px;
+        width: 200px;
+        height: 150px;
+    }
+</style>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Sent On</th>
+            <th>Name</th>
+            <th>Device IMEI</th>
+            <th>Group</th>
+            <th>File</th>
+            <th>Raw Image</th>
+            <th>Description</th>
+            <th>Location</th>
+            <th>Decision</th>
+        </tr>
+    </thead>
+
+</table>
+
+
+
+
 @code {
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Sent On</th>
-                <th>Name</th>
-                <th>Device IMEI</th>
-                <th>Group</th>
-                <th>File</th>
-                <th>Raw Image</th>
-                <th>Description</th>
-                <th>Location</th>
-                <th>Decision</th>
-            </tr>
-        </thead>
-        
-    </table>
+    enable operation;
 
 }
