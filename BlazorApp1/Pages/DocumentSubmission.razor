@@ -1,0 +1,68 @@
+@page "/DocumentSubmission"
+<h3>Document Submissions</h3>
+<br />
+<style>
+    {
+        border-radius: 25px;
+        background: grey;
+        background-position: left top;
+        background-repeat: repeat;
+        padding: 20px;
+        width: 200px;
+        height: 150px;
+    }
+</style>
+
+<p>
+    Show
+    <select>
+        <option>10</option>
+        <option>15</option>
+        <option>20</option>
+        <option>25</option>
+        <option>30</option>
+    </select>
+    entries
+</p>    
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Sent On</th>
+            <th>Name</th>
+            <th>Device IMEI</th>
+            <th>Group</th>
+            <th>File</th>
+            <th>Raw Image</th>
+            <th>Description</th>
+            <th>Location</th>
+            <th>Decision</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr>
+            <td>2022-03-31 <br /> 04:22:54</td>
+            <td>James</td>
+            <td>D009CDF12F6171EC</td>
+            <td>Finance</td>
+            <td>NewScanInvoice.pdf</td>
+            <td>NewScanInvoice79860.jpg</td>
+            <td>View Location</td>
+            <td>
+                <button class="btn btn-primary">
+                    <span class="oi oi-pencil"></span>
+                </button>
+                <button class="btn btn-danger">
+                    <span class="oi oi-trash"></span>
+                </button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+
+
+@code {
+    
+}
