@@ -38,7 +38,6 @@
 
   <ItemGroup>
     <None Include="Pages\DocumentSubmition.razor" />
-    <None Include="Pages\Login.razor" />
   </ItemGroup>
 
   <ItemGroup>
