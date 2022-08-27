@@ -1,49 +1,130 @@
 ﻿@using CommonModels.Model;
 @using BlazorApp1;
+@inject NavigationManager navManager;
+@using
 @page "/Administrator"
 
-<h3>Administrator</h3>
 
-<EditForm Model="@login" OnValidSubmit="ExecuteLogin" class="card card-bdy bg-light mt-5" >
-<ValidationSummary />
 
-<div class="form-group row">
-    <label for="email" class="col-md-2 col-form-label">Email :</label>
-    <div class="col-md-10">
-        <InputText id="email" class="form-control" @bind-Value="login.email"> </InputText> 
-          
 
-                
+<style>
+
+    .loginBox
+    { 
+        font-family: 'Gill Sans MT', sans-serif;
+        margin: 0 auto 0;
+        width:100px;
+        text-align:center;
+        margin:20 px 0px 20px 0px;
+    }
+    .box
+    {
+        background:white;
+        width:300px;
+        border-radius:6px;
+        margin:0 auto 0;
+        padding: 0px 0px 10px 0px;
+        border:purple 4px solid;
+
+    
+    }
+    .email
+    {
+      background:#ffffff;
+      border:#ccc 1px solid;
+      padding: 8px;
+      width:250px;
+      border-bottom: #ccc 2px solid;
+      color:#525252;
+      margin-top:10px;
+      font-size: 1em;
+      border-radius: 4px;
+
+
+    }
+
+    .password {
+        border-radius: 4px;
+        background: #ecf0f1;
+        border: #ccc 1px solid;
+        padding: 8px;
+        width: 250px;
+        color: #525252;
+        font-size: 1em;
+       
+    }
+
+</style>
+
+<div style="min-height:400px;">
+    <div class="loginBox">
+
+        <div class="box">
+            <br />
+            <h1>Administrator Login</h1>
+            @if (login!=null)
+            {
+                <EditForm Model="@login" OnValidSubmit="Login_click">
+                    <ValidationSummary />
+                    <DataAnnotationsValidator></DataAnnotationsValidator>
+
+                        <InputText type="email" name="email" id="email" class="email" placeholder="email" @bind-Value="login.email"> </InputText>
+                        <ValidationMessage For="@(()=>login.email)"></ValidationMessage>
+
+
+
+      
+             
+                        <InputText type="password" class="password" placeholder="password" @bind-Value="login.password"></InputText>
+                            <ValidationMessage For="@(()=>login.password)"></ValidationMessage>
+                            <br /><br />
+                            <input type="submit" class="btn-primary" value="Login"/>
+
+               
+            </EditForm>
+
+            }
+        </div>
     </div>
+    <div>
+    <br />
+    <br />
+    <p style="color:#e5e50"> <h4>@alertmessage</h4></p>
+    </div>
+
 </div>
 
-<div class="form-group row">
-    <label for="password" class="col-md-2 col-form-label">Password :</label>
-    <div class="col-md-10">
-        <InputText id="email" class="form-control" @bind-Value="login.password" ></InputText>
-            
 
-                
-    </div>
-</div>
-
-
-<div class="row" >
-    <div class="col-md-12 text-right">
-        <button type="submit" class="btn-success"> Log In</button>
-
-    </div>
-
-</div>
-</EditForm>
 
 @code {
 
-   private LoginModel login = new LoginModel{email="emma@gmail.com",password="123"};
-      
+    private LoginModel login = new LoginModel{email="emma@gmail.com",password="123"};
+
     private bool showAuthenticationError = false;
     private string authenticationErrorText = "";
-    private async Task ExecuteLogin()
-    { }
+    public string alertmessage = "Data enetered are wrong, try again";
 
+    private async Task Login_click()
+    {
+
+
+    }
+
+    protected override Task OnInitializedAsync()
+    {
+        login = new LoginModel();
+        return base.OnInitializedAsync();
+
+    }
+  
+
+    //class="card card-bdy bg-light mt-5"
+    //
+                //<div class="form-group row">
+                   // <label for="email" class="col-md-2 col-form-label">Email :</label>
+                    //<div class="col-md-10">
+
+                    //   <div class="form-group row">
+                   // <label for="password" class="col-md-2 col-form-label">Password :</label>
+                    //<div class="col-md-10">
 }
