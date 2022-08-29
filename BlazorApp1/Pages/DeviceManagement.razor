@@ -1,4 +1,4 @@
-﻿@page "/Device"
+﻿@page "/DeviceManagement"
 @using BlazorApp1.Data
 @using CommonModels.Model
 @inject NavigationManager NavigationManager
@@ -111,7 +111,7 @@
     </table>
 
 @code {
-    private DeviceManagement[] devices;
+    private Device[] devices;
 
     protected override async Task OnInitializedAsync() 
     {
@@ -120,7 +120,7 @@
 
     [Parameter]
     public string Id { get; set; }
-    DeviceManagement device = new DeviceManagement();
+    Device device = new Device();
     /*protected override async Task OnInitializedAsync()
     {
         device = await Http.GetFromJsonAsync<User>("api/user/" + Id);
