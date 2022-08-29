@@ -20,17 +20,16 @@ namespace WebApplication1.Controllers
 
         [HttpGet]
         //get user input and selections
-        public IEnumerable<DeviceManagement> Get()
+        public IEnumerable<Device> Get()
         {
-            using (var context = new PaycoDBContext())
-            {
-                var docList = new List<DeviceManagement>();
+           
+                var docList = new List<Device>();
 
-                var allDevices = db.Devices.ToList().Select(v => new DeviceManagement
+                var allDevices = db.Devices.ToList().Select(v => new Device
                 {
                     IMEI = v.IMEI,
                     User = v.User,
-                    Groups = v.Group,
+                    Groups = v.Groups,
                     Authorisation = v.Authorisation
                 });
 
@@ -64,18 +63,18 @@ namespace WebApplication1.Controllers
                  context.SaveChanges();
 
                  return context.DeviceManagements.Where(deviceManagement => deviceManagement.UserId == 01010).ToList();*/
-            }
+
         }
 
         //post inputted data to table
         [HttpPost]
-        public int Create(DeviceManagement device)
+        public int Create(Device device)
         {
             var dbDevice = new DbDevice
             {
                 IMEI = device.IMEI,
                 User = device.User,
-                Groups = device.Group,
+                Groups = device.Groups,
                 Authorisation = device.Authorisation
             };
 

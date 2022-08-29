@@ -12,7 +12,7 @@
 <div class="card"> 
     <div class="card-body">
         <h4>Add Device</h4>
-        Device IMEI <input @bind="imei">
+        Device IMEI <input @bind="@device.IMEI">
         <br><br />
         Select User 
         <select>
@@ -132,8 +132,8 @@
     }
     void Cancel()
     {
-     //   NavigationManager.NavigateTo("DeviceList"); // navigation link to table page after cancle btn has been clicked
+        NavigationManager.NavigateTo("DeviceList"); // navigation link to table page after cancle btn has been clicked
     }
     private int id;
-    private string imei;
+    private string IMEI;
 }
