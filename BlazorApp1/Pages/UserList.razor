@@ -20,17 +20,17 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var p in users)
+                @foreach (var v in users)
                 {
                     <tr>
-                    <td>@p.Name</td>
-                    <td>@p.Email</td>
-                    <td>@p.Telephone</td>
-                    <td>@p.EmpId</td>
-                    <td>@p.Password</td>
+                    <td>@v.Name</td>
+                    <td>@v.Email</td>
+                    <td>@v.Telephone</td>
+                    <td>@v.EmpId</td>
+                    <td>@v.Password</td>
                     <td>
-                        <a href="/EditUser/@p.Id">Edit</a> |
-                        <a href="/DeleteUser/@p.Id">Delete</a>
+                        <a href="/EditUser/@v.Id">Edit</a> |
+                        <a href="/DeleteUser/@v.Id">Delete</a>
                     </td>
                     </tr>
                 }
