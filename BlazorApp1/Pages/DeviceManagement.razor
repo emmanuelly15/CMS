@@ -1,4 +1,9 @@
 ﻿@page "/DeviceManagement"
+@using BlazorApp1.Data
+@using CommonModels.Model
+@inject NavigationManager NavigationManager
+@inject IJSRuntime JsRuntime
+@inject UserService UserService
 
 <h3>Device Management Page</h3>
 
@@ -9,11 +14,30 @@
         <h4>Add Device</h4>
         Device IMEI <input @bind="imei">
         <br><br />
-        Select User <input @bind="name">
+        Select User 
+        <select>
+            <option>--Select a User--</option>
+            <option>Mark Lee</option>
+            <option>Elizabeth Porter</option>
+            <option>Luke Hemsworth</option>
+            <option>Jennifer Swan</option>
+        </select>
         <br><br />
-        Select group <input @bind="group">
+        Select group <select>
+            <option>--Select A Group--</option>
+            <option>Finance</option>
+            <option>Logistics</option>
+            <option>Marketing</option>
+            <option>Human Resources</option>
+            <option>Other...</option>
+        </select>
         <br><br />
-        Authorised? <input @bind="authorisation">
+        Authorised? 
+        <select>
+        <option>--Select Authorization--</option>
+        <option>Yes</option>
+        <option>No</option>
+        </select>
         <br><br />
         <br><br />
         <button class="btn btn-primary">
@@ -87,11 +111,22 @@
     </table>
 
 @code {
+    [Parameter]
+    public string Id { get; set; }
+    DeviceManagement device = new DeviceManagement();
+    protected override async Task OnInitializedAsync()
+    {
+        //user = await Http.GetFromJsonAsync<User>("api/user/" + Id);
+    }
+    protected async Task Save()
+    {
+        await UserService.SaveAsync(device);
+        //NavigationManager.NavigateTo("DeviceList"); navigation link to table page after device has been added
+    }
+    void Cancel()
+    {
+        NavigationManager.NavigateTo("DeviceList"); // navigation link to table page after cancle btn has been clicked
+    }
     private int id;
     private string imei;
-    private string name;
-    private string group;
-    private string regdate;
-    private string lastupdate;
-    private string authorisation;
 }
