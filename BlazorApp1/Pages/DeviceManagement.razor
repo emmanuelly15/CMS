@@ -1,19 +1,44 @@
 ﻿@page "/DeviceManagement"
+@using BlazorApp1.Data
+@using CommonModels.Model
+@inject NavigationManager NavigationManager
+@inject IJSRuntime JsRuntime
+@inject DeviceService DeviceService
 
-<h3>Device Management</h3>
+<h3>Device Management Page</h3>
 
 <p>Add, edit, or delete a device.</p>
 
 <div class="card"> 
     <div class="card-body">
         <h4>Add Device</h4>
-        Device IMEI <input @bind="imei">
+        Device IMEI <input @bind="@device.IMEI">
         <br><br />
-        Select User <input @bind="name">
+        Select User 
+        <select>
+            <option>--Select a User--</option>
+            <option>Mark Lee</option>
+            <option>Elizabeth Porter</option>
+            <option>Luke Hemsworth</option>
+            <option>Jennifer Swan</option>
+        </select>
         <br><br />
-        Select group <input @bind="group">
+        Select group <select>
+            <option>--Select A Group--</option>
+            <option>Finance</option>
+            <option>Logistics</option>
+            <option>Marketing</option>
+            <option>Human Resources</option>
+            <option>Other...</option>
+        </select>
         <br><br />
-        Authorised? <input @bind="authorisation">
+        Authorised? 
+        <select>
+        <option>--Select Authorization--</option>
+        <option>Yes</option>
+        <option>No</option>
+        </select>
+        <br><br />
         <br><br />
         <button class="btn btn-primary">
             <span class="oi oi-plus"></span>
@@ -86,11 +111,29 @@
     </table>
 
 @code {
+    private Device[] devices;
+
+    protected override async Task OnInitializedAsync() 
+    {
+        devices = await DeviceService.GetDevicesAsync();
+    }
+
+    [Parameter]
+    public string Id { get; set; }
+    Device device = new Device();
+    /*protected override async Task OnInitializedAsync()
+    {
+        device = await Http.GetFromJsonAsync<User>("api/user/" + Id);
+    }*/
+    protected async Task Save()
+    {
+       await DeviceService.SaveAsync(device); //
+        //NavigationManager.NavigateTo("DeviceList"); navigation link to table page after device has been added
+    }
+    void Cancel()
+    {
+        NavigationManager.NavigateTo("DeviceList"); // navigation link to table page after cancle btn has been clicked
+    }
     private int id;
-    private string imei;
-    private string name;
-    private string group;
-    private string regdate;
-    private string lastupdate;
-    private string authorisation;
+    private string IMEI;
 }
