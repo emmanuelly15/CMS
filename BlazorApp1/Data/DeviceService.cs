@@ -9,7 +9,7 @@ namespace BlazorApp1.Data
 {
     public class DeviceService
     {
-        public async Task<int> SaveAsync(DeviceManagement device) //saving a device to the database
+        public async Task<int> SaveAsync(Device device) //saving a device to the database
         {
             var client = new HttpClient();
             var response = await client.PostAsync("https://localhost:44304/device", new StringContent(JsonConvert.SerializeObject(device), Encoding.UTF8, "application/json"));
@@ -19,14 +19,14 @@ namespace BlazorApp1.Data
             return int.Parse(data);
         }
 
-        public async Task<DeviceManagement[]> GetDevicesAsync() //getting data from the database
+        public async Task<Device[]> GetDevicesAsync() //getting data from the database
         {
 
             var client = new HttpClient();
             var response = await client.GetAsync("https://localhost:44304/device");
             var data = await response.Content.ReadAsStringAsync();
 
-            var listOfDevices = Newtonsoft.Json.JsonConvert.DeserializeObject<DeviceManagement[]>(data);
+            var listOfDevices = Newtonsoft.Json.JsonConvert.DeserializeObject<Device[]>(data);
             return listOfDevices;
 
         }
