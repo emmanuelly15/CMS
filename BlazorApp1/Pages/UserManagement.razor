@@ -54,7 +54,7 @@
     User user = new User();
     protected override async Task OnInitializedAsync()
     {
-        //user = await Http.GetFromJsonAsync<User>("api/user/" + Id);
+        //user = await HttpClient.GetAsync<User>("api/user/" + Id);
     }
     protected async Task Save()
     {
