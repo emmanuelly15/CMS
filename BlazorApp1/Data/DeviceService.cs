@@ -28,6 +28,7 @@ namespace BlazorApp1.Data
 
             var listOfDevices = Newtonsoft.Json.JsonConvert.DeserializeObject<DeviceManagement[]>(data);
             return listOfDevices;
+
         }
     }
 }

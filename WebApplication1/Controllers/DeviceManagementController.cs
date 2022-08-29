@@ -1,18 +1,9 @@
 ﻿using Api.Model.Database;
+using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using CommonModels.Model;
+using System.Linq;
 using Api.Models;
-using CommonModels.Model;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using WebApplication1.Model;
-using Api.Model.Database;
-using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
-using CommonModels.Model;
-using System.Linq;
 
 namespace WebApplication1.Controllers
 {
@@ -35,11 +26,11 @@ namespace WebApplication1.Controllers
             {
                 var docList = new List<DeviceManagement>();
 
-                var allDevices = db.registered_device.ToList().Select(v => new DeviceManagement
+                var allDevices = db.Devices.ToList().Select(v => new DeviceManagement
                 {
                     IMEI = v.IMEI,
                     User = v.User,
-                    Group = v.Group,
+                    Groups = v.Group,
                     Authorisation = v.Authorisation
                 });
 
@@ -84,7 +75,7 @@ namespace WebApplication1.Controllers
             {
                 IMEI = device.IMEI,
                 User = device.User,
-                Group = device.Group,
+                Groups = device.Group,
                 Authorisation = device.Authorisation
             };
 

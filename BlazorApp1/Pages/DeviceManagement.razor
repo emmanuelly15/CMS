@@ -3,7 +3,7 @@
 @using CommonModels.Model
 @inject NavigationManager NavigationManager
 @inject IJSRuntime JsRuntime
-@inject UserService UserService
+@inject DeviceService DeviceService
 
 <h3>Device Management Page</h3>
 
@@ -111,21 +111,28 @@
     </table>
 
 @code {
+    private DeviceManagement[] devices;
+
+    protected override async Task OnInitializedAsync() 
+    {
+        devices = await DeviceService.GetDevicesAsync();
+    }
+
     [Parameter]
     public string Id { get; set; }
     DeviceManagement device = new DeviceManagement();
-    protected override async Task OnInitializedAsync()
+    /*protected override async Task OnInitializedAsync()
     {
-        //user = await Http.GetFromJsonAsync<User>("api/user/" + Id);
-    }
+        device = await Http.GetFromJsonAsync<User>("api/user/" + Id);
+    }*/
     protected async Task Save()
     {
-        await UserService.SaveAsync(device);
+       await DeviceService.SaveAsync(device); //
         //NavigationManager.NavigateTo("DeviceList"); navigation link to table page after device has been added
     }
     void Cancel()
     {
-        NavigationManager.NavigateTo("DeviceList"); // navigation link to table page after cancle btn has been clicked
+     //   NavigationManager.NavigateTo("DeviceList"); // navigation link to table page after cancle btn has been clicked
     }
     private int id;
     private string imei;
