@@ -1,4 +1,5 @@
 @page "/DocumentSubmission"
+
 <h3>Document Submissions</h3>
 <br />
 <style>
@@ -13,6 +14,22 @@
     }
 </style>
 
+<div class="card">
+    <div class="card-body">
+        From Date: <input @bind="date1" /><br /><br />
+        To Date:  <input @bind="date2" /><br /><br />
+        <br><br />
+
+        <button class="btn btn-primary">
+            <span class="oi oi-clock"></span>
+            Refresh
+        </button>
+        <br />
+        Group: <input @bind="group" />
+    </div>
+</div>
+
+
 <p>
     Show
     <select>
@@ -24,6 +41,9 @@
     </select>
     entries
 </p>    
+
+<br />
+<br />
 
 <table class="table">
     <thead>
@@ -49,20 +69,48 @@
             <td>NewScanInvoice.pdf</td>
             <td>NewScanInvoice79860.jpg</td>
             <td>View Location</td>
-            <td>
-                <button class="btn btn-primary">
-                    <span class="oi oi-pencil"></span>
-                </button>
-                <button class="btn btn-danger">
-                    <span class="oi oi-trash"></span>
-                </button>
-            </td>
         </tr>
     </tbody>
 </table>
 
 
+<SfGrid DataSource="@Orders" AllowPaging="true">
+ <GridPageSettings PageSize="5"></GridPageSettings>
+   <GridColumns>
+     <GridColumn Field=@nameof(Order.OrderID) HeaderText="Order ID" TextAlign="TextAlign.Right" Width="120"></GridColumn>
+     <GridColumn Field=@nameof(Order.CustomerID) HeaderText="Customer Name" Width="150"></GridColumn>
+     <GridColumn Field=@nameof(Order.OrderDate) HeaderText=" Order Date" Format="d" Type="ColumnType.Date" TextAlign="TextAlign.Right" Width="130"></GridColumn>
+     <GridColumn Field=@nameof(Order.Freight) HeaderText="Freight" Format="C2" TextAlign="TextAlign.Right" Width="120"></GridColumn>
+   </GridColumns>
+</SfGrid>
+
 
 @code {
-    
+
+    public List<Order> Orders { get; set; }
+
+    protected override void OnInitialized()
+    {
+        Orders = Enumerable.Range(1, 75).Select(x => new Order()
+            {
+                OrderID = 1000 + x,
+                CustomerID = (new string[] { "ALFKI", "ANANTR", "ANTON", "BLONP", "BOLID" })[new Random().Next(5)],
+                Freight = 2.1 * x,
+                OrderDate = DateTime.Now.AddDays(-x),
+            }).ToList();
+    }
+
+    public class Order
+    {
+        public int? OrderID { get; set; }
+        public string CustomerID { get; set; }
+        public DateTime? OrderDate { get; set; }
+        public double? Freight { get; set; }
+    }
+
+    private string date1;
+    private string date2;
+    private string group;
+
+
 }
