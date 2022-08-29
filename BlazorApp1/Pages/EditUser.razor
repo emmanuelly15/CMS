@@ -1,12 +1,9 @@
-﻿@page "/UserManagement"
-@using BlazorApp1.Data
+﻿@page "/EditUser"
 @using CommonModels.Model
+@inject HttpClient Http
 @inject NavigationManager NavigationManager
 @inject IJSRuntime JsRuntime
-@inject UserService UserService
-<h1>User Management</h1>
-<h2>Add User</h2>
-
+<h2>Edit User</h2>
 <div class="row">
         <div class="col-md-6">
                 <div class="form-group">
@@ -24,7 +21,7 @@
         <div class="col-md-6">
                 <div class="form-group">
                         <label for="Telephone"> Telephone *</label>
-                        <input form="Telephone" class="form-control" @bind="@user.Telephone"/>
+                        <input form="Telephone" class="form-control" @bind="@user.Telephone" />
                     </div>
             </div>
             <div class="col-md-6">
@@ -39,7 +36,7 @@
                         <input form="Password" class="form-control" @bind="@user.Password" />
                     </div>
             </div>
-</div>
+    </div>       
 <div class="row">
         <div class="col-md-4">
                 <div class="form-group">
@@ -55,15 +52,19 @@
     protected override async Task OnInitializedAsync()
     {
         //user = await Http.GetFromJsonAsync<User>("api/user/" + Id);
-    }
-    protected async Task Save()
-    {
-        await UserService.SaveAsync(user);
-        NavigationManager.NavigateTo("UserList");
-    }
+        }
+        protected async Task Save()
+        {
+           // var response = await Http.PutAsJsonAsync("api/User/" + Id, @user);
+            //bool personResponse = await response.Content.ReadFromJsonAsync<bool>();
+            //    if (personResponse)
+                {
+                    await JsRuntime.InvokeVoidAsync("alert", "Updated Successfully!");
+                    NavigationManager.NavigateTo("UserList");
+                }
+            }
             void Cancel()
             {
                 NavigationManager.NavigateTo("UserList");
             }
-}
-
+        }

@@ -1,0 +1,49 @@
+﻿@page "/UserList"
+@using BlazorApp1.Data
+@using CommonModels.Model
+@inject UserService UserService
+
+<h1>User Management</h1>
+<div>
+    <a href="/UserManagement"> Add New User</a>
+    @if (users != null)
+    {
+        <table class="table-bordered">
+            <thead>
+                <tr>
+                    <th width = "30%">Name</th>
+                    <th width = "20%">Email</th>
+                    <th width = "20%">Telephone</th>
+                    <th width = "20%">Employee_ID</th>
+                    <th width = "20%">Password</th>
+                    <th width = "30%">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var p in users)
+                {
+                    <tr>
+                    <td>@p.Name</td>
+                    <td>@p.Email</td>
+                    <td>@p.Telephone</td>
+                    <td>@p.EmpId</td>
+                    <td>@p.Password</td>
+                    <td>
+                        <a href="/editperson/@p.Id">Edit</a> |
+                        <a href="/deleteperson/@p.Id">Delete</a>
+                    </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>
+@code {
+   private User[] users;
+
+    protected override async Task OnInitializedAsync()
+    {
+        users = await UserService.GetUsersAsync();
+    }
+
+}
