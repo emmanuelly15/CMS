@@ -1,7 +1,11 @@
-﻿@using CommonModels.Model;
+﻿
+@using CommonModels.Model;
 @using BlazorApp1;
+@using BlazorApp1.Data
+@inject IJSRuntime JsRuntime
+@inject LoginService loginService;
 @inject NavigationManager navManager;
-@using
+
 @page "/Administrator"
 
 
@@ -62,7 +66,7 @@
         <div class="box">
             <br />
             <h1>Administrator Login</h1>
-            @if (login!=null)
+            @if (login != null)
             {
                 <EditForm Model="@login" OnValidSubmit="Login_click">
                     <ValidationSummary />
@@ -82,18 +86,11 @@
 
                
             </EditForm>
-
-            }
-        </div>
-    </div>
-    <div>
-    <br />
-    <br />
-    <p style="color:#e5e50"> <h4>@alertmessage</h4></p>
-    </div>
-
+}
+ 
 </div>
-
+</div>
+</div>
 
 
 @code {
@@ -106,25 +103,18 @@
 
     private async Task Login_click()
     {
+        await loginService.FindAdminAsync(login);
 
 
     }
 
-    protected override Task OnInitializedAsync()
-    {
-        login = new LoginModel();
-        return base.OnInitializedAsync();
 
-    }
+   // protected override Task OnInitializedAsync()
+   // {
+       // login = new LoginModel();
+     //   return base.OnInitializedAsync();
+
+   // }
   
-
-    //class="card card-bdy bg-light mt-5"
-    //
-                //<div class="form-group row">
-                   // <label for="email" class="col-md-2 col-form-label">Email :</label>
-                    //<div class="col-md-10">
-
-                    //   <div class="form-group row">
-                   // <label for="password" class="col-md-2 col-form-label">Password :</label>
-                    //<div class="col-md-10">
 }
+   

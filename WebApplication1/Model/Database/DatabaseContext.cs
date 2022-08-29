@@ -10,6 +10,9 @@ namespace Api.Model.Database
     {
         public DbSet<DbNotification> Notifications { get; set; }
         public DbSet<DbUser> Users { get; set; }
+        public DbSet<DbAdmin> Admins { get; set; }
+
+
 
         public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options)
         {
