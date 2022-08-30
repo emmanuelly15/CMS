@@ -9,6 +9,48 @@
 
 <p>Add, edit, or delete a device.</p>
 
+<div class="row">
+    <div class="col-md-6">
+        <div class="form-group">
+            <label for="IMEI">  IMEI *</label>
+            <input form="IMEI" class="form-control" @bind="@device.IMEI" />
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="form-group">
+            <label for="Group"> Select User *</label>
+            <select>
+            <option>--Select a User--</option>
+            <option>Mark Lee</option>
+            <option>Elizabeth Porter</option>
+            <option>Luke Hemsworth</option>
+            <option>Jennifer Swan</option>
+        </select> class="form-control" @bind="@device.Groups" />
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            <label for="User"> User *</label>
+            <input form="User" class="form-control" @bind="@device.User" />
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            <label for="Auhtorisation"> Auhtorisation *</label>
+            <input form="Auhtorisation" class="form-control" @bind="@device.Authorisation" />
+        </div>
+    </div>
+    
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <div class="form-group">
+            <input type="button" class="btn btn-primary" @onclick="@Save" value="Save" />
+            <input type="button" class="btn" @onclick="@Cancel" value="Cancel" />
+        </div>
+    </div>
+</div>
 <div class="card"> 
     <div class="card-body">
         <h4>Add Device</h4>
@@ -40,10 +82,7 @@
         </select>
         <br><br />
         <br><br />
-        <button class="btn btn-primary">
-            <span class="oi oi-plus"></span>
-            Add Device
-        </button>
+         
     </div>
 </div>
 <br />
@@ -111,29 +150,21 @@
     </table>
 
 @code {
-    private Device[] devices;
-
-    protected override async Task OnInitializedAsync() 
-    {
-        devices = await DeviceService.GetDevicesAsync();
-    }
-
     [Parameter]
     public string Id { get; set; }
     Device device = new Device();
-    /*protected override async Task OnInitializedAsync()
+    protected override async Task OnInitializedAsync()
     {
-        device = await Http.GetFromJsonAsync<User>("api/user/" + Id);
-    }*/
+       // device = await Http.GetFromJsonAsync<Device>("api/device/" + Id);
+    }
     protected async Task Save()
     {
-       await DeviceService.SaveAsync(device); //
-        //NavigationManager.NavigateTo("DeviceList"); navigation link to table page after device has been added
+       await DeviceService.SaveAsync(device);
+        NavigationManager.NavigateTo("DeviceList"); //navigation link to table page after device has been added
     }
     void Cancel()
     {
-        NavigationManager.NavigateTo("DeviceList"); // navigation link to table page after cancle btn has been clicked
+        NavigationManager.NavigateTo("DeviceList"); // navigation link to table page after cancel btn has been clicked
     }
-    private int id;
-    private string IMEI;
+
 }
