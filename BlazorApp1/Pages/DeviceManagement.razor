@@ -19,22 +19,17 @@
 
     <div class="col-md-6">
         <div class="form-group">
-            <label for="Group"> Select User *</label>
-            <select>
-            <option>--Select a User--</option>
-            <option>Mark Lee</option>
-            <option>Elizabeth Porter</option>
-            <option>Luke Hemsworth</option>
-            <option>Jennifer Swan</option>
-        </select> class="form-control" @bind="@device.Groups" />
-        </div>
-    </div>
-    <div class="col-md-6">
-        <div class="form-group">
             <label for="User"> User *</label>
             <input form="User" class="form-control" @bind="@device.User" />
         </div>
     </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            <label for="Group"> Select Group *</label>
+            <input form="Group" class="form-control" @bind="@device.IMEI" />
+        </div>
+    </div>
+    
     <div class="col-md-6">
         <div class="form-group">
             <label for="Auhtorisation"> Auhtorisation *</label>
