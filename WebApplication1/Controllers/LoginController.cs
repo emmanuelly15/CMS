@@ -22,15 +22,14 @@ namespace Api.Controllers
         [HttpGet]
 
        
-        public string FindAdmin(Models.Admin admin)
+        public string FindAdmin(LoginModel loginm)
         {
             
             var dbAdmin = new DbAdmin
             {
-                FirstName = admin.FirstName,
-                LastName = admin.LastName,
-                Email = admin.Email,
-                SecurePassword = admin.SecurePassword
+                
+                Email = loginm.email,
+                SecurePassword = loginm.password
             };
 
             var lmodel = new LoginModel();

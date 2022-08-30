@@ -1,4 +1,5 @@
 ﻿
+@using BlazorApp1.Data.Migrations
 @using CommonModels.Model;
 @using BlazorApp1;
 @using BlazorApp1.Data
@@ -64,7 +65,7 @@
             <h1>Administrator Login</h1>
             @if (login != null)
             {
-                <EditForm Model="@login" OnValidSubmit="Login_click">
+                <EditForm Model="@login" OnValidSubmit="@Login_click">
                     <ValidationSummary />
                     <DataAnnotationsValidator></DataAnnotationsValidator>
 
@@ -97,20 +98,15 @@
     private string authenticationErrorText = "";
     public string alertmessage = "Data enetered are wrong, try again";
 
-    private async Task Login_click()
-    {
-        await loginService.FindAdminAsync(login);
+    private async Task Login_click() => await loginService.FindAdminAsync(login);
 
 
-    }
+    // protected override Task OnInitializedAsync()
+    // {
+    // login = new LoginModel();
+    //   return base.OnInitializedAsync();
 
+    // }
 
-   // protected override Task OnInitializedAsync()
-   // {
-       // login = new LoginModel();
-     //   return base.OnInitializedAsync();
-
-   // }
-  
 }
    
