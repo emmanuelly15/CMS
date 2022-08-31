@@ -1,71 +1,46 @@
 ﻿@page "/GroupManagement"
-<h3>Group Management</h3>
-<br />
-<div class="card">
-    <div class="card-body">
-        <h4>Add group</h4>
-         <input @bind="group" />
-        <br><br />
+@using BlazorApp1.Data
+@using CommonModels.Model
+@inject NavigationManager NavigationManager
+@inject IJSRuntime JsRuntime
+@inject GroupService GroupService
+<h1>Group Management</h1>
+<h2>Add Group</h2>
 
-        <button class="btn btn-primary">
-            <span class="oi oi-plus"></span>
-            Add 
-        </button>
-    </div>
+<div class="row">
+        <div class="col-md-6">
+                <div class="form-group">
+                        <label for="Groups">  Group *</label>
+                        <input form="Groups" class="form-control" @bind="@group.Groups" />
+                    </div>
+            </div>
+        
+        
 </div>
-<br> <br> <br />
-<p>
-    Show
-    <select>
-        <option>1</option>
-        <option>5</option>
-        <option>10</option>
-        <option>15</option>
-        <option>20</option>
-        <option>25</option>
-        <option>30</option>
-        <option>35</option>
-        <option>40</option>
-        <option>45</option>
-        <option>50</option>
-        <option>55</option>
-        <option>60</option>
-        <option>65</option>
-        <option>70</option>
-        <option>75</option>
-    </select>
-    entries
-
-    Search
-    <input type="text" name=" " />
-</p>
-
-
-<table class="table">
-    <thead>
-        <tr>
-            <th>#</th>
-            <th>Group Management</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>1</td>
-            <td>Finance</td>
-            <td>
-                <button class="btn btn-primary">
-                    <span class="oi oi-pencil"></span>
-                </button>
-                <button class="btn btn-danger">
-                    <span class="oi oi-trash"></span>
-                </button>
-            </td>
-        </tr>
-    </tbody>
-</table>
+<div class="row">
+        <div class="col-md-4">
+                <div class="form-group">
+                        <input type="button" class="btn btn-primary" @onclick="@Save" value="Save" />
+                        <input type="button" class="btn" @onclick="@Cancel" value="Cancel" />
+                    </div>
+            </div>
+</div>
 @code {
-    private string group;
+    [Parameter]
+    public string Id{ get; set; }
+    Group group = new Group();
+    protected override async Task OnInitializedAsync()
+    {
+        //user = await HttpClient.GetAsync<User>("api/user/" + Id);
+    }
+    protected async Task Save()
+    {
+        await GroupService.SaveAsync(group);
+        NavigationManager.NavigateTo("GroupList");
+    }
+            void Cancel()
+            {
+                NavigationManager.NavigateTo("GroupList");
+            }
 }
-
 
