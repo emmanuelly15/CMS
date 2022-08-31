@@ -1,53 +1,51 @@
-﻿using Api.Models;
+﻿using Api.Model.Database;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using System;
 using System.Collections.Generic;
+using CommonModels.Model;
 using System.Linq;
-using System.Threading.Tasks;
-using WebApplication1.Model;
 
-namespace WebApplication1.Controllers
+namespace Api.Controllers
 {
-
     [ApiController]
     [Route("[controller]")]
     public class GroupManagementController : ControllerBase
     {
-    
-
-            [HttpGet]
-        public IEnumerable<GroupManagement> Get()
+        private readonly DatabaseContext db;
+        public GroupManagementController(DatabaseContext db)
         {
-           using (var context = new PaycoDBContext())
+            this.db = db;
+        }
+
+
+        [HttpGet]
+
+        public IEnumerable<Group> Get()
+        {
+            var docList = new List<Group>();
+
+            var allGroups = db.Groups.ToList().Select(v => new Group
             {
-
-                //get all devices information
-
-                //return context.GroupManagements.ToList();
-
-                //Add Device information to database
-
-                GroupManagement groupmanagement = new GroupManagement();
-                groupmanagement.GroupName = "Logistics";
-                groupmanagement.GroupId = 1;
+               Groups = v.Groups,
                 
+            });
 
-                context.GroupManagements.Add(groupmanagement);
-
-                //Update device management information
-                GroupManagement groupManagement = context.GroupManagements.Where(groupmanagement => groupmanagement.GroupName == "Logistics").FirstOrDefault();
-                groupmanagement.GroupName = "Transport";
-
-                //Remove device
-                GroupManagement groupManagement1 = context.GroupManagements.Where(groupmanagement => groupmanagement.GroupName == "Logistics").FirstOrDefault();
-                context.GroupManagements.Remove(groupmanagement);
+            return allGroups;
 
 
-                context.SaveChanges();
+        }
+        [HttpPost]
+        public int Create(Group group)
+        {
+            var dbGroup = new DbGroup
+            {
+                Groups = group.Groups,
+                
+            };
 
-                return context.GroupManagements.Where(groupmanagement => groupmanagement.GroupName == "Logistics").ToList();
-            }
+            db.Groups.Add(dbGroup);
+
+            db.SaveChanges();
+            return dbGroup.Id;
         }
     }
 }
