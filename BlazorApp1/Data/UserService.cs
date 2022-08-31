@@ -30,5 +30,14 @@ namespace BlazorApp1.Data
 
 
         }
+        public async Task<int> DeleteAsync()
+        {
+            var client = new HttpClient();
+            var response = await client.DeleteAsync("https://localhost:44304/user");
+            var data = await response.Content.ReadAsStringAsync();
+
+
+            return int.Parse(data);
+        }
     }
 }
