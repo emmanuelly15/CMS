@@ -1,6 +1,165 @@
-﻿@page "/Device management "
-<h3>Device Management</h3>
+﻿@page "/DeviceManagement"
+@using BlazorApp1.Data
+@using CommonModels.Model
+@inject NavigationManager NavigationManager
+@inject IJSRuntime JsRuntime
+@inject DeviceService DeviceService
+
+<h3>Device Management Page</h3>
+
+<p>Add, edit, or delete a device.</p>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="form-group">
+            <label for="IMEI">  IMEI *</label>
+            <input form="IMEI" class="form-control" @bind="@device.IMEI" />
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="form-group">
+            <label for="User"> User *</label>
+            <input form="User" class="form-control" @bind="@device.User" />
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            <label for="Group"> Select Group *</label>
+            <input form="Group" class="form-control" @bind="@device.IMEI" />
+        </div>
+    </div>
+    
+    <div class="col-md-6">
+        <div class="form-group">
+            <label for="Auhtorisation"> Auhtorisation *</label>
+            <input form="Auhtorisation" class="form-control" @bind="@device.Authorisation" />
+        </div>
+    </div>
+    
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <div class="form-group">
+            <input type="button" class="btn btn-primary" @onclick="@Save" value="Save" />
+            <input type="button" class="btn" @onclick="@Cancel" value="Cancel" />
+        </div>
+    </div>
+</div>
+<div class="card"> 
+    <div class="card-body">
+        <h4>Add Device</h4>
+        Device IMEI <input @bind="@device.IMEI">
+        <br><br />
+        Select User 
+        <select>
+            <option>--Select a User--</option>
+            <option>Mark Lee</option>
+            <option>Elizabeth Porter</option>
+            <option>Luke Hemsworth</option>
+            <option>Jennifer Swan</option>
+        </select>
+        <br><br />
+        Select group <select>
+            <option>--Select A Group--</option>
+            <option>Finance</option>
+            <option>Logistics</option>
+            <option>Marketing</option>
+            <option>Human Resources</option>
+            <option>Other...</option>
+        </select>
+        <br><br />
+        Authorised? 
+        <select>
+        <option>--Select Authorization--</option>
+        <option>Yes</option>
+        <option>No</option>
+        </select>
+        <br><br />
+        <br><br />
+         
+    </div>
+</div>
+<br />
+<br />
+<p>
+    Show
+    <select>
+        <option>1</option>
+        <option>5</option>
+        <option>10</option>
+        <option>15</option>
+        <option>20</option>
+        <option>25</option>
+        <option>30</option>
+        <option>35</option>
+        <option>40</option>
+        <option>45</option>
+        <option>50</option>
+        <option>55</option>
+        <option>60</option>
+        <option>65</option>
+        <option>70</option>
+        <option>75</option>
+    </select>
+    entries
+
+    Search
+    <input type="text" name=" " />
+</p>
+
+<table class="table">
+    <thead>
+         <tr>
+            <th>#</th>
+            <th>IMEI</th>
+            <th>User name</th>
+            <th>Group</th>
+            <th>Registered On</th>
+            <th>Last Update</th>
+            <th>Last Location</th>
+            <th>Authorised</th>
+            <th>Actions</th>
+         </tr>
+    </thead>
+    <tbody>
+         <tr>
+            <td>Idno1</td>
+            <td>2901987979</td>
+            <td>Mark</td>
+            <td>Finance</td>
+            <td>Date...</td>
+            <td>Date...</td>
+            <td>LocationLink</td>
+            <td>Yes/no</td>
+            <td>
+                <button class="btn btn-primary">
+                    <span class="oi oi-pencil"></span>
+                </button>
+                <button class="btn btn-danger">
+                    <span class="oi oi-trash"></span>
+                </button>
+            </td>
+         </tr>
+    </tbody>
+    </table>
 
 @code {
+    [Parameter]
+    public string Id { get; set; }
+    Device device = new Device();
+    protected override async Task OnInitializedAsync()
+    {
+       // device = await Http.GetFromJsonAsync<Device>("api/device/" + Id);
+    }
+    protected async Task Save()
+    {
+       await DeviceService.SaveAsync(device);
+        NavigationManager.NavigateTo("DeviceList"); //navigation link to table page after device has been added
+    }
+    void Cancel()
+    {
+        NavigationManager.NavigateTo("DeviceList"); // navigation link to table page after cancel btn has been clicked
+    }
 
 }

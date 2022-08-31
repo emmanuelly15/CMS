@@ -6,8 +6,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Remove="Pages\DocumentSubmition.razor" />
+    <Content Remove="Pages\DocumentSubmission.razor" />
     <Content Remove="Pages\Login.razor" />
+    <Content Remove="Shared\SurveyPrompt.razor" />
   </ItemGroup>
 
   <ItemGroup>
@@ -17,6 +18,7 @@
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.1.26" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.26" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.26" />
+    <PackageReference Include="MongoDB.Driver" Version="2.14.1" />
     <PackageReference Include="RestSharp" Version="108.0.1" />
     <PackageReference Include="Syncfusion.Blazor.Buttons" Version="20.2.0.44" />
   </ItemGroup>
@@ -26,16 +28,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <UpToDateCheckInput Remove="Pages\DocumentSubmition.razor" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <_ContentIncludedByDefault Remove="Pages\DocumentSubmition.razor" />
     <_ContentIncludedByDefault Remove="Pages\Login.razor" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="Pages\DocumentSubmition.razor" />
+    <None Include="Pages\DocumentSubmission.razor" />
     <None Include="Pages\Login.razor" />
   </ItemGroup>
 
