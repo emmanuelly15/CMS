@@ -1,0 +1,47 @@
+﻿@page "/DeviceList"
+@using BlazorApp1.Data
+@using CommonModels.Model
+@inject DeviceService DeviceService
+
+<h1>Device Management</h1>
+<div>
+    <a href="/DeviceManagement"> Add New Device</a>
+    @if (devices != null)
+    {
+        <table class="table-bordered">
+            <thead>
+                <tr>
+                    <th width="30%">IMEI</th>
+                    <th width="20%">User</th>
+                    <th width="20%">Group</th>
+                    <th width="20%">Authorisation</th>
+                    <th width="30%">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var p in devices)
+                {
+                    <tr>
+                        <td>@p.IMEI</td>
+                        <td>@p.User</td>
+                        <td>@p.Groups</td>
+                        <td>@p.Authorisation</td>
+                        <td>
+                            <a href="/editdevice/@p.Id">Edit</a> |
+                            <a href="/deletedevice/@p.Id">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>
+
+@code {
+    private Device[] devices;
+
+    protected override async Task OnInitializedAsync()
+    {
+        devices = await DeviceService.GetDevicesAsync();
+    }
+}
