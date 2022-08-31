@@ -12,7 +12,7 @@ namespace BlazorApp1.Data
         public async Task<int> SaveAsync(Device device) //saving a device to the database
         {
             var client = new HttpClient();
-            var response = await client.PostAsync("https://localhost:44304/device", new StringContent(JsonConvert.SerializeObject(device), Encoding.UTF8, "application/json"));
+            var response = await client.PostAsync("https://localhost:44304/devicemanagement", new StringContent(JsonConvert.SerializeObject(device), Encoding.UTF8, "application/json"));
             var data = await response.Content.ReadAsStringAsync();
 
 
@@ -23,7 +23,7 @@ namespace BlazorApp1.Data
         {
 
             var client = new HttpClient();
-            var response = await client.GetAsync("https://localhost:44304/device");
+            var response = await client.GetAsync("https://localhost:44304/devicemanagement");
             var data = await response.Content.ReadAsStringAsync();
 
             var listOfDevices = Newtonsoft.Json.JsonConvert.DeserializeObject<Device[]>(data);
