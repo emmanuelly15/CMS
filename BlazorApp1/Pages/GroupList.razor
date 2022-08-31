@@ -1,0 +1,43 @@
+﻿@page "/GroupList"
+@using BlazorApp1.Data
+@using CommonModels.Model
+@inject GroupService GroupService
+
+
+<h1>Group Management</h1>
+<div>
+    <a href="/GroupManagement"> Add New Groups</a>
+    @if (groups != null)
+    {
+        <table class="table-bordered">
+            <thead>
+                <tr>
+                    <th width = "30%">Group</th>
+                    
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var p in groups)
+                {
+                    <tr>
+                    <td>@p.Groups</td>
+                    
+                    <td>
+                        <a href="/EditGroup/@p.Id">Edit</a> 
+                        <a href="/DeleteGroup/@p.Id">Delete</a>
+                    </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>
+@code {
+   private Group[] groups;
+
+    protected override async Task OnInitializedAsync()
+    {
+        groups = await GroupService.GetGroupsAsync();
+    }
+
+}
