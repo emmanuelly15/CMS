@@ -49,7 +49,7 @@ namespace Api.Controllers
             return dbGroup.Id;
         }
 
-        /*[HttpPut("{id:int}")]
+        /*[HttpPut("{id}")]
         public async Task<ActionResult> Put(int id, Group group) //<- 2 values, the id we are calling and the new value that we're going to add it with
         {
             var groupExists = await DbGroup(id);
