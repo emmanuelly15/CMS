@@ -84,6 +84,20 @@ namespace WebApplication1.Controllers
             db.SaveChanges();
             return true;
         }
+        [HttpPut("{id}")]
+        public int UpdateDevice(Device device)
+        {
+            var dbDevice = db.Devices.FirstOrDefault(u => u.Id == device.Id);
+
+            dbDevice.IMEI = device.IMEI;
+            dbDevice.User = device.User;
+            dbDevice.Groups = device.Groups;
+            dbDevice.Authorisation = device.Authorisation;
+
+            db.SaveChanges();
+            return dbDevice.Id;
+
+        }
     }
       
 }

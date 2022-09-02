@@ -71,5 +71,16 @@ namespace Api.Controllers
             db.SaveChanges();
             return true;
         }
+        [HttpPut("{id}")]
+        public int UpdateMailingList(MailingListC ml)
+        {
+            var dbMailingList = db.ML.FirstOrDefault(u => u.Id == ml.Id);
+            dbMailingList.Email = ml.Email;
+            dbMailingList.Groups = ml.Groups;
+
+            db.SaveChanges();
+            return dbMailingList.Id;
+
+        }
     }
 }

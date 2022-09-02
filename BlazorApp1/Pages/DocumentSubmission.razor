@@ -62,32 +62,22 @@
 </div>
 
 
-<<<<<<< HEAD
-@code {
-    protected override async Task OnInitializedAsync()
+@code {//timestamp for image issue - 12:00...need to create @onclick for image 
+    //proper setup to call img link timestamp - 18:16
+     protected override async Task OnInitializedAsync()
     {
         document = await DocumentService.GetDocumentsAsync();
     }
 
-     [Parameter]
-    public string Id { get; set; }
-    Document document = new Document();
-
-=======
-@code {//timestamp for image issue - 12:00...need to create @onclick for image 
-    //proper setup to call img link timestamp - 18:16
-     
     [Parameter]
     public string Id { get; set; }
     Document document = new Document();
     private string apilink;
    
->>>>>>> 99923855ea60d91516c804b9e0497408894d0c36
-    protected override async Task OnInitializedAsync()
-    {
+    //protected override async Task OnInitializedAsync()
+    //{
         //document = await HttpClient.GetAsync<User>("api/user/" + Id);
-    }
-    
+    //}
     protected async Task Save()
     {
         await DocumentService.SaveAsync(document);
@@ -96,8 +86,5 @@
     {
         //NavigationManager.NavigateTo("UserList");
     }
-<<<<<<< HEAD
-=======
 
->>>>>>> 99923855ea60d91516c804b9e0497408894d0c36
 }

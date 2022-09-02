@@ -1,54 +1,45 @@
-﻿@page "/EditGroup"
-@using BlazorApp1.Data
+@page "/EditGroup/{Id}"
 @using CommonModels.Model
+@using BlazorApp1.Data
 @inject NavigationManager NavigationManager
 @inject IJSRuntime JsRuntime
 @inject GroupService GroupService
-<h3>EditGroup</h3>
+<h2>Edit User</h2>
 
-
-
-<h1>Group Management</h1>
-<div>
-    <a href="/EditGroup"> Edit Group</a>
-    @if (groups != null)
-    {
-        <table class="table-bordered">
-            <thead>
-                <tr>
-                    <th width="30%">Group</th>
-
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var p in groups)
-                {
-                    <tr>
-                        <td>@p.Groups</td>
-
-                        <td>
-                            <a href="/EditGroup/@p.Id">Edit</a>
-                            <a href="/DeleteGroup/@p.Id">Delete</a>
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-    }
+<div class="row">
+        <div class="col-md-6">
+                <div class="form-group">
+                        <label for="Groups">  Group *</label>
+                        <input form="Groups" class="form-control" @bind="@group.Groups" />
+                    </div>
+            </div>
+        
+        
+</div>       
+<div class="row">
+        <div class="col-md-4">
+                <div class="form-group">
+                        <input type="button" class="btn btn-primary" @onclick="@UpdateGroup" value="Save" />
+                        <input type="button" class="btn" @onclick="@Cancel" value="Cancel" />
+                    </div>
+            </div>
 </div>
-
 @code {
     [Parameter]
-    public string Id { get; set; }
+    public string Id{ get; set; }
     Group group = new Group();
-    private Group[] groups;
-
     protected override async Task OnInitializedAsync()
     {
-        groups = await GroupService.GetGroupsAsync();
+        group = await GroupService.GetGroupById(int.Parse(Id));
     }
-    /*void UpdateGroup()
-    {
-        await GroupService.UpdateAsync(group);
-    }*/
-}
+        protected async Task UpdateGroup()
+        {
+           await GroupService.EditGroup(int.Parse(Id));
+            NavigationManager.NavigateTo("GroupList");
+                
+            }
+            void Cancel()
+            {
+                NavigationManager.NavigateTo("GroupList");
+            }
+        }

@@ -48,27 +48,15 @@ namespace BlazorApp1.Data
 
             return bool.Parse(data);
         }
-        //include get by id and it's referenced on the updateGroup
-        /*public async Task<int> UpdateAsync(Group updategroup)
+        public async Task<Group> EditGroup(int id)
         {
             var client = new HttpClient();
-            var response = await client.PutAsync("https://localhost:44304/groupmanagement", new StringContent(JsonConvert.SerializeObject(updategroup), Encoding.UTF8, "application/json"));
-            var editGroup = await response.Content.ReadAsStringAsync();
+            var response = await client.PutAsync(apiur, new StringContent(JsonConvert.SerializeObject(id), Encoding.UTF8, "application/json"));
+            var data = await response.Content.ReadAsStringAsync();
 
-           // var editGroup = Newtonsoft.Json.JsonConvert.DeserializeObject<Group[]>(id);
-            if (editGroup != null)
-            {
-                editGroup.Group = updategroup.Groups;
-                //Group.SaveAsync();
-                return int.Parse(editGroup);
-            }
-            else 
-            {
-                //return false;  created as a bool, timestamp -49:01
-            }
-            //return true;
-            
-        }//delete function timestamp 52:42*/
+            var group = Newtonsoft.Json.JsonConvert.DeserializeObject<Group>(data);
+            return group;
+        }
     }
 }
 
