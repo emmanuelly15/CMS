@@ -10,10 +10,11 @@ namespace BlazorApp1.Data
 {
     public class GroupService
     {
+        string apiur = "https://localhost:44304/groupmanagement/";
         public async Task<int> SaveAsync(Group group)
         {
             var client = new HttpClient();
-            var response = await client.PostAsync("https://localhost:44304/groupmanagement", new StringContent(JsonConvert.SerializeObject(group), Encoding.UTF8, "application/json"));
+            var response = await client.PostAsync(apiur, new StringContent(JsonConvert.SerializeObject(group), Encoding.UTF8, "application/json"));
             var data = await response.Content.ReadAsStringAsync();
 
 
@@ -23,13 +24,29 @@ namespace BlazorApp1.Data
         {
 
             var client = new HttpClient();
-            var response = await client.GetAsync("https://localhost:44304/groupmanagement");
+            var response = await client.GetAsync(apiur);
             var data = await response.Content.ReadAsStringAsync();
 
             var listOfGroups = Newtonsoft.Json.JsonConvert.DeserializeObject<Group[]>(data);
             return listOfGroups;
+         }
+        public async Task<Group> GetGroupById(int id)
+        {
+            var client = new HttpClient();
+            var response = await client.GetAsync(apiur + id);
+            var data = await response.Content.ReadAsStringAsync();
+
+            var group = Newtonsoft.Json.JsonConvert.DeserializeObject<Group>(data);
+            return group;
+        }
+        public async Task<bool> DeleteAsync(int id)
+        {
+            var client = new HttpClient();
+            var response = await client.DeleteAsync(apiur + id);
+            var data = await response.Content.ReadAsStringAsync();
 
 
+            return bool.Parse(data);
         }
         //include get by id and it's referenced on the updateGroup
         /*public async Task<int> UpdateAsync(Group updategroup)

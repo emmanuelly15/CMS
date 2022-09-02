@@ -9,10 +9,11 @@ namespace BlazorApp1.Data
 {
     public class DeviceService
     {
+        string apiurl1 = "https://localhost:44304/devicemanagement/";
         public async Task<int> SaveAsync(Device device) //saving a device to the database
         {
             var client = new HttpClient();
-            var response = await client.PostAsync("https://localhost:44304/devicemanagement", new StringContent(JsonConvert.SerializeObject(device), Encoding.UTF8, "application/json"));
+            var response = await client.PostAsync(apiurl1, new StringContent(JsonConvert.SerializeObject(device), Encoding.UTF8, "application/json"));
             var data = await response.Content.ReadAsStringAsync();
 
 
@@ -23,12 +24,30 @@ namespace BlazorApp1.Data
         {
 
             var client = new HttpClient();
-            var response = await client.GetAsync("https://localhost:44304/devicemanagement");
+            var response = await client.GetAsync(apiurl1);
             var data = await response.Content.ReadAsStringAsync();
 
             var listOfDevices = Newtonsoft.Json.JsonConvert.DeserializeObject<Device[]>(data);
             return listOfDevices;
 
+        }
+        public async Task<Device> GetDevicesById(int id)
+        {
+            var client = new HttpClient();
+            var response = await client.GetAsync(apiurl1 + id);
+            var data = await response.Content.ReadAsStringAsync();
+
+            var device = Newtonsoft.Json.JsonConvert.DeserializeObject<Device>(data);
+            return device;
+        }
+        public async Task<bool> DeleteAsync(int id)
+        {
+            var client = new HttpClient();
+            var response = await client.DeleteAsync(apiurl1 + id);
+            var data = await response.Content.ReadAsStringAsync();
+
+
+            return bool.Parse(data);
         }
     }
 }

@@ -1,37 +1,33 @@
-﻿@page "/UserList"
+﻿@page "/AdminUserList"
 @using BlazorApp1.Data
 @using CommonModels.Model
-@inject UserService UserService
+@inject AdminUserService AdminUserService
 
 
-<h1>User Management</h1>
+<h1>Admin User Management</h1>
 <div>
-    <a href="/UserManagement"> Add New User</a>
-    @if (users != null)
+    <a href="/AdminUserManagement"> Add New Admin User</a>
+    @if (adminusers != null)
     {
         <table class="table-bordered">
             <thead>
                 <tr>
                     <th width = "30%">Name</th>
                     <th width = "20%">Email</th>
-                    <th width = "20%">Telephone</th>
-                    <th width = "20%">Employee_ID</th>
                     <th width = "20%">Password</th>
                     <th width = "30%">Action</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach (var v in users)
+                @foreach (var v in adminusers)
                 {
                     <tr>
                     <td>@v.Name</td>
                     <td>@v.Email</td>
-                    <td>@v.Telephone</td>
-                    <td>@v.EmpId</td>
                     <td>@v.Password</td>
                     <td>
-                        <a href="/EditUser/@v.Id">Edit</a> 
-                        <a href="/DeleteUser/@v.Id">Delete</a>
+                        <a href="/EditAdminUser/@v.Id">Edit</a> 
+                        <a href="/DeleteAdminUser/@v.Id">Delete</a>
                     </td>
                     </tr>
                 }
@@ -41,11 +37,11 @@
 </div>
 @code {
     
-   private User[] users;
+   private AdminUser[] adminusers;
 
     protected override async Task OnInitializedAsync()
     {
-        users = await UserService.GetUsersAsync();
+        adminusers = await AdminUserService.GetAdminUsersAsync();
         
     }
     
