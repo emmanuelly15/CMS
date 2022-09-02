@@ -15,12 +15,16 @@ namespace Api.Model.Database
         public DbSet<DbDevice> Devices { get; set; }
         public DbSet<DbGroup> Groups { get; set; }
 <<<<<<< HEAD
+<<<<<<< HEAD
         public DbSet<DbMailingList> ML { get; set; }
 =======
 <<<<<<< HEAD
         public DbSet<DbMailingList> ML { get; set; }
 =======
 >>>>>>> Alpha-branch
+=======
+        public DbSet<DbMailingList> ML { get; set; }
+>>>>>>> 99923855ea60d91516c804b9e0497408894d0c36
         public DbSet<DbDocument> Documents { get; set; }
 
         public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options)

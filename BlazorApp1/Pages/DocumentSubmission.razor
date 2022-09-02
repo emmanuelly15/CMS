@@ -16,11 +16,19 @@
         <table class="table-bordered">
             <thead>
                 <tr>
-                    <th width="30%">IMEI</th>
-                    <th width="20%">User</th>
+                    <th width="30%">User</th>
                     <th width="20%">Group</th>
-                    <th width="20%">Authorisation</th>
-                    <th width="30%">Action</th>
+                    <th width="20%">Device</th>
+                    <th width="20%">SentDateTime</th>
+                    <th width="30%">FileFormat</th>
+                    <th width="30%">Img</th>
+                    <th width="20%">Description</th>
+                    <th width="20%">Location</th>
+                    <th width="20%">Status</th>
+                    <th width="30%">DocType</th>
+                    <th width="20%">Amount</th>
+                    <th width="30%">Comment</th>
+
                 </tr>
             </thead>
 
@@ -31,7 +39,11 @@
                         <td>@p.SentDateTime</td>
                         <td>@p.FileFormat</td>
                         <td>@p.DeviceId</td>
-                        <td>@p.Img</td>
+                        <td>@p.Img
+                        <a href="">
+                            <img src="@( $"https://localhost:44310{document.Img}")">
+                            </a>
+                        </td>
                         <td>@p.Description</td>
                         <td>@p.Location</td>
                         <td>@p.Status</td>
@@ -39,8 +51,8 @@
                         <td>@p.Amount</td>
                         <td>@p.Comment</td>
                         <td>
-                            <a href="/editdevice/@p.Id">Edit</a> |
-                            <a href="/deletedevice/@p.Id">Delete</a>
+                            <a href="/editdevice/@p.Id">Arrpove</a> |
+                            <a href="/deletedevice/@p.Id">Reject</a>
                         </td>
                     </tr>
                 }
@@ -50,6 +62,7 @@
 </div>
 
 
+<<<<<<< HEAD
 @code {
     protected override async Task OnInitializedAsync()
     {
@@ -60,9 +73,19 @@
     public string Id { get; set; }
     Document document = new Document();
 
+=======
+@code {//timestamp for image issue - 12:00...need to create @onclick for image 
+    //proper setup to call img link timestamp - 18:16
+     
+    [Parameter]
+    public string Id { get; set; }
+    Document document = new Document();
+    private string apilink;
+   
+>>>>>>> 99923855ea60d91516c804b9e0497408894d0c36
     protected override async Task OnInitializedAsync()
     {
-        //user = await HttpClient.GetAsync<User>("api/user/" + Id);
+        //document = await HttpClient.GetAsync<User>("api/user/" + Id);
     }
     
     protected async Task Save()
@@ -73,4 +96,8 @@
     {
         //NavigationManager.NavigateTo("UserList");
     }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 99923855ea60d91516c804b9e0497408894d0c36
 }
