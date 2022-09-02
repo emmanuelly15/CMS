@@ -9,7 +9,7 @@
     <Content Remove="Pages\DocumentSubmission.razor" />
     <Content Remove="Pages\EditML.razor" />
     <Content Remove="Pages\Login.razor" />
-    <Content Remove="Pages\MailingListL.razor" />
+    <Content Remove="Pages\MailingListList.razor" />
     <Content Remove="Shared\SurveyPrompt.razor" />
   </ItemGroup>
 
@@ -32,22 +32,17 @@
   <ItemGroup>
     <_ContentIncludedByDefault Remove="Pages\EditML.razor" />
     <_ContentIncludedByDefault Remove="Pages\Login.razor" />
-    <_ContentIncludedByDefault Remove="Pages\MailingListL.razor" />
   </ItemGroup>
 
   <ItemGroup>
     <None Include="Pages\DocumentSubmission.razor" />
     <None Include="Pages\EditML.razor" />
     <None Include="Pages\Login.razor" />
-    <None Include="Pages\MailingListL.razor" />
+    <None Include="Pages\MailingListList.razor" />
   </ItemGroup>
 
   <ItemGroup>
     <UpToDateCheckInput Remove="Pages\Login.razor" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <UpToDateCheckInput Remove="Pages\MailingListL.razor" />
   </ItemGroup>
 
   <ItemGroup>

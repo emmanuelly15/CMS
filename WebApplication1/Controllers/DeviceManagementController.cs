@@ -18,8 +18,8 @@ namespace WebApplication1.Controllers
             this.db = db;
         }
 
-        [HttpGet]
         //get user input and selections
+        [HttpGet]
         public IEnumerable<Device> Get()
         {
            
@@ -27,6 +27,7 @@ namespace WebApplication1.Controllers
 
                 var allDevices = db.Devices.ToList().Select(v => new Device
                 {
+                    Id = v.Id,
                     IMEI = v.IMEI,
                     User = v.User,
                     Groups = v.Groups,
@@ -36,34 +37,23 @@ namespace WebApplication1.Controllers
                 return allDevices; //} End of block 1. getting device data
                                    //get all devices information
 
-                //return context.DeviceManagements.ToList();
+               
+        }
+        [HttpGet("{id}")]
 
-                //Add Device information to database
+        public Device Get(int id)
+        {
+            var device = db.Devices.FirstOrDefault(u => u.Id == id);
+            var deviceview = new Device
+            {
+                Id = device.Id,
+                IMEI = device.IMEI,
+                User = device.User,
+                Groups = device.Groups,
+                Authorisation = device.Authorisation,
+            };
 
-                /* DeviceManagement deviceManagement = new DeviceManagement();
-                 deviceManagement.DeviceImei = "SVF2TGVEHJD990";
-                 deviceManagement.UserId = 01010;
-                 deviceManagement.GroupId = 01010;
-                 deviceManagement.RegisteredDate = null;
-                 deviceManagement.LastUpdate = null;
-                 deviceManagement.LastLocation = "EASTRAND";
-                 deviceManagement.Authorised = null;
-
-                 context.DeviceManagements.Add(deviceManagement);
-
-                 //Update device management information
-                 DeviceManagement devicemanagement = context.DeviceManagements.Where(deviceManagement => deviceManagement.UserId == 01010).FirstOrDefault();
-                 deviceManagement.UserId = 10000;
-
-                 //Remove device
-                 DeviceManagement devicemanagement1 = context.DeviceManagements.Where(deviceManagement => deviceManagement.UserId == 01010).FirstOrDefault();
-                 context.DeviceManagements.Remove(devicemanagement1);
-
-
-                 context.SaveChanges();
-
-                 return context.DeviceManagements.Where(deviceManagement => deviceManagement.UserId == 01010).ToList();*/
-
+            return deviceview;
         }
 
         //post inputted data to table
@@ -72,6 +62,7 @@ namespace WebApplication1.Controllers
         {
             var dbDevice = new DbDevice
             {
+                
                 IMEI = device.IMEI,
                 User = device.User,
                 Groups = device.Groups,
@@ -82,6 +73,16 @@ namespace WebApplication1.Controllers
 
             db.SaveChanges();
             return dbDevice.Id;
+        }
+        [HttpDelete("{id}")]
+        public bool Delete(int id)
+        {
+            var device = db.Devices.FirstOrDefault(u => u.Id == id);
+            if (device != null)
+                db.Devices.Remove(device);
+
+            db.SaveChanges();
+            return true;
         }
     }
       

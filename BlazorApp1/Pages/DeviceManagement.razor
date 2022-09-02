@@ -52,10 +52,7 @@
     [Parameter]
     public string Id { get; set; }
     Device device = new Device();
-    protected override async Task OnInitializedAsync()
-    {
-       // device = await Http.GetFromJsonAsync<Device>("api/device/" + Id);
-    }
+    
     protected async Task Save()
     {
        await DeviceService.SaveAsync(device);

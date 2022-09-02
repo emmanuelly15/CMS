@@ -16,8 +16,7 @@ namespace Api.Controllers
             this.db = db;
         }
 
-
-        [HttpGet]
+         [HttpGet]
 
         public IEnumerable<MailingListC> Get()
         {
@@ -25,15 +24,28 @@ namespace Api.Controllers
 
             var allMailingLists = db.ML.ToList().Select(v => new MailingListC
             {
-               Email = v.Email,
+                Id = v.Id,
+                Email = v.Email,
                Groups = v.Groups,
 
             });
+                return allMailingLists;
+         }
+        [HttpGet("{id}")]
 
-            return allMailingLists;
+        public MailingListC Get(int id)
+        {
+            var ml = db.ML.FirstOrDefault(u => u.Id == id);
+            var mlview = new MailingListC
+            {
+                Id = ml.Id,
+                Email = ml.Email,
+                Groups = ml.Groups,
+            };
 
-
+            return mlview;
         }
+        
         [HttpPost]
         public int Create(MailingListC ml)
         {
@@ -41,13 +53,23 @@ namespace Api.Controllers
             {
                 Email = ml.Email,
                 Groups = ml.Groups,
-
             };
 
             db.ML.Add(dbMailingList);
 
             db.SaveChanges();
             return dbMailingList.Id;
+        }
+        
+        [HttpDelete("{id}")]
+        public bool Delete(int id)
+        {
+            var ml = db.ML.FirstOrDefault(u => u.Id == id);
+            if (ml != null)
+                db.ML.Remove(ml);
+
+            db.SaveChanges();
+            return true;
         }
     }
 }

@@ -1,7 +1,6 @@
-﻿@page "/DeleteUser"
+﻿@page "/DeleteUser/{Id}"
 @using CommonModels.Model
 @using BlazorApp1.Data
-@inject HttpClient Http
 @inject NavigationManager NavigationManager
 @inject IJSRuntime JsRuntime
 @inject UserService UserService
@@ -48,15 +47,14 @@
     User user = new User();
     protected override async Task OnInitializedAsync()
     {
-        //user = await Http.GetFromJsonAsync<Uservw>("api/user/" + Id);
-        }
+        user = await UserService.GetUserById(int.Parse(Id));
+    }
         
-            
-           
-    protected async Task Delete()
+   protected async Task Delete()
     {
-        await Http.DeleteAsync("api/UserManagement/Delete/" + Convert.ToInt32(Id));
         
+        await UserService.DeleteAsync(int.Parse(Id));
+        NavigationManager.NavigateTo("UserList");
     }
     void Cancel()
             {

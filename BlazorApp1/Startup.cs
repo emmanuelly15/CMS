@@ -44,6 +44,7 @@ namespace BlazorApp1
             services.AddSingleton<DeviceService>();
             services.AddSingleton<GroupService>();
             services.AddSingleton<MailingListService>();
+            services.AddSingleton<AdminUserService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

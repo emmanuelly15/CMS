@@ -9,10 +9,11 @@ namespace BlazorApp1.Data
 {
     public class UserService
     {
+        string apiurl = "https://localhost:44304/user/";
         public async Task<int> SaveAsync(User user)
         {
             var client = new HttpClient();
-            var response = await client.PostAsync("https://localhost:44304/user", new StringContent(JsonConvert.SerializeObject(user), Encoding.UTF8, "application/json"));
+            var response = await client.PostAsync(apiurl, new StringContent(JsonConvert.SerializeObject(user), Encoding.UTF8, "application/json"));
             var data = await response.Content.ReadAsStringAsync();
 
             
@@ -22,7 +23,7 @@ namespace BlazorApp1.Data
         {
 
             var client = new HttpClient();
-            var response = await client.GetAsync("https://localhost:44304/user");
+            var response = await client.GetAsync(apiurl);
             var data = await response.Content.ReadAsStringAsync();
 
             var listOfUsers = Newtonsoft.Json.JsonConvert.DeserializeObject<User[]>(data);
@@ -30,14 +31,23 @@ namespace BlazorApp1.Data
 
 
         }
-        public async Task<int> DeleteAsync()
+        public async Task<User> GetUserById(int id)
         {
             var client = new HttpClient();
-            var response = await client.DeleteAsync("https://localhost:44304/user");
+            var response = await client.GetAsync(apiurl + id);
+            var data = await response.Content.ReadAsStringAsync();
+
+            var user = Newtonsoft.Json.JsonConvert.DeserializeObject<User>(data);
+            return user;
+        }
+        public async Task<bool> DeleteAsync(int id)
+        {
+            var client = new HttpClient();
+            var response = await client.DeleteAsync(apiurl + id);
             var data = await response.Content.ReadAsStringAsync();
 
 
-            return int.Parse(data);
+            return bool.Parse(data);
         }
     }
 }

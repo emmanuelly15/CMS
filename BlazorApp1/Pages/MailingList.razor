@@ -34,18 +34,15 @@
     [Parameter]
     public string Id{ get; set; }
     MailingListC ml = new MailingListC();
-    protected override async Task OnInitializedAsync()
-    {
-        //user = await HttpClient.GetAsync<User>("api/user/" + Id);
-    }
+    
     protected async Task Save()
     {
         await MailingListService.SaveAsync(ml);
-        NavigationManager.NavigateTo("Mlist");
+        NavigationManager.NavigateTo("MailingListList");
     }
             void Cancel()
             {
-                NavigationManager.NavigateTo("Mlist");
+                NavigationManager.NavigateTo("MailingListList");
             }
 }
 

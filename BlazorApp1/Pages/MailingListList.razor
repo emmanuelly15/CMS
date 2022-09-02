@@ -1,4 +1,4 @@
-﻿@page "/Mlist"
+﻿@page "/MailingListList"
 @using BlazorApp1.Data
 @using CommonModels.Model
 @inject MailingListService MailingListService
@@ -7,7 +7,7 @@
 <h1>Mailing List</h1>
 <div>
     <a href="/MailingList"> Add an email</a>
-    @if (ml != null)
+    @if (mailinglists != null)
     {
         <table class="table-bordered">
             <thead>
@@ -18,15 +18,15 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var p in ml)
+                @foreach (var v in mailinglists)
                 {
                     <tr>
-                        <td>@p.Email</td>
-                    <td>@p.Groups</td>
+                        <td>@v.Email</td>
+                    <td>@v.Groups</td>
                     
                     <td>
-                        <a href="/EditML/@p.Id">Edit</a> 
-                        <a href="/DeleteML/@p.Id">Delete</a>
+                        <a href="/EditML/@v.Id">Edit</a> 
+                        <a href="/DeleteML/@v.Id">Delete</a>
                     </td>
                     </tr>
                 }
@@ -35,11 +35,11 @@
     }
 </div>
 @code {
-   private MailingListC[] ml;
+   private MailingListC[] mailinglists;
 
     protected override async Task OnInitializedAsync()
     {
-        ml = await MailingListService.GetMLAsync();
+        mailinglists = await MailingListService.GetMLAsync();
     }
 
 }
