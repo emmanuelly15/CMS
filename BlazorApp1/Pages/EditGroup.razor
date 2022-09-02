@@ -1,5 +1,45 @@
-﻿<h3>EditGroup</h3>
+﻿@page "/EditGroup/{Id}"
+@using CommonModels.Model
+@using BlazorApp1.Data
+@inject NavigationManager NavigationManager
+@inject IJSRuntime JsRuntime
+@inject GroupService GroupService
+<h2>Edit User</h2>
 
+<div class="row">
+        <div class="col-md-6">
+                <div class="form-group">
+                        <label for="Groups">  Group *</label>
+                        <input form="Groups" class="form-control" @bind="@group.Groups" />
+                    </div>
+            </div>
+        
+        
+</div>       
+<div class="row">
+        <div class="col-md-4">
+                <div class="form-group">
+                        <input type="button" class="btn btn-primary" @onclick="@UpdateGroup" value="Save" />
+                        <input type="button" class="btn" @onclick="@Cancel" value="Cancel" />
+                    </div>
+            </div>
+</div>
 @code {
-
-}
+    [Parameter]
+    public string Id{ get; set; }
+    Group group = new Group();
+    protected override async Task OnInitializedAsync()
+    {
+        group = await GroupService.GetGroupById(int.Parse(Id));
+    }
+        protected async Task UpdateGroup()
+        {
+           await GroupService.EditGroup(int.Parse(Id));
+            NavigationManager.NavigateTo("GroupList");
+                
+            }
+            void Cancel()
+            {
+                NavigationManager.NavigateTo("GroupList");
+            }
+        }
