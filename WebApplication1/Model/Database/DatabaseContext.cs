@@ -13,6 +13,10 @@ namespace Api.Model.Database
         public DbSet<DbUser> Users { get; set; }
         public DbSet<DbDevice> Devices { get; set; }
         public DbSet<DbGroup> Groups { get; set; }
+<<<<<<< Updated upstream
+=======
+        public DbSet<DbMailingList> ML { get; set; }
+>>>>>>> Stashed changes
         public DbSet<DbDocument> Documents { get; set; }
 
         public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options)

@@ -50,13 +50,7 @@
 
 
 @code {
-    private Document[] documents;
-
-    protected override async Task OnInitializedAsync()
-    {
-        document = await DocumentService.GetDocumentsAsync();
-    }
-
+   
     [Parameter]
     public string Id { get; set; }
     Document document = new Document();
