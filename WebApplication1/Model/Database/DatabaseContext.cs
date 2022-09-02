@@ -14,11 +14,11 @@ namespace Api.Model.Database
         public DbSet<DbAdminUser> AdminUsers { get; set; }
         public DbSet<DbDevice> Devices { get; set; }
         public DbSet<DbGroup> Groups { get; set; }
-<<<<<<< HEAD
+
         public DbSet<DbMailingList> ML { get; set; }
-=======
-        public DbSet<DbDocument> Documents { get; set; }
->>>>>>> Alpha-branch
+         public DbSet<DbDocument> Documents { get; set; }
+
+
 
         public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options)
         {

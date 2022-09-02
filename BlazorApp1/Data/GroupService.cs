@@ -47,6 +47,15 @@ namespace BlazorApp1.Data
 
             return bool.Parse(data);
         }
+        public async Task<Group> EditGroup(int id)
+        {
+            var client = new HttpClient();
+            var response = await client.PutAsync(apiur, new StringContent(JsonConvert.SerializeObject(id), Encoding.UTF8, "application/json"));
+            var data = await response.Content.ReadAsStringAsync();
+
+            var group = Newtonsoft.Json.JsonConvert.DeserializeObject<Group>(data);
+            return group;
+        }
     }
 }
 
