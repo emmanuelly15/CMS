@@ -1,6 +1,7 @@
 ﻿@page "/EditML/{Id}"
 @using CommonModels.Model
 @using BlazorApp1.Data
+@using Microsoft.JSInterop
 @inject NavigationManager NavigationManager
 @inject IJSRuntime JsRuntime
 @inject MailingListService MailingListService
@@ -39,7 +40,7 @@
     }
         protected async Task UpdateMailingList()
         {
-           await MailingList.EditMailingList(int.Parse(Id));
+           await MailingListService.EditMailingList(int.Parse(Id));
             NavigationManager.NavigateTo("MailingListList");
                 
             }
