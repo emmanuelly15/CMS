@@ -5,7 +5,6 @@
 @inject IJSRuntime JsRuntime
 @inject DocumentService DocumentService
 
-
 <h1>Document Submission</h1>
 <h2>View documents and approve or reject the document</h2>
 
@@ -51,8 +50,7 @@
 
 
 @code {
-
-
+   
     protected override async Task OnInitializedAsync()
     {
         document = await DocumentService.GetDocumentsAsync();
@@ -67,13 +65,15 @@
     }
     protected async Task Save()
     {
+
         await DocumentService.SaveAsync(document);
+
+        await UserService.SaveAsync(document);
+
     }
     void Cancel()
     {
         //NavigationManager.NavigateTo("UserList");
     }
-
-
 
 }

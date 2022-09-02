@@ -16,11 +16,7 @@ namespace Api.Model.Database
         public DbSet<DbGroup> Groups { get; set; }
 
         public DbSet<DbMailingList> ML { get; set; }
-
-
-        public DbSet<DbMailingList> ML { get; set; }
-
-        public DbSet<DbDocument> Documents { get; set; }
+         public DbSet<DbDocument> Documents { get; set; }
 
 
 
