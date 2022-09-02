@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using CommonModels.Model;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Api.Controllers
 {
@@ -47,5 +48,20 @@ namespace Api.Controllers
             db.SaveChanges();
             return dbGroup.Id;
         }
+
+        /*[HttpPut("{id:int}")]
+        public async Task<ActionResult> Put(int id, Group group) //<- 2 values, the id we are calling and the new value that we're going to add it with
+        {
+            var groupExists = await DbGroup(id);
+            if (!groupExists) 
+            {
+                return NotFoud();
+            }
+
+            context.Update(group);
+            await ActionContext.SaveChangesAsync();
+            return NoContent();
+        }*/
+
     }
 }

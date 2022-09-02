@@ -1,5 +1,6 @@
 ﻿using CommonModels.Model;
 using Newtonsoft.Json;
+using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -30,6 +31,27 @@ namespace BlazorApp1.Data
 
 
         }
+        //include get by id and it's referenced on the updateGroup
+        /*public async Task<int> UpdateAsync(Group updategroup)
+        {
+            var client = new HttpClient();
+            var response = await client.PutAsync("https://localhost:44304/groupmanagement", new StringContent(JsonConvert.SerializeObject(updategroup), Encoding.UTF8, "application/json"));
+            var editGroup = await response.Content.ReadAsStringAsync();
+
+           // var editGroup = Newtonsoft.Json.JsonConvert.DeserializeObject<Group[]>(id);
+            if (editGroup != null)
+            {
+                editGroup.Group = updategroup.Groups;
+                //Group.SaveAsync();
+                return int.Parse(editGroup);
+            }
+            else 
+            {
+                //return false;  created as a bool, timestamp -49:01
+            }
+            //return true;
+            
+        }//delete function timestamp 52:42*/
     }
 }
 

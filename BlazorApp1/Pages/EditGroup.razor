@@ -1,5 +1,54 @@
-﻿<h3>EditGroup</h3>
+﻿@page "/EditGroup"
+@using BlazorApp1.Data
+@using CommonModels.Model
+@inject NavigationManager NavigationManager
+@inject IJSRuntime JsRuntime
+@inject GroupService GroupService
+<h3>EditGroup</h3>
+
+
+
+<h1>Group Management</h1>
+<div>
+    <a href="/EditGroup"> Edit Group</a>
+    @if (groups != null)
+    {
+        <table class="table-bordered">
+            <thead>
+                <tr>
+                    <th width="30%">Group</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var p in groups)
+                {
+                    <tr>
+                        <td>@p.Groups</td>
+
+                        <td>
+                            <a href="/EditGroup/@p.Id">Edit</a>
+                            <a href="/DeleteGroup/@p.Id">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>
 
 @code {
+    [Parameter]
+    public string Id { get; set; }
+    Group group = new Group();
+    private Group[] groups;
 
+    protected override async Task OnInitializedAsync()
+    {
+        groups = await GroupService.GetGroupsAsync();
+    }
+    /*void UpdateGroup()
+    {
+        await GroupService.UpdateAsync(group);
+    }*/
 }
