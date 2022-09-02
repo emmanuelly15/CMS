@@ -79,7 +79,21 @@ namespace Api.Controllers
             db.SaveChanges();
             return true;
         }
-        
+        [HttpPut("{id}")]
+        public int UpdateUser(User user)
+        {
+            var dbUser = db.Users.FirstOrDefault(u => u.Id == user.Id);
+
+            dbUser.Name = user.Name;
+            dbUser.Email = user.Email;
+            dbUser.Telephone = user.Telephone;
+            dbUser.EmpId = user.EmpId;
+            dbUser.Password = user.Password;
+            
+                 db.SaveChanges();
+                 return dbUser.Id;
+            
+        }
         
     }
 }
