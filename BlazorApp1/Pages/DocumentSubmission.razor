@@ -5,6 +5,75 @@
 @inject IJSRuntime JsRuntime
 @inject DocumentService DocumentService
 
+<<<<<<< HEAD
+<h3>Document Submissions</h3>
+<br />
+
+
+<div class="card">
+    <div class="card-body">
+        From Date: <input @bind="date1" /><br /><br />
+        To Date:  <input @bind="date2" /><br /><br />
+        <br><br />
+
+        <button class="btn btn-primary">
+            <span class="oi oi-clock"></span>
+            Refresh
+        </button>
+        <br />
+        Group: <input @bind="group" />
+    </div>
+</div>
+
+
+<p>
+    Show
+    <select>
+        <option>10</option>
+        <option>15</option>
+        <option>20</option>
+        <option>25</option>
+        <option>30</option>
+    </select>
+    entries
+</p>    
+
+<br />
+<br />
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Sent On</th>
+            <th>Name</th>
+            <th>Device IMEI</th>
+            <th>Group</th>
+            <th>File</th>
+            <th>Raw Image</th>
+            <th>Description</th>
+            <th>Location</th>
+            <th>Decision</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr>
+            <td>2022-03-31 <br /> 04:22:54</td>
+            <td>James</td>
+            <td>D009CDF12F6171EC</td>
+            <td>Finance</td>
+            <td>NewScanInvoice.pdf</td>
+            <td>NewScanInvoice79860.jpg</td>
+            <td>View Location</td>
+        </tr>
+    </tbody>
+</table>
+
+
+
+
+
+=======
 <h1>Document Submission</h1>
 <h2>View documents and approve or reject the document</h2>
 
@@ -49,9 +118,17 @@
 </div>
 
 
+>>>>>>> Alpha-branch
 @code {
     private Document[] documents;
 
+<<<<<<< HEAD
+    private string date1;
+    private string date2;
+    private string group;
+    
+    
+=======
     protected override async Task OnInitializedAsync()
     {
         document = await DocumentService.GetDocumentsAsync();
@@ -73,4 +150,5 @@
         //NavigationManager.NavigateTo("UserList");
     }
 
+>>>>>>> Alpha-branch
 }

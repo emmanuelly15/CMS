@@ -1,34 +1,26 @@
-﻿@page "/DeleteUser/{Id}"
+﻿@page "/DeleteAdminUser/{Id}"
 @using CommonModels.Model
 @using BlazorApp1.Data
 @inject NavigationManager NavigationManager
 @inject IJSRuntime JsRuntime
-@inject UserService UserService
-<h2>Delete User</h2>
-@if(user != null)
+@inject AdminUserService AdminUserService
+<h2>Delete Admin User</h2>
+@if(adminuser != null)
 {
-<p>Are you sure you want to delete this user with Name: <b>@user.Name</b></p>
+<p>Are you sure you want to delete this user with Name: <b>@adminuser.Name</b></p>
 <div class="row">
        <table class="table">
                <tr>
                        <td>Name</td>
-                       <td>@user.Name </td>
+                       <td>@adminuser.Name </td>
                    </tr>
                <tr>
                        <td>Email</td>
-                       <td>@user.Email</td>
+                       <td>@adminuser.Email</td>
                    </tr>
-               <tr>
-                       <td>Telephone</td>
-                       <td>@user.Telephone</td>
-                   </tr>
-                   <tr>
-                       <td>Employee_ID</td>
-                       <td>@user.EmpId</td>
-                   </tr>
-                   <tr>
+                     <tr>
                        <td>Password</td>
-                       <td>@user.Password</td>
+                       <td>@adminuser.Password</td>
                    </tr>
            </table>
 </div>
@@ -44,20 +36,20 @@
 @code {
     [Parameter]
     public string Id{ get; set; }
-    User user = new User();
+    AdminUser adminuser = new AdminUser();
     protected override async Task OnInitializedAsync()
     {
-        user = await UserService.GetUserById(int.Parse(Id));
+        adminuser = await AdminUserService.GetAdminUserById(int.Parse(Id));
     }
         
    protected async Task Delete()
     {
         
-        await UserService.DeleteAsync(int.Parse(Id));
-        NavigationManager.NavigateTo("UserList");
+        await AdminUserService.DeleteAsync(int.Parse(Id));
+        NavigationManager.NavigateTo("AdminUserList");
     }
     void Cancel()
             {
-                NavigationManager.NavigateTo("UserList");
+                NavigationManager.NavigateTo("AdminUserList");
             }
         }

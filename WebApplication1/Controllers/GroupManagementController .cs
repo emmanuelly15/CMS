@@ -25,13 +25,27 @@ namespace Api.Controllers
 
             var allGroups = db.Groups.ToList().Select(v => new Group
             {
-               Groups = v.Groups,
-                
+                Id = v.Id,
+                Groups = v.Groups,
             });
 
             return allGroups;
 
 
+        }
+        [HttpGet("{id}")]
+
+        public Group Get(int id)
+        {
+            var group = db.Groups.FirstOrDefault(u => u.Id == id);
+            var groupview = new Group
+            {
+                Id = group.Id,
+                Groups = group.Groups,
+                
+            };
+
+            return groupview;
         }
         [HttpPost]
         public int Create(Group group)
@@ -46,6 +60,16 @@ namespace Api.Controllers
 
             db.SaveChanges();
             return dbGroup.Id;
+        }
+        [HttpDelete("{id}")]
+        public bool Delete(int id)
+        {
+            var group = db.Groups.FirstOrDefault(u => u.Id == id);
+            if (group != null)
+                db.Groups.Remove(group);
+
+            db.SaveChanges();
+            return true;
         }
     }
 }
