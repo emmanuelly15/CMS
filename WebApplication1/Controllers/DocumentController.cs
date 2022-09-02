@@ -1,10 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using System;
+﻿using Api.Model.Database;
+using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using CommonModels.Model;
 using System.Linq;
-using System.Threading.Tasks;
-using WebApplication1.Model;
+using Api.Models;
 
 namespace WebApplication1.Controllers
 {
@@ -12,17 +11,46 @@ namespace WebApplication1.Controllers
     [Route("[controller]")]
     public class DocumentController : ControllerBase
     {
-        private static readonly string[] Summaries = new[]
+        private readonly DatabaseContext db; //refer to DatabaseContext.cs 
+        public DocumentController(DatabaseContext db)
         {
-            "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-        };
-
-        private readonly ILogger<DocumentController>_logger;
-
-        public DocumentController(ILogger<DocumentController> logger)
-        {
-            _logger = logger;
+            this.db = db;
         }
+
+        [HttpGet]
+        //get user input and selections
+        public IEnumerable<Document> Get()
+        {
+
+            var docList = new List<Document>();
+
+            var allDocuments = db.Documents.ToList().Select(v => new Document
+            {
+               // UserId = v.UserId,
+                //GroupId = v.GroupId,
+                //DeviceId = v.DeviceId,
+                SentDateTime = v.SentDateTime,
+                FileFormat = v.FileFormat,
+                Img = v.Img,
+                Description = v.Description,
+                Location = v.Location,
+                Status = v.Status,
+                DocType = v.DocType,
+                Amount = v.Amount,
+                Comment = v.Comment
+            });
+
+            return allDocuments; //} End of block 1. getting device data
+                                   //get all devices information
+
+
+
+        //private readonly ILogger<DocumentController>_logger;
+
+       // public DocumentController(ILogger<DocumentController> logger)
+        //{
+          //  _logger = logger;
+        //}
 
         //[HttpGet]
         //public IEnumerable<WeatherForecast> Get()
@@ -37,7 +65,7 @@ namespace WebApplication1.Controllers
         //    .ToArray();
         //}
 
-        [HttpPost]
+       /* [HttpPost]
         public object PostImage()
         {
             return null;
@@ -65,9 +93,32 @@ namespace WebApplication1.Controllers
                 CellphoneNumber = "0729981533"
             });
 
-            return docList;
+            return docList;*/
            
+        }
+        [HttpPost]
+        public int Create(Document document)
+        {
+            var dbDocument = new DbDocument 
+            {
+                //UserId = document.UserId,
+                //GroupId = document.GroupId,
+                //DeviceId = document.DeviceId,
+                SentDateTime = document.SentDateTime,
+                FileFormat = document.FileFormat,
+                Img = document.Img,
+                Description = document.Description,
+                Location = document.Location,
+                Status = document.Status,
+                DocType = document.DocType,
+                Amount = document.Amount,
+                Comment = document.Comment
+            };
 
+            db.Documents.Add(dbDocument);
+
+            db.SaveChanges();
+            return dbDocument.Id;
         }
     }
 }
