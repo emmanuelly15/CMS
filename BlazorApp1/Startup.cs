@@ -43,6 +43,8 @@ namespace BlazorApp1
             services.AddSingleton<UserService>();
             services.AddSingleton<DeviceService>();
             services.AddSingleton<GroupService>();
+            services.AddSingleton<MailingListService>();
+            services.AddSingleton<AdminUserService>();
             services.AddSingleton<DocumentService>();
         }
 

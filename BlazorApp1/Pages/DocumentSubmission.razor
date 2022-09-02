@@ -1,6 +1,7 @@
 @page "/DocumentSubmission"
 @using BlazorApp1.Data
 @using CommonModels.Model
+@using Microsoft.JSInterop
 @inject NavigationManager NavigationManager
 @inject IJSRuntime JsRuntime
 @inject DocumentService DocumentService
@@ -50,21 +51,26 @@
 
 
 @code {
-   
-    [Parameter]
+    protected override async Task OnInitializedAsync()
+    {
+        document = await DocumentService.GetDocumentsAsync();
+    }
+
+     [Parameter]
     public string Id { get; set; }
     Document document = new Document();
+
     protected override async Task OnInitializedAsync()
     {
         //user = await HttpClient.GetAsync<User>("api/user/" + Id);
     }
+    
     protected async Task Save()
     {
-        await UserService.SaveAsync(document);
+        await DocumentService.SaveAsync(document);
     }
     void Cancel()
     {
         //NavigationManager.NavigateTo("UserList");
     }
-
 }

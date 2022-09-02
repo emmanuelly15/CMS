@@ -52,10 +52,7 @@
     [Parameter]
     public string Id{ get; set; }
     User user = new User();
-    protected override async Task OnInitializedAsync()
-    {
-        //user = await HttpClient.GetAsync<User>("api/user/" + Id);
-    }
+    
     protected async Task Save()
     {
         await UserService.SaveAsync(user);

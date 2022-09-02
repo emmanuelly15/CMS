@@ -1,92 +1,54 @@
 ﻿@page "/AdminUserManagement"
-<h3>Admin User Management</h3>
-<br />
-<style>
-{
-  border-radius: 25px;
-  background: grey;
-  background-position: left top;
-  background-repeat: repeat;
-  padding: 20px;
-  width: 200px;
-  height: 150px;
-}</style>
+@using BlazorApp1.Data
+@using CommonModels.Model
+@inject NavigationManager NavigationManager
+@inject IJSRuntime JsRuntime
+@inject AdminUserService AdminUserService
+<h1>Admin User Management</h1>
+<h2>Add Admin User</h2>
 
-<div class="card">
-    <div class="card-body">
-        <h4>Add admin</h4>
-        Enter name: <input @bind="name" /><br /><br />
-        Enter email address:  <input @bind="email"/><br /><br />
-        Enter password: <input @bind="password"/>
-        <br><br />
-       
-        <button class="btn btn-primary">
-            <span class="oi oi-plus"></span>
-            Add User
-        </button>
-    </div>
+<div class="row">
+        <div class="col-md-6">
+                <div class="form-group">
+                        <label for="Name">  Name *</label>
+                        <input form="Name" class="form-control" @bind="@adminuser.Name" />
+                    </div>
+            </div>
+        
+        <div class="col-md-6">
+                <div class="form-group">
+                        <label for="Email"> Email *</label>
+                        <input form="Email" class="form-control" @bind="@adminuser.Email" />
+                    </div>
+            </div>
+                <div class="col-md-6">
+                <div class="form-group">
+                        <label for="Password"> Password *</label>
+                        <input form="Password" class="form-control" @bind="@adminuser.Password" />
+                    </div>
+            </div>
 </div>
-<br />
-<br />
-
-<p>
-    Show
-    <select>
-        <option>1</option>
-        <option>5</option>
-        <option>10</option>
-        <option>15</option>
-        <option>20</option>
-        <option>25</option>
-        <option>30</option>
-        <option>35</option>
-        <option>40</option>
-        <option>45</option>
-        <option>50</option>
-        <option>55</option>
-        <option>60</option>
-        <option>65</option>
-        <option>70</option>
-        <option>75</option>
-    </select>
-    entries
-
-    Search
-    <input type="text" name=" " />
-</p>
-
-
-<table class="table">
-    <thead>
-        <tr>
-            <th>#</th>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Password</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>1</td>
-            <td>Mark</td>
-            <td>mark.doe@gmail.com</td>
-            <td>****************</td>
-            <td>
-                <button class="btn btn-primary">
-                    <span class="oi oi-pencil"></span>
-                </button>
-                <button class="btn btn-danger">
-                    <span class="oi oi-trash"></span>
-                </button>
-            </td>
-        </tr>
-    </tbody>
-</table>
+<div class="row">
+        <div class="col-md-4">
+                <div class="form-group">
+                        <input type="button" class="btn btn-primary" @onclick="@Save" value="Save" />
+                        <input type="button" class="btn" @onclick="@Cancel" value="Cancel" />
+                    </div>
+            </div>
+</div>
 @code {
-    private string name;
-    private string email;
-    private string password;
+    [Parameter]
+    public string Id{ get; set; }
+    AdminUser adminuser = new AdminUser();
+    
+    protected async Task Save()
+    {
+        await AdminUserService.SaveAsync(adminuser);
+        NavigationManager.NavigateTo("AdminUserList");
+    }
+            void Cancel()
+            {
+                NavigationManager.NavigateTo("AdminUserList");
+            }
 }
-
 

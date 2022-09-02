@@ -2,11 +2,9 @@
 using System.ComponentModel.DataAnnotations.Schema;
 namespace Api.Model.Database
 {
-    [Table("User", Schema = "dbo")]
-    public class DbMailingList
+    [Table("AdminUser", Schema = "dbo")]
+    public class DbAdminUser
     {
-
-
         [Required]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
@@ -16,13 +14,6 @@ namespace Api.Model.Database
         public string Email { get; set; }
 
         [Required]
-        public string Telephone { get; set; }
-        [Required]
-        public string EmpId { get; set; }
-        [Required]
         public string Password { get; set; }
-
-
     }
-
 }

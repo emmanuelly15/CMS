@@ -1,0 +1,45 @@
+﻿@page "/MailingListList"
+@using BlazorApp1.Data
+@using CommonModels.Model
+@inject MailingListService MailingListService
+
+
+<h1>Mailing List</h1>
+<div>
+    <a href="/MailingList"> Add an email</a>
+    @if (mailinglists != null)
+    {
+        <table class="table-bordered">
+            <thead>
+                <tr>
+                    <th width = "30%">Email</th>
+                    <th width = "30%">Group</th>
+                    
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var v in mailinglists)
+                {
+                    <tr>
+                        <td>@v.Email</td>
+                    <td>@v.Groups</td>
+                    
+                    <td>
+                        <a href="/EditML/@v.Id">Edit</a> 
+                        <a href="/DeleteML/@v.Id">Delete</a>
+                    </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>
+@code {
+   private MailingListC[] mailinglists;
+
+    protected override async Task OnInitializedAsync()
+    {
+        mailinglists = await MailingListService.GetMLAsync();
+    }
+
+}
