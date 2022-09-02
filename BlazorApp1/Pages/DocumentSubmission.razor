@@ -1,77 +1,79 @@
 @page "/DocumentSubmission"
+@using BlazorApp1.Data
+@using CommonModels.Model
+@inject NavigationManager NavigationManager
+@inject IJSRuntime JsRuntime
+@inject DocumentService DocumentService
 
-<h3>Document Submissions</h3>
-<br />
 
+<h1>Document Submission</h1>
+<h2>View documents and approve or reject the document</h2>
 
-<div class="card">
-    <div class="card-body">
-        From Date: <input @bind="date1" /><br /><br />
-        To Date:  <input @bind="date2" /><br /><br />
-        <br><br />
+<h3>Document Submissions List</h3>
+<div>
+    @if (document != null)
+    {
+        <table class="table-bordered">
+            <thead>
+                <tr>
+                    <th width="30%">IMEI</th>
+                    <th width="20%">User</th>
+                    <th width="20%">Group</th>
+                    <th width="20%">Authorisation</th>
+                    <th width="30%">Action</th>
+                </tr>
+            </thead>
 
-        <button class="btn btn-primary">
-            <span class="oi oi-clock"></span>
-            Refresh
-        </button>
-        <br />
-        Group: <input @bind="group" />
-    </div>
+            <tbody>
+                @foreach (var p in document)
+                {
+                    <tr>
+                        <td>@p.SentDateTime</td>
+                        <td>@p.FileFormat</td>
+                        <td>@p.DeviceId</td>
+                        <td>@p.Img</td>
+                        <td>@p.Description</td>
+                        <td>@p.Location</td>
+                        <td>@p.Status</td>
+                        <td>@p.DocType</td>
+                        <td>@p.Amount</td>
+                        <td>@p.Comment</td>
+                        <td>
+                            <a href="/editdevice/@p.Id">Edit</a> |
+                            <a href="/deletedevice/@p.Id">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
 </div>
-
-
-<p>
-    Show
-    <select>
-        <option>10</option>
-        <option>15</option>
-        <option>20</option>
-        <option>25</option>
-        <option>30</option>
-    </select>
-    entries
-</p>    
-
-<br />
-<br />
-
-<table class="table">
-    <thead>
-        <tr>
-            <th>Sent On</th>
-            <th>Name</th>
-            <th>Device IMEI</th>
-            <th>Group</th>
-            <th>File</th>
-            <th>Raw Image</th>
-            <th>Description</th>
-            <th>Location</th>
-            <th>Decision</th>
-        </tr>
-    </thead>
-
-    <tbody>
-        <tr>
-            <td>2022-03-31 <br /> 04:22:54</td>
-            <td>James</td>
-            <td>D009CDF12F6171EC</td>
-            <td>Finance</td>
-            <td>NewScanInvoice.pdf</td>
-            <td>NewScanInvoice79860.jpg</td>
-            <td>View Location</td>
-        </tr>
-    </tbody>
-</table>
-
-
-
 
 
 @code {
 
-    private string date1;
-    private string date2;
-    private string group;
-    
-    
+
+    protected override async Task OnInitializedAsync()
+    {
+        document = await DocumentService.GetDocumentsAsync();
+    }
+
+    [Parameter]
+    public string Id { get; set; }
+    Document document = new Document();
+    protected override async Task OnInitializedAsync()
+    {
+        //user = await HttpClient.GetAsync<User>("api/user/" + Id);
+    }
+    protected async Task Save()
+    {
+        await DocumentService.SaveAsync(document);
+    }
+    void Cancel()
+    {
+        //NavigationManager.NavigateTo("UserList");
+    }
+
+
+
 }
