@@ -31,7 +31,32 @@
 
                 </tr>
             </thead>
-
+            <tbody>
+                @foreach (var p in document)
+                {
+                    <tr>
+                        <td>@p.SentDateTime</td>
+                        <td>@p.FileFormat</td>
+                        <td>@p.DeviceId</td>
+                        <td>
+                            @p.Img
+                            <a href="">
+                                <img src="@( $"https://localhost:44310{document.Img}")">
+                            </a>
+                        </td>
+                        <td>@p.Description</td>
+                        <td>@p.Location</td>
+                        <td>@p.Status</td>
+                        <td>@p.DocType</td>
+                        <td>@p.Amount</td>
+                        <td>@p.Comment</td>
+                        <td>
+                            <a href="/editdevice/@p.Id">Arrpove</a> |
+                            <a href="/deletedevice/@p.Id">Reject</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
             
         </table>
     }
@@ -48,11 +73,9 @@
     [Parameter]
     public string Id { get; set; }
     Document document = new Document();
+    
+    private string apilink;
    
-    //protected override async Task OnInitializedAsync()
-    //{
-        //document = await HttpClient.GetAsync<User>("api/user/" + Id);
-    //}
     protected async Task Save()
     {
         await DocumentService.SaveAsync(document);

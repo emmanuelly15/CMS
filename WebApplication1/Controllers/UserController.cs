@@ -16,7 +16,6 @@ namespace Api.Controllers
             this.db = db;
         }
 
-
         [HttpGet]
 
         public IEnumerable<User> Get()
