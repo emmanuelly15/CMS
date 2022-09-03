@@ -48,7 +48,6 @@
     [Parameter]
     public string Id { get; set; }
     Document document = new Document();
-    //private string apilink;
    
     //protected override async Task OnInitializedAsync()
     //{
@@ -58,9 +57,5 @@
     {
         await DocumentService.SaveAsync(document);
     }
-    //void Cancel()
-    //{
-        //NavigationManager.NavigateTo("UserList");
-    //}
 
 }
