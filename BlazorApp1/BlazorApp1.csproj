@@ -6,11 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-<<<<<<< HEAD
-=======
 	  <Content Remove="Pages\Login.razor" />
-     <Content Remove="Pages\DocumentSubmission.razor" />
->>>>>>> Alpha-branch
     <Content Remove="Shared\SurveyPrompt.razor" />
   </ItemGroup>
 
