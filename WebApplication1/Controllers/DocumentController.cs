@@ -18,7 +18,6 @@ namespace WebApplication1.Controllers
         }
 
         [HttpGet]
-        //get user input and selections
         public IEnumerable<Document> Get()
         {
 
@@ -26,9 +25,9 @@ namespace WebApplication1.Controllers
 
             var allDocuments = db.Documents.ToList().Select(v => new Document
             {
-               // UserId = v.UserId,
-                //GroupId = v.GroupId,
-                //DeviceId = v.DeviceId,
+                UserId = v.UserId,
+                GroupId = v.GroupId,
+                DeviceId = v.DeviceId,
                 SentDateTime = v.SentDateTime,
                 FileFormat = v.FileFormat,
                 Img = v.Img,
@@ -101,9 +100,9 @@ namespace WebApplication1.Controllers
         {
             var dbDocument = new DbDocument 
             {
-                //UserId = document.UserId,
-                //GroupId = document.GroupId,
-                //DeviceId = document.DeviceId,
+                UserId = document.UserId,
+                GroupId = document.GroupId,
+                DeviceId = document.DeviceId,
                 SentDateTime = document.SentDateTime,
                 FileFormat = document.FileFormat,
                 Img = document.Img,
@@ -120,5 +119,12 @@ namespace WebApplication1.Controllers
             db.SaveChanges();
             return dbDocument.Id;
         }
+      /*  public class DocumentImg  --got from link that Gilbert sent
+        {
+           [FromForm(Img = "img_jpg")]
+            public List<Document> img_jpg { get; set; }
+            [FromForm(FileFormat = "file_pdf")]
+            public List<Document> ifile_pdf { get; set; }
+        }*/
     }
 }
