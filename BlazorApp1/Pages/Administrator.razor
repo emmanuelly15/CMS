@@ -1,7 +1,56 @@
-﻿@page "/Admin"
-<h3>Administrator</h3>
+﻿@page "/AdminUser/{Id}"
+@using CommonModels.Model
+@using BlazorApp1.Data
+@inject NavigationManager NavigationManager
+@inject IJSRuntime JsRuntime
+@inject AdminUserService AdminUserService
+<h2>User Profile</h2>
 
-
+<div class="row">
+        <div class="col-md-6">
+                <div class="form-group">
+                        <label for="Name">  Name *</label>
+                        <input form="Name" class="form-control" @bind="@adminuser.Name" />
+                    </div>
+            </div>
+        
+        <div class="col-md-6">
+                <div class="form-group">
+                        <label for="Email"> Email *</label>
+                        <input form="Email" class="form-control" @bind="@adminuser.Email" />
+                    </div>
+            </div>
+                <div class="col-md-6">
+                <div class="form-group">
+                        <label for="Password"> Password *</label>
+                        <input form="Password" class="form-control" @bind="@adminuser.Password" />
+                    </div>
+            </div>
+</div>      
+<div class="row">
+        <div class="col-md-4">
+                <div class="form-group">
+                        <input type="button" class="btn btn-primary" @onclick="@UpdateAdminUser" value="Save" />
+                        <input type="button" class="btn" @onclick="@Cancel" value="Cancel" />
+                    </div>
+            </div>
+</div>
 @code {
-
-}
+    [Parameter]
+    public string Id{ get; set; }
+   AdminUser adminuser = new AdminUser();
+    protected override async Task OnInitializedAsync()
+    {
+        adminuser = await AdminUserService.GetAdminUserById(int.Parse(Id));
+    }
+        protected async Task UpdateAdminUser()
+        {
+           await AdminUserService.EditAdminUser(int.Parse(Id));
+            NavigationManager.NavigateTo("AdminUserList");
+                
+            }
+            void Cancel()
+            {
+                NavigationManager.NavigateTo("AdminUserList");
+            }
+        }
