@@ -44,7 +44,7 @@ namespace BlazorApp1.Data
             return user;
         }
         //adding user password hash
-        string HashPassword(string password) //hashpassword method
+       /* string HashPassword(string password) //hashpassword method
         {
             using SHA256 hash = SHA256.Create(); //call create method to return instance of SHA
             var passwordBytes = Encoding.Default.GetBytes(password);
@@ -57,7 +57,7 @@ namespace BlazorApp1.Data
             //convert method to convert bytes to string
             return Convert.ToBase64String(hashedpassword);
 
-        }
+        }*/
         public async Task<bool> DeleteAsync(int id)
         {
             var client = new HttpClient();
