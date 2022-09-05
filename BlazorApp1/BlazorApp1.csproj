@@ -6,6 +6,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+<<<<<<< HEAD
+=======
+	  <Content Remove="Pages\Login.razor" />
+     <Content Remove="Pages\DocumentSubmission.razor" />
+>>>>>>> Alpha-branch
     <Content Remove="Shared\SurveyPrompt.razor" />
   </ItemGroup>
 
@@ -17,12 +22,14 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.26" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.26" />
     <PackageReference Include="MongoDB.Driver" Version="2.14.1" />
+    <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="5.0.3" />
     <PackageReference Include="RestSharp" Version="108.0.1" />
-    <PackageReference Include="Syncfusion.Blazor.Buttons" Version="20.2.0.44" />
+    <PackageReference Include="Syncfusion.Blazor.Buttons" Version="20.2.0.45" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\CommonModels\CommonModels.csproj" />
+    <ProjectReference Include="..\WebApplication1\Api.csproj" />
   </ItemGroup>
 
   <ItemGroup>
