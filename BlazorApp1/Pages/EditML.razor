@@ -1,5 +1,51 @@
-﻿<h3>EditML</h3>
+﻿@page "/EditML/{Id}"
+@using CommonModels.Model
+@using BlazorApp1.Data
+@using Microsoft.JSInterop
+@inject NavigationManager NavigationManager
+@inject IJSRuntime JsRuntime
+@inject MailingListService MailingListService
+<h2>Edit Mailing List</h2>
 
+<div class="row">
+        <div class="col-md-6">
+                <div class="form-group">
+                        <label for="Email">  Email *</label>
+                        <input form="Email" class="form-control" @bind="@ml.Email" />
+                    </div>
+            </div>
+        <div class="col-md-6">
+                <div class="form-group">
+                        <label for="Groups">  Group *</label>
+                        <input form="Groups" class="form-control" @bind="@ml.Groups" />
+                    </div>
+            </div>
+        
+</div>
+<div class="row">
+        <div class="col-md-4">
+                <div class="form-group">
+                        <input type="button" class="btn btn-primary" @onclick="@UpdateMailingList" value="Save" />
+                        <input type="button" class="btn" @onclick="@Cancel" value="Cancel" />
+                    </div>
+            </div>
+</div>
 @code {
-
-}
+    [Parameter]
+    public string Id{ get; set; }
+    MailingListC ml = new MailingListC();
+    protected override async Task OnInitializedAsync()
+    {
+        ml = await MailingListService.GetMLById(int.Parse(Id));
+    }
+        protected async Task UpdateMailingList()
+        {
+           await MailingListService.EditMailingList(int.Parse(Id));
+            NavigationManager.NavigateTo("MailingListList");
+                
+            }
+            void Cancel()
+            {
+                NavigationManager.NavigateTo("MailingListList");
+            }
+        }

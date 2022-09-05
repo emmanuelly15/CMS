@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using CommonModels.Model;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Api.Controllers
 {
@@ -70,6 +71,18 @@ namespace Api.Controllers
 
             db.SaveChanges();
             return true;
+        }
+        [HttpPut("{id}")]
+        public int UpdateGroup(Group group)
+        {
+            var dbGroup = db.Groups.FirstOrDefault(u => u.Id == group.Id);
+
+            dbGroup.Groups = group.Groups;
+            
+
+            db.SaveChanges();
+            return dbGroup.Id;
+
         }
     }
 }

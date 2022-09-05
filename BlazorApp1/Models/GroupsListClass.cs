@@ -1,18 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
+using System.Threading.Tasks;
 
-
-namespace CommonModels.Model
+namespace BlazorApp1.Models
 {
-    public class Group
+    public class GroupsListClass
     {
+        [Key]
         public int Id { get; set; }
-
-        [Required(ErrorMessage = "Group is required")]
         public string Groups { get; set; }
-
     }
 }

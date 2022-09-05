@@ -49,5 +49,14 @@ namespace BlazorApp1.Data
 
             return bool.Parse(data);
         }
+        public async Task<Device> EditDevice(int id)
+        {
+            var client = new HttpClient();
+            var response = await client.PutAsync(apiurl1, new StringContent(JsonConvert.SerializeObject(id), Encoding.UTF8, "application/json"));
+            var data = await response.Content.ReadAsStringAsync();
+
+            var device = Newtonsoft.Json.JsonConvert.DeserializeObject<Device>(data);
+            return device;
+        }
     }
 }

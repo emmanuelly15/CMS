@@ -1,56 +1,94 @@
-﻿using Api.Models;
+﻿using Api.Model.Database;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using System;
 using System.Collections.Generic;
+using CommonModels.Model;
 using System.Linq;
-using System.Threading.Tasks;
-using WebApplication1.Model;
+using Api.Models;
 
-namespace WebApplication1.Controllers
+namespace Api.Controllers
 {
     [ApiController]
     [Route("[controller]")]
     public class AdminController : ControllerBase
     {
-    
+        private readonly DatabaseContext dbs;
+        public DbAdmin(DatabaseContext dbs)
+        {
+            this.dbs = dbs;
+        }
 
-            [HttpGet]
+
+        [HttpGet]
+
         public IEnumerable<Admin> Get()
         {
-           using (var context = new PaycoDBContext())
+            var docList = new List<Admin>();
+
+            var allAdmins = db.Admin.ToList().Select(v => new Admin
             {
+                Id = v.Id,
+                FirstName = v.FirstName,
+                LastName = v.LastName,
 
-                //get all admin information
+            });
 
-                //return context.Admins.ToList();
-
-                //Add Admin information to database
-
-                Admin admin = new Admin();
-                admin.AdminId = 00000;
-                admin.FirstName = "emma";
-                admin.LastName = "kabamba";
-                admin.Email = "emmakabamba@gmail.com";
-                admin.SecurePassword = "123";
-
-                context.Admins.Add(admin);
-
-                //Update admin information
-
-                Admin admin1 = context.Admins.Where(admin => admin.FirstName == "emma").FirstOrDefault();
-                admin.SecurePassword = "12345";
-
-                //Remove Admin
-
-                Admin admin2 = context.Admins.Where(admin => admin.FirstName == "emma").FirstOrDefault();
-                context.Admins.Remove(admin);
+            return allAdmins;
 
 
-                context.SaveChanges();
-
-                return context.Admins.Where(admin => admin.FirstName == "emma").ToList();
-            }
         }
+        [HttpGet("{id}")]
+
+        public AdminUser Get(int id)
+        {
+            var admin = db.Admin.FirstOrDefault(u => u.Id == id);
+            var adminview = new Admin
+            {
+                Id = admin.Id,
+                FirstName = admin.FirstName,
+                LastName = admin.LastName,
+
+            };
+
+            return adminview;
+        }
+        [HttpPost]
+        public int Create(Admin admin)
+        {
+            var dbAdmin = new DbAdmin
+            {
+                FirstName = admin.FirstName,
+                LastName = admin.LastName,
+                Password = admin.SecurePassword
+            };
+
+            db.Admin.Add(dbAdmin);
+
+            db.SaveChanges();
+            return dbAdmin.Id;
+        }
+        [HttpDelete("{id}")]
+        public bool Delete(int id)
+        {
+            var admin = db.Admin.FirstOrDefault(u => u.Id == id);
+            if (admin != null)
+                db.AdminUsers.Remove(admin);
+
+            db.SaveChanges();
+            return true;
+        }
+        [HttpPut("{id}")]
+        public int UpdateAdmin(Admin admin)
+        {
+            var dbAdmin = db.Admin.FirstOrDefault(u => u.Id == admin.Id);
+
+            dbAdmin.Name = admin.FirstName;
+            dbAdmin.Email = admin.LastName;
+            dbAdmin.Password = admin.SecurePassword;
+
+            db.SaveChanges();
+            return dbAdmin.Id;
+
+        }
+
     }
 }
