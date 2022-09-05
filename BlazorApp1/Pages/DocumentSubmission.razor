@@ -11,7 +11,7 @@
 
 <h3>Document Submissions List</h3>
 <div>
-    @if (document != null)
+    @if (documents != null)
     {
         <table class="table-bordered">
             <thead>
@@ -32,7 +32,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var p in document)
+                @foreach (var p in documents)
                 {
                     <tr>
                         <td>@p.SentDateTime</td>
@@ -40,9 +40,6 @@
                         <td>@p.DeviceId</td>
                         <td>
                             @p.Img
-                            <a href="">
-                                <img src="@( $"https://localhost:44310{document.Img}")">
-                            </a>
                         </td>
                         <td>@p.Description</td>
                         <td>@p.Location</td>
@@ -63,22 +60,24 @@
 </div>
 
 
-@code {//timestamp for image issue - 12:00...need to create @onclick for image 
+@code {
+    //timestamp for image issue - 12:00...need to create @onclick for image 
     //proper setup to call img link timestamp - 18:16
-     protected override async Task OnInitializedAsync()
+    private Document[] documents;
+    protected override async Task OnInitializedAsync()
     {
-       await DocumentService.GetDocumentsAsync();
+      documents = await DocumentService.GetDocumentsAsync();
     }
 
-    [Parameter]
-    public string Id { get; set; }
-    Document document = new Document();
+    /*[Parameter]
+    public int Id { get; set; }
+    
     
     private string apilink;
    
     protected async Task Save()
     {
         await DocumentService.SaveAsync(document);
-    }
+    }*/
 
 }

@@ -11,11 +11,11 @@ namespace Api.Model.Database
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         [Required]
-        public int UserId { get; set; }
+        public string UserId { get; set; }
         [Required]
-        public int GroupId { get; set; }
+        public string GroupId { get; set; }
         [Required]
-        public int DeviceId { get; set; }
+        public string DeviceId { get; set; }
         [Required]
         public DateTime? SentDateTime { get; set; }
         [Required]

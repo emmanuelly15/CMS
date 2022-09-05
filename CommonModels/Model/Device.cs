@@ -16,10 +16,10 @@ namespace CommonModels.Model
         public string IMEI { get; set; }
 
         [Required(ErrorMessage = "User is required")]
-        public int User { get; set; }
+        public string User { get; set; }
 
         [Required(ErrorMessage = "Group is required")]
-        public int Groups { get; set; }
+        public string Groups { get; set; }
 
         [Required(ErrorMessage = "Authorisation is required")]
         public bool Authorisation { get; set; }

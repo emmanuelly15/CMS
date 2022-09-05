@@ -4,9 +4,9 @@
     public class Document
     {
         public int Id { get; set; }
-        public int UserId { get; set; }
-        public int GroupId { get; set; }
-        public int DeviceId { get; set; }
+        public string UserId { get; set; }
+        public string GroupId { get; set; }
+        public string DeviceId { get; set; }
         public DateTime? SentDateTime { get; set; }
         public string FileFormat { get; set; }
         public string Img { get; set; }
