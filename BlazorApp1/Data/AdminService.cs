@@ -10,7 +10,7 @@ namespace BlazorApp1.Data
 {
     public class AdminService
     {
-        string apiurl2 = "https://localhost:44304/admin/";
+        string apiurl2 = "https://localhost:44304/adminuser/";
         public async Task<int> SaveAsync(Admin admin)
         {
             var client = new HttpClient();
@@ -32,7 +32,7 @@ namespace BlazorApp1.Data
 
 
         }
-        public async Task<AdminUser> GetAdminUserById(int id)
+        public async Task<Admin> GetAdminById(int id)
         {
             var client = new HttpClient();
             var response = await client.GetAsync(apiurl2 + id);
@@ -50,7 +50,7 @@ namespace BlazorApp1.Data
 
             return bool.Parse(data);
         }
-        public async Task<AdminUser> EditAdmin(int id)
+        public async Task<Admin> EditAdmin(int id)
         {
             var client = new HttpClient();
             var response = await client.PutAsync(apiurl2, new StringContent(JsonConvert.SerializeObject(id), Encoding.UTF8, "application/json"));

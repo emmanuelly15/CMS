@@ -1,7 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using CommonModels.Model;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Api.Model.Database;
 using System.Threading.Tasks;
 
 namespace Api.Model.Database
@@ -14,10 +16,10 @@ namespace Api.Model.Database
         public DbSet<DbAdminUser> AdminUsers { get; set; }
         public DbSet<DbDevice> Devices { get; set; }
         public DbSet<DbGroup> Groups { get; set; }
-
+        public DbSet<DbAdmin> Admins { get; set; }
         public DbSet<DbMailingList> ML { get; set; }
          public DbSet<DbDocument> Documents { get; set; }
-
+       
 
 
         public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options)
