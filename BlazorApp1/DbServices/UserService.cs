@@ -2,7 +2,10 @@
 using Newtonsoft.Json;
 using System.Net.Http;
 using System.Text;
+using System.Security.Cryptography;
 using System.Threading.Tasks;
+using static System.Console;
+using System;
 
 namespace BlazorApp1.Data
 
@@ -40,6 +43,21 @@ namespace BlazorApp1.Data
             var user = Newtonsoft.Json.JsonConvert.DeserializeObject<User>(data);
             return user;
         }
+        //adding user password hash
+       /* string HashPassword(string password) //hashpassword method
+        {
+            using SHA256 hash = SHA256.Create(); //call create method to return instance of SHA
+            var passwordBytes = Encoding.Default.GetBytes(password);
+            //must change string to bytes to pass to ComputeHash method
+            hash.ComputeHash(passwordBytes); //call another method
+
+            //return an array of bytes and then convert to string
+            var hashedpassword = hash.ComputeHash(passwordBytes);
+
+            //convert method to convert bytes to string
+            return Convert.ToBase64String(hashedpassword);
+
+        }*/
         public async Task<bool> DeleteAsync(int id)
         {
             var client = new HttpClient();

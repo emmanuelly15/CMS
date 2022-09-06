@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using CommonModels.Model;
 using System.Linq;
 using System.Threading.Tasks;
+using System;
 
 namespace Api.Controllers
 {
@@ -75,12 +76,18 @@ namespace Api.Controllers
         [HttpPut("{id}")]
         public int UpdateGroup(Group group)
         {
-            var dbGroup = db.Groups.FirstOrDefault(u => u.Id == group.Id);
+            //var dbGroup = db.Groups.FirstOrDefault(u => u.Id == group.Id);
+            var dbGroup = db.Groups.Find(group.Id);
+            if (dbGroup != null)
+            {
+                dbGroup = group;
+                db.SaveChanges();
+            }
 
-            dbGroup.Groups = group.Groups;
-            
+            //dbGroup.Groups = group.Groups;
 
-            db.SaveChanges();
+
+            //db.SaveChanges();
             return dbGroup.Id;
 
         }

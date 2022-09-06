@@ -8,9 +8,9 @@ namespace Api.Models
     public partial class DocumentStat
     {
         public int DocId { get; set; }
-        public int? UserId { get; set; }
-        public int? GroupId { get; set; }
-        public int? DeviceId { get; set; }
+        public int UserId { get; set; }
+        public int GroupId { get; set; }
+        public int DeviceId { get; set; }
         public DateTime? SentDate { get; set; }
         public string FileFormat { get; set; }
         public string Img { get; set; }

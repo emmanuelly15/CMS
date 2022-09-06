@@ -16,7 +16,6 @@ namespace Api.Model.Database
         public DbSet<DbAdminUser> AdminUsers { get; set; }
         public DbSet<DbDevice> Devices { get; set; }
         public DbSet<DbGroup> Groups { get; set; }
-
         public DbSet<DbMailingList> ML { get; set; }
          public DbSet<DbDocument> Documents { get; set; }
        

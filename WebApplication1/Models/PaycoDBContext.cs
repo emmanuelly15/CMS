@@ -74,7 +74,7 @@ namespace Api.Models
 
                 entity.ToTable("DeviceManagement");
 
-                entity.Property(e => e.DeviceId).HasColumnName("DeviceID");
+                //entity.Property(e => e.DeviceId).HasColumnName("DeviceID");
 
                 entity.Property(e => e.DeviceImei)
                     .HasMaxLength(100)
