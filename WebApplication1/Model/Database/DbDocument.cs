@@ -11,28 +11,22 @@ namespace Api.Model.Database
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         [Required]
-        public string UserId { get; set; }
+        public string Email { get; set; }
         [Required]
-        public string GroupId { get; set; }
+        public string Title { get; set; }
         [Required]
-        public string DeviceId { get; set; }
-        [Required]
-        public DateTime? SentDateTime { get; set; }
-        [Required]
-        public string FileFormat { get; set; }
+        public DateTime? Time { get; set; }
         [Required]
         public string Img { get; set; }
         [Required]
-        public string Description { get; set; }
+        public string FileFormat { get; set; }
+        [Required]
+        public string Comment { get; set; }
         [Required]
         public string Location { get; set; }
         [Required]
-        public bool Status { get; set; }
-        [Required]
-        public string DocType { get; set; }
+        public string Status { get; set; }
         [Required]
         public int Amount { get; set; }
-        [Required]
-        public string Comment { get; set; }
     }
 }

@@ -1,33 +1,26 @@
 @page "/DocumentSubmission"
 @using BlazorApp1.Data
 @using CommonModels.Model
-@using Microsoft.JSInterop
-@inject NavigationManager NavigationManager
-@inject IJSRuntime JsRuntime
 @inject DocumentService DocumentService
 
-<h1>Document Submission</h1>
-<h2>View documents and approve or reject the document</h2>
-
-<h3>Document Submissions List</h3>
+<h3>Document Submission</h3>
+<p>View documents and approve or reject the document</p>
+<p>Document Submissions List</p>
 <div>
     @if (documents != null)
     {
         <table class="table-bordered">
             <thead>
                 <tr>
-                    <th width="30%">User</th>
-                    <th width="20%">Group</th>
-                    <th width="20%">Device</th>
-                    <th width="20%">SentDateTime</th>
-                    <th width="30%">FileFormat</th>
+                    <th width="30%">Email</th>
+                    <th width="20%">Title</th>
+                    <th width="20%">Time</th>
                     <th width="30%">Img</th>
-                    <th width="20%">Description</th>
+                    <th width="30%">FileFormat</th>
+                    <th width="20%">Comment</th>
                     <th width="20%">Location</th>
                     <th width="20%">Status</th>
-                    <th width="30%">DocType</th>
                     <th width="20%">Amount</th>
-                    <th width="30%">Comment</th>
 
                 </tr>
             </thead>
@@ -35,20 +28,17 @@
                 @foreach (var p in documents)
                 {
                     <tr>
-                        <td>@p.SentDateTime</td>
+                        <td>@p.Email</td>
+                        <td>@p.Title</td>
+                        <td>@p.Time</td>
+                        <td>@p.Img </td>
                         <td>@p.FileFormat</td>
-                        <td>@p.DeviceId</td>
-                        <td>
-                            @p.Img
-                        </td>
-                        <td>@p.Description</td>
+                        <td>@p.Comment</td>
                         <td>@p.Location</td>
                         <td>@p.Status</td>
-                        <td>@p.DocType</td>
                         <td>@p.Amount</td>
-                        <td>@p.Comment</td>
                         <td>
-                            <a href="/editdevice/@p.Id">Arrpove</a> |
+                            <a href="/editdevice/@p.Id">Approve</a> |
                             <a href="/deletedevice/@p.Id">Reject</a>
                         </td>
                     </tr>

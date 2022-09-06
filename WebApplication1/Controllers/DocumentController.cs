@@ -25,30 +25,46 @@ namespace WebApplication1.Controllers
 
             var allDocuments = db.Documents.ToList().Select(v => new Document
             {
-                UserId = v.UserId,
-                GroupId = v.GroupId,
-                DeviceId = v.DeviceId,
-                SentDateTime = v.SentDateTime,
-                FileFormat = v.FileFormat,
+                Email = v.Email,
+                Title = v.Title,
+                Time = v.Time,
                 Img = v.Img,
-                Description = v.Description,
+                FileFormat = v.FileFormat,
+                Comment = v.Comment,
                 Location = v.Location,
                 Status = v.Status,
-                DocType = v.DocType,
-                Amount = v.Amount,
-                Comment = v.Comment
+                Amount = v.Amount
             });
 
             return allDocuments; //} End of block 1. getting device data
-                                   //get all devices information
+                                 //get all devices information
 
+        }
+        public Document Get(int id)
+        {
+            var document = db.Documents.FirstOrDefault(u => u.Id == id);
+            var documentview = new Document
+            {
+                Id = document.Id,
+                Email = document.Email,
+                Title = document.Title,
+                Time = document.Time,
+                Img = document.Img,
+                FileFormat = document.FileFormat,
+                Comment = document.Comment,
+                Location = document.Location,
+                Status = document.Status,
+                Amount = document.Amount,
+            };
 
+            return documentview;
+        }
 
         //private readonly ILogger<DocumentController>_logger;
 
-       // public DocumentController(ILogger<DocumentController> logger)
+        // public DocumentController(ILogger<DocumentController> logger)
         //{
-          //  _logger = logger;
+        //  _logger = logger;
         //}
 
         //[HttpGet]
@@ -64,54 +80,51 @@ namespace WebApplication1.Controllers
         //    .ToArray();
         //}
 
-       /* [HttpPost]
-        public object PostImage()
-        {
-            return null;
-        }
+        /* [HttpPost]
+         public object PostImage()
+         {
+             return null;
+         }
 
-            [HttpGet]
-        public IEnumerable<Document> Get()
-        {
-            var docList = new List<Document>();
+             [HttpGet]
+         public IEnumerable<Document> Get()
+         {
+             var docList = new List<Document>();
 
-            docList.Add(new Document
-            {
-                Name = "Invoice",
-                CreationDate = DateTime.Now,
-                Creator = "Shanon",
-                CellphoneNumber = "0729981533"
+             docList.Add(new Document
+             {
+                 Name = "Invoice",
+                 CreationDate = DateTime.Now,
+                 Creator = "Shanon",
+                 CellphoneNumber = "0729981533"
 
-            });
+             });
 
-            docList.Add(new Document
-            {
-                Name = "Purchase Order",
-                CreationDate = DateTime.Now,
-                Creator = "Shanon",
-                CellphoneNumber = "0729981533"
-            });
+             docList.Add(new Document
+             {
+                 Name = "Purchase Order",
+                 CreationDate = DateTime.Now,
+                 Creator = "Shanon",
+                 CellphoneNumber = "0729981533"
+             });
 
-            return docList;*/
-           
-        }
+             return docList;*/
+
+
         [HttpPost]
         public int Create(Document document)
         {
             var dbDocument = new DbDocument 
             {
-                UserId = document.UserId,
-                GroupId = document.GroupId,
-                DeviceId = document.DeviceId,
-                SentDateTime = document.SentDateTime,
-                FileFormat = document.FileFormat,
+                Email = document.Email,
+                Title = document.Title,
+                Time = document.Time,
                 Img = document.Img,
-                Description = document.Description,
+                FileFormat = document.FileFormat,
+                Comment = document.Comment,
                 Location = document.Location,
                 Status = document.Status,
-                DocType = document.DocType,
-                Amount = document.Amount,
-                Comment = document.Comment
+                Amount = document.Amount
             };
 
             db.Documents.Add(dbDocument);
