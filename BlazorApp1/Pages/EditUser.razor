@@ -54,16 +54,26 @@
 
     protected override async Task OnInitializedAsync()
     {
-        user = await UserService.GetUserById(int.Parse(Id));
+        user = await UserService.GetUserById(int.Parse(Id)); //getting users information from db to display in edit boxes.
     }
-        protected async Task UpdateUser()
+        protected async Task UpdateUser() //calling the controller
         {
-           await UserService.EditUser(int.Parse(Id));
-            NavigationManager.NavigateTo("UserList");
+           await UserService.EditUser(int.Parse(Id)); //calling the service to edit.
+            NavigationManager.NavigateTo("UserList"); //taking user back to the list once save is pressed.
                 
             }
             void Cancel()
             {
                 NavigationManager.NavigateTo("UserList");
             }
+       /* protected async Task HandleValidSubmit()
+        {
+            Mapper.Map(User, user);
+            var result = await UserService.UpdateUser(user);
+            if (result != null)
+            {
+            NavigationManager.NavigateTo("UserList");
+            }
+        }*/
+
         }
