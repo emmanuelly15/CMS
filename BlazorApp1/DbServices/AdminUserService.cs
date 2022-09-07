@@ -1,5 +1,4 @@
-﻿using Api.Models;
-using CommonModels.Model;
+﻿using CommonModels.Model;
 using Newtonsoft.Json;
 using System.Net.Http;
 using System.Text;
@@ -8,38 +7,38 @@ using System.Threading.Tasks;
 namespace BlazorApp1.Data
 
 {
-    public class AdminService
+    public class AdminUserService
     {
         string apiurl2 = "https://localhost:44304/adminuser/";
-        public async Task<int> SaveAsync(Admin admin)
+        public async Task<int> SaveAsync(AdminUser adminuser)
         {
             var client = new HttpClient();
-            var response = await client.PostAsync(apiurl2, new StringContent(JsonConvert.SerializeObject(admin), Encoding.UTF8, "application/json"));
+            var response = await client.PostAsync(apiurl2, new StringContent(JsonConvert.SerializeObject(adminuser), Encoding.UTF8, "application/json"));
             var data = await response.Content.ReadAsStringAsync();
 
 
             return int.Parse(data);
         }
-        public async Task<Admin[]> GetAdminAsync()
+        public async Task<AdminUser[]> GetAdminUsersAsync()
         {
 
             var client = new HttpClient();
             var response = await client.GetAsync(apiurl2);
             var data = await response.Content.ReadAsStringAsync();
 
-            var listOfAdmin = Newtonsoft.Json.JsonConvert.DeserializeObject<Admin[]>(data);
-            return listOfAdmin;
+            var listOfAdminUsers = Newtonsoft.Json.JsonConvert.DeserializeObject<AdminUser[]>(data);
+            return listOfAdminUsers;
 
 
         }
-        public async Task<Admin> GetAdminById(int id)
+        public async Task<AdminUser> GetAdminUserById(int id)
         {
             var client = new HttpClient();
             var response = await client.GetAsync(apiurl2 + id);
             var data = await response.Content.ReadAsStringAsync();
 
-            var admin = Newtonsoft.Json.JsonConvert.DeserializeObject<Admin>(data);
-            return admin;
+            var adminuser = Newtonsoft.Json.JsonConvert.DeserializeObject<AdminUser>(data);
+            return adminuser;
         }
         public async Task<bool> DeleteAsync(int id)
         {
@@ -50,14 +49,14 @@ namespace BlazorApp1.Data
 
             return bool.Parse(data);
         }
-        public async Task<Admin> EditAdmin(int id)
+        public async Task<AdminUser> EditAdminUser(int id)
         {
             var client = new HttpClient();
             var response = await client.PutAsync(apiurl2, new StringContent(JsonConvert.SerializeObject(id), Encoding.UTF8, "application/json"));
             var data = await response.Content.ReadAsStringAsync();
 
-            var admin = Newtonsoft.Json.JsonConvert.DeserializeObject<Admin>(data);
-            return admin;
+            var adminuser = Newtonsoft.Json.JsonConvert.DeserializeObject<AdminUser>(data);
+            return adminuser;
         }
     }
 }

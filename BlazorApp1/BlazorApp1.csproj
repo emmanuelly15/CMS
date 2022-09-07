@@ -7,12 +7,12 @@
 
   <ItemGroup>
 	  <Content Remove="Pages\Login.razor" />
-     <Content Remove="Pages\DocumentSubmission.razor" />
     <Content Remove="Shared\SurveyPrompt.razor" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Material.Icons" Version="1.1.14" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Forms" Version="3.1.26" />
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="3.1.26" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.26" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.1.26" />
@@ -30,13 +30,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <_ContentIncludedByDefault Remove="Pages\EditML.razor" />
     <_ContentIncludedByDefault Remove="Pages\Login.razor" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="Pages\DocumentSubmission.razor" />
-    <None Include="Pages\EditML.razor" />
     <None Include="Pages\Login.razor" />
     <None Include="Pages\MailingListList.razor" />
   </ItemGroup>
@@ -45,8 +42,5 @@
     <UpToDateCheckInput Remove="Pages\Login.razor" />
   </ItemGroup>
 
-  <ItemGroup>
-    <UpToDateCheckInput Remove="Pages\EditML.razor" />
-  </ItemGroup>
 
 </Project>
