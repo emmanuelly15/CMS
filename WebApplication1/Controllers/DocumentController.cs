@@ -131,22 +131,22 @@ namespace WebApplication1.Controllers
             return results; //maybe connected to imageupload error
         }*/
 
-        [HttpPost("{id}")]
-        [Route("UploadDocument")]
-        public async Task<IActionResult> Upload([FromForm] Document doc)
-        {
-            var dbDocuments = db.Documents.FirstOrDefault(u => u.Id == doc.Id);
-            var imagePath = Path.Combine(@"C:\uploadfolder\", doc.img_jpg.FileName);
-            using (Stream fileStream = new FileStream(imagePath, FileMode.Create))
-            {
-                await doc.img_jpg.CopyToAsync(fileStream);
-            }
-            var filePath = Path.Combine(@"C:\uploadfolder\", doc.file_pdf.FileName);
-            using (Stream fileStream = new FileStream(filePath, FileMode.Create))
-            {
-                await doc.file_pdf.CopyToAsync(fileStream);
-            }
-            return Ok();
-        }
+         /*[HttpPost("{id}")]
+         [Route("UploadDocument")]
+         public async Task<IActionResult> Upload([FromForm] Document doc)
+         {
+             var dbDocuments = db.Documents.FirstOrDefault(u => u.Id == doc.Id);
+             var imagePath = Path.Combine(@"C:\uploadfolder\", doc.img_jpg.FileName);
+             using (Stream fileStream = new FileStream(imagePath, FileMode.Create))
+             {
+                 await doc.img_jpg.CopyToAsync(fileStream);
+             }
+             var filePath = Path.Combine(@"C:\uploadfolder\", doc.file_pdf.FileName);
+             using (Stream fileStream = new FileStream(filePath, FileMode.Create))
+             {
+                 await doc.file_pdf.CopyToAsync(fileStream);
+             }
+             return Ok();
+         }*/
     }
 }
