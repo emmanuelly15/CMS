@@ -17,8 +17,8 @@ namespace Api.Model.Database
         public DbSet<DbDevice> Devices { get; set; }
         public DbSet<DbGroup> Groups { get; set; }
         public DbSet<DbMailingList> ML { get; set; }
-         public DbSet<DbDocument> Documents { get; set; }
-       
+        public DbSet<DbDocument> Documents { get; set; }
+        public DbSet<Imageupload> Imageuploads { get; set; }
 
 
         public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options)
