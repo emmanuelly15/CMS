@@ -1,7 +1,9 @@
 ﻿@page "/Login"
-@using CommonModels.Model;
+@using CommonModels.Model
+@using BlazorApp1.Data
+@inject IJSRuntime JsRuntime
+@inject AdminUserService AdminUserService
 
-@inject NavigationManager navManager;
 <h3>Login</h3>
 <style></style>
 <div style="min-height:400px;"> 
@@ -13,7 +15,7 @@
             <br />
             <h1>Login</h1>
             
-            @if (loginModel != null)
+            @if (adminuser != null)
             {
               
                  }
@@ -22,5 +24,11 @@
 </div>
 
 @code {
-    LoginModel loginModel { get; set; }
+    [Parameter]
+    public string Id{ get; set; }
+    protected async Task Login()
+    {
+        await AdminUserService.Login(int.Parse(Id));
+    }
+
 }

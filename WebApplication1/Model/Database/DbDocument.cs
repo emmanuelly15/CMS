@@ -1,7 +1,8 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 namespace Api.Model.Database
 {
     [Table("Document", Schema = "dbo")]
@@ -9,6 +10,8 @@ namespace Api.Model.Database
     {
         [Required]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        /*[FromForm(Name = "Docfile")]
+        public IFormFile Docfile { get; set; }*/
         public int Id { get; set; }
         [Required]
         public string Email { get; set; }

@@ -18,6 +18,15 @@ namespace BlazorApp1.Data
 
             return int.Parse(data);
         }
+        public async Task<int> Upload(Document doc) //saving a device to the database
+        {
+            var client = new HttpClient();
+            var response = await client.PostAsync("https://localhost:44304/document", new StringContent(JsonConvert.SerializeObject(doc), Encoding.UTF8, "application/json"));
+            var data = await response.Content.ReadAsStringAsync();
+
+
+            return int.Parse(data);
+        }
 
         public async Task<Document[]> GetDocumentsAsync() //getting data from the database
         {

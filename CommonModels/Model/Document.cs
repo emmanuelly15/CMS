@@ -1,8 +1,13 @@
-﻿namespace CommonModels.Model
+﻿
+namespace CommonModels.Model
 {
+    using Microsoft.AspNetCore.Http;
+    using Microsoft.AspNetCore.Mvc;
     using System;
     public class Document
     {
+       /* [FromForm(Name = "Docfile")]
+        public IFormFile Docfile { get; set; }  */
         public int Id { get; set; }
         public string Email { get; set; }
         public string Title { get; set; }
