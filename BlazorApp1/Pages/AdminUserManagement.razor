@@ -41,7 +41,11 @@
     [Parameter]
     public string Id{ get; set; }
     AdminUser adminuser = new AdminUser();
-    
+    /*protected async Task Login()
+    {
+        await AdminUserService.Login(int.Parse(Id));
+        NavigationManager.NavigateTo("AdminUserList");
+    }*/
     protected async Task Save()
     {
         await AdminUserService.SaveAsync(adminuser);
