@@ -1,23 +1,21 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Hosting;
+﻿using Api.Model.Database;
+using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using System.IO;
 using System;
 using Microsoft.AspNetCore.Hosting;
-using Api.Model.Database;
-using Microsoft.AspNetCore.Authentication;
 using System.Linq;
-using System.Collections.Generic;
 
 namespace Api.Controllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
-    public class ImageTestController : Controller
+    public class ImageUploadController : Controller
     {
         public IHostingEnvironment hostingEnvironment; //
         public DatabaseContext dbaseContext;
 
-        public ImageTestController(IHostingEnvironment hostingEnv, DatabaseContext db)
+        public ImageUploadController(IHostingEnvironment hostingEnv, DatabaseContext db)
         {
             hostingEnvironment = hostingEnv;
             dbaseContext = db;
@@ -63,10 +61,12 @@ namespace Api.Controllers
             }
         }
         [HttpGet]
-        public ActionResult<List<Imageupload>> GetImageUpload() 
+        public ActionResult<List<Imageupload>> GetImageUpload()
         {
             var result = dbaseContext.Imageuploads.ToList();
             return result;
         }
     }
 }
+    
+
