@@ -139,7 +139,7 @@ namespace WebApplication1.Controllers
 
             db.SaveChanges();
             return dbDocument.Id;
-        }*/
+        }
         /*[HttpPost]
         public ActionResult<string> UploadDocument(Document document, int v)
         {
