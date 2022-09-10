@@ -1,4 +1,4 @@
-﻿using System;
+﻿/*using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
@@ -17,7 +17,7 @@ namespace Api.Models
         {
         }
 
-        public virtual DbSet<Admin> Admins { get; set; }
+        
         public virtual DbSet<DeviceManagement> DeviceManagements { get; set; }
         public virtual DbSet<DocumentStat> DocumentStats { get; set; }
         public virtual DbSet<GroupManagement> GroupManagements { get; set; }
@@ -28,7 +28,7 @@ namespace Api.Models
         public virtual DbSet<Site> Sites { get; set; }
         public virtual DbSet<SystemUser> SystemUsers { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+       /* protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
@@ -37,11 +37,11 @@ namespace Api.Models
             }
         }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        /*protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.HasAnnotation("Relational:Collation", "Latin1_General_CI_AS");
 
-            modelBuilder.Entity<Admin>(entity =>
+           /* modelBuilder.Entity<Admin>(entity =>
             {
                 entity.HasNoKey();
 
@@ -252,3 +252,4 @@ namespace Api.Models
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
     }
 }
+*/

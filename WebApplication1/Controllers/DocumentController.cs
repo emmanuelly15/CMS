@@ -24,7 +24,20 @@ namespace WebApplication1.Controllers
             hostingEnvironment = hostingEnv;
             this.db = db;
         }
-
+        
+       /* [HttpPost("{id}")]                                
+        [Route("UploadDocument")]                   
+        public async Task<Document> Upload([FromForm] Document doc)
+        {
+            var dbDocuments = db.Documents.FirstOrDefault(u => u.Id == doc.Id);
+            var filePath = Path.Combine(@"C:\uploadfolder\", doc.Docfile.FileName);
+            using (Stream fileStream = new FileStream(filePath, FileMode.Create))
+            {
+                await doc.Docfile.CopyToAsync(fileStream);
+            }
+            return doc;
+        }*/
+        
         [HttpGet]
         public IEnumerable<Document> Get()
         {

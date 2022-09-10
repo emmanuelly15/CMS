@@ -31,6 +31,14 @@ namespace BlazorApp1.Data
 
 
         }
+       /* public async Task<int> Login(int id)
+        {
+            var client = new HttpClient();
+            var response = await client.GetAsync(apiurl2 + id);
+            var data = await response.Content.ReadAsStringAsync();
+
+            return int.Parse(data);
+        }*/
         public async Task<AdminUser> GetAdminUserById(int id)
         {
             var client = new HttpClient();

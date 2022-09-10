@@ -12,6 +12,8 @@ namespace Api.Model.Database
     {
         [Required]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        /*[FromForm(Name = "Docfile")]
+        public IFormFile Docfile { get; set; }*/
         public int Id { get; set; }
         [Required]
         public string Email { get; set; }
