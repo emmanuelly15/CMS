@@ -1,5 +1,5 @@
 @page "/DocumentSubmission"
-@using BlazorApp1.Data
+@using BlazorApp1.DbServices
 @using CommonModels.Model
 @inject DocumentService DocumentService
 
@@ -7,15 +7,15 @@
 <p>View documents and approve or reject the document</p>
 <p>Document Submissions List</p>
 <div>
-    @if (documents != null)
+    @if (imageuploads != null)
     {
         <table class="table-bordered">
             <thead>
                 <tr>
                     <th width="30%">Email</th>
                     <th width="20%">Title</th>
-                    <th width="20%">Time</th>
-                    <th width="30%">Img</th>
+                    <th width="20%">InsertedOn</th>
+                    <th width="30%">ImagePath</th>
                     <th width="30%">FileFormat</th>
                     <th width="20%">Comment</th>
                     <th width="20%">Location</th>
@@ -25,13 +25,13 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var p in documents)
+                @foreach (var p in imageuploads)
                 {
                     <tr>
                         <td>@p.Email</td>
                         <td>@p.Title</td>
-                        <td>@p.Time</td>
-                        <td>@p.Img </td>
+                        <td>@p.InsertedOn</td>
+                        <td><a href="@p.ImagePath"> @p.ImagePath</a></td>
                         <td>@p.FileFormat</td>
                         <td>@p.Comment</td>
                         <td>@p.Location</td>
@@ -53,10 +53,10 @@
 @code {
     //timestamp for image issue - 12:00...need to create @onclick for image 
     //proper setup to call img link timestamp - 18:16
-    private Document[] documents;
+    private Imageupload[] imageuploads;
     protected override async Task OnInitializedAsync()
     {
-      documents = await DocumentService.GetDocumentsAsync();
+      imageuploads = await DocumentService.GetDocumentsAsync();
     }
 
     /*[Parameter]
