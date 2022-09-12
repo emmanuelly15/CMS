@@ -17,7 +17,7 @@ namespace WebApplication1.Controllers
     public class DocumentController : ControllerBase
     {
         public IHostingEnvironment hostingEnvironment;
-
+        //private readonly DocumentService svc;
         private readonly DatabaseContext db; //refer to DatabaseContext.cs 
         public DocumentController(IHostingEnvironment hostingEnv, DatabaseContext db)
         {
@@ -25,60 +25,50 @@ namespace WebApplication1.Controllers
             this.db = db;
         }
         
-       /* [HttpPost("{id}")]                                
-        [Route("UploadDocument")]                   
-        public async Task<Document> Upload([FromForm] Document doc)
-        {
-            var dbDocuments = db.Documents.FirstOrDefault(u => u.Id == doc.Id);
-            var filePath = Path.Combine(@"C:\uploadfolder\", doc.Docfile.FileName);
-            using (Stream fileStream = new FileStream(filePath, FileMode.Create))
-            {
-                await doc.Docfile.CopyToAsync(fileStream);
-            }
-            return doc;
-        }*/
+        
         
         [HttpGet]
-        public IEnumerable<Document> Get()
+        public IEnumerable<Imageupload> Get()
         {
 
-            var docList = new List<Document>();
+            var docList = new List<Imageupload>();
 
-            var allDocuments = db.Documents.ToList().Select(v => new Document
+            var allImageuploads = db.Documents.ToList().Select(v => new Imageupload
             {
                 Email = v.Email,
                 Title = v.Title,
-                Time = v.Time,
-                Img = v.Img,
+                InsertedOn = (DateTime)v.InsertedOn,
+                ImagePath = v.ImagePath,
                 FileFormat = v.FileFormat,
                 Comment = v.Comment,
                 Location = v.Location,
-                Status = v.Status,
+                Status = v.Status == "A"? "Accepted" :(v.Status == "R" ? "Rejected" : "Pending" ),
                 Amount = v.Amount
+
             });
 
-            return allDocuments; //} End of block 1. getting device data
+            return allImageuploads; //} End of block 1. getting device data
                                  //get all devices information
 
         }
-        public Document Get(int id)
+        public Imageupload Get(int id)
         {
-            var document = db.Documents.FirstOrDefault(u => u.Id == id);
-            var documentview = new Document
+            var imageupload = db.Documents.FirstOrDefault(u => u.Id == id);
+            var imageuploadview = new Imageupload
             {
-                Id = document.Id,
-                Email = document.Email,
-                Title = document.Title,
-                Time = document.Time,
-                Img = document.Img,
-                FileFormat = document.FileFormat,
-                Comment = document.Comment,
-                Location = document.Location,
-                Status = document.Status,
-                Amount = document.Amount,
+                Id = imageupload.Id,
+                Email = imageupload.Email,
+                Title = imageupload.Title,
+                InsertedOn = (DateTime)imageupload.InsertedOn,
+                ImagePath = imageupload.ImagePath,
+                FileFormat = imageupload.FileFormat,
+                Comment = imageupload.Comment,
+                Location = imageupload.Location,
+                Status = imageupload.Status == "A" ? "Accepted" : (imageupload.Status == "R" ? "Rejected" : "Pending"),
+                Amount = imageupload.Amount,
             };
 
-            return documentview;
+            return imageuploadview;
         }
 
         //private readonly ILogger<DocumentController>_logger;
@@ -132,27 +122,7 @@ namespace WebApplication1.Controllers
              return docList;*/
 
 
-        [HttpPost]
-        public int Create(Document document)
-        {
-            var dbDocument = new DbDocument
-            {
-                Email = document.Email,
-                Title = document.Title,
-                Time = document.Time,
-                Img = document.Img,
-                FileFormat = document.FileFormat,
-                Comment = document.Comment,
-                Location = document.Location,
-                Status = document.Status,
-                Amount = document.Amount
-            };
-
-            db.Documents.Add(dbDocument);
-
-            db.SaveChanges();
-            return dbDocument.Id;
-        }*/
+        
         /*[HttpPost]
         public ActionResult<string> UploadDocument(Document document, int v)
         {

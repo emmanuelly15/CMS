@@ -15,7 +15,7 @@ namespace CommonModels.Model
     public class Document
     {
        /* [FromForm(Name = "Docfile")]
-        public IFormFile Docfile { get; set; }  */
+        public IFormFile Docfile { get; set; }*/
         public int Id { get; set; }
         public string Email { get; set; }
         public string Title { get; set; }
@@ -27,7 +27,7 @@ namespace CommonModels.Model
         public string Status { get; set; }
         public int Amount { get; set; }
 
-        [FromForm(Name = "img_jpg")]  //got link from Gilbert  getting img.jpg from database
+        /*[FromForm(Name = "img_jpg")]  //got link from Gilbert  getting img.jpg from database
         public IFormFile img_jpg { get; set; }
         //public List<DbDocument> Img { get; set; }
         [FromForm(Name = "file_pdf")] //getting file.pdf from database
@@ -35,7 +35,7 @@ namespace CommonModels.Model
         //public List<DbDocument> FileFormat { get; set; }
     }
 
-   /* public class UploadDocument //creating model class for uploading a document
+   public class UploadDocument //creating model class for uploading a document
     {
         [Key]
         [Column(TypeName = "bigint")]
@@ -45,4 +45,5 @@ namespace CommonModels.Model
         [Column(TypeName = "datetime")]
         public DateTime InsertedOn { get; set; }
     }*/
+    }
 }

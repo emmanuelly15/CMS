@@ -17,6 +17,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BlazorApp1.DbServices;
 
 namespace BlazorApp1
 {
@@ -49,6 +50,7 @@ namespace BlazorApp1
             services.AddSingleton<MailingListService>();
             services.AddSingleton<AdminUserService>();
             services.AddSingleton<DocumentService>();
+            services.AddSingleton<ImageUploadService>();
             services.AddScoped<GroupsListService>();
             services.AddScoped<UserListService>();
         }
