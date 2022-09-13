@@ -1,14 +1,16 @@
-﻿using BlazorApp1.Pages;
+﻿using Api.Model.Database;
+using BlazorApp1.Pages;
 using CommonModels.Model;
 using Newtonsoft.Json;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BlazorApp1.Data
+namespace BlazorApp1.DbServices
 {
     public class DocumentService
     {
+        
         public async Task<int> SaveAsync(Document document) //saving a device to the database
         {
             var client = new HttpClient();
@@ -28,15 +30,15 @@ namespace BlazorApp1.Data
             return int.Parse(data);
         }
 
-        public async Task<Document[]> GetDocumentsAsync() //getting data from the database
+        public async Task<Imageupload[]> GetDocumentsAsync() //getting data from the database
         {
 
             var client = new HttpClient();
             var response = await client.GetAsync("https://localhost:44304/document");
             var data = await response.Content.ReadAsStringAsync();
 
-            var listOfDocuments = Newtonsoft.Json.JsonConvert.DeserializeObject<Document[]>(data);
-            return listOfDocuments;
+            var listOfImageuploads = Newtonsoft.Json.JsonConvert.DeserializeObject<Imageupload[]>(data);
+            return listOfImageuploads;
 
         }
     }
