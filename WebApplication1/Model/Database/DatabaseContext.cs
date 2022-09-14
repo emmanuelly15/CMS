@@ -11,7 +11,7 @@ namespace Api.Model.Database
     public class DatabaseContext : DbContext
     {
         //gets data from db
-        public DbSet<DbNotification> Notifications { get; set; }
+        
         public DbSet<DbUser> Users { get; set; }
         public DbSet<DbAdminUser> AdminUsers { get; set; }
         public DbSet<DbDevice> Devices { get; set; }

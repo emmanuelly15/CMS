@@ -4,7 +4,7 @@ namespace CommonModels.Model
 {
     public class Imageupload
     {
-        public long Id { get; set; }
+        public int Id { get; set; }
         public string ImagePath { get; set; }
         public DateTime InsertedOn { get; set; }
         public string Email { get; set; }

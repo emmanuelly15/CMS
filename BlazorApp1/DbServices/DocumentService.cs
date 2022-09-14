@@ -11,10 +11,10 @@ namespace BlazorApp1.DbServices
     public class DocumentService
     {
         
-        public async Task<int> SaveAsync(Document document) //saving a device to the database
+        public async Task<int> SaveAsync(Imageupload imageupload) //saving a device to the database
         {
             var client = new HttpClient();
-            var response = await client.PostAsync("https://localhost:44304/document", new StringContent(JsonConvert.SerializeObject(document), Encoding.UTF8, "application/json"));
+            var response = await client.PostAsync("https://localhost:44304/document", new StringContent(JsonConvert.SerializeObject(imageupload), Encoding.UTF8, "application/json"));
             var data = await response.Content.ReadAsStringAsync();
 
 
@@ -39,6 +39,27 @@ namespace BlazorApp1.DbServices
 
             var listOfImageuploads = Newtonsoft.Json.JsonConvert.DeserializeObject<Imageupload[]>(data);
             return listOfImageuploads;
+
+        }
+        public async Task<Imageupload> GetDocumentById(int id)
+        {
+            var client = new HttpClient();
+            var response = await client.GetAsync("https://localhost:44304/document" + id);
+            var data = await response.Content.ReadAsStringAsync();
+
+            var imageupload = Newtonsoft.Json.JsonConvert.DeserializeObject<Imageupload>(data);
+            return imageupload;
+        }
+        public async Task ApproveDocumentById(int id)
+        {
+            var client = new HttpClient();
+            var response = await client.GetAsync("https://localhost:44304/ApproveDoc/" + id);
+            
+        }
+        public async Task RejectDocumentById(int id)
+        {
+            var client = new HttpClient();
+            var response = await client.GetAsync("https://localhost:44304/RejectDoc/" + id);
 
         }
     }
