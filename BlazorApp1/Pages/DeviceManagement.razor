@@ -60,14 +60,14 @@
     Is Authorised?
     <br />
  <label>
-     <input type ="radio" value="Yes" name="@device.Authorisation" checked="@(IsAuthorised == true)" @onclick ="@(()=>IsAuthorised = true)"/> yes
+            <input type="radio" value="Yes" name="@device.Authorisation" checked="@(device.Authorisation == true)" @onclick="@(()=>device.Authorisation = true)" /> yes
  </label>
         <label>
-            <input type="radio" value="No" name="@device.Authorisation" checked="@(IsAuthorised == false)" @onclick="@(()=>IsAuthorised = false)" /> no
+            <input type="radio" value="No" name="@device.Authorisation" checked="@(device.Authorisation == false)" @onclick="@(()=>device.Authorisation = false)" /> no
         </label>
 
-        <br /> 
- @IsAuthorised
+        <br />
+        @device.Authorisation
  </p>   
  
 
@@ -84,7 +84,6 @@
 
 @code {
     public string Id { get; set; }
-    bool IsAuthorised = true;
     Device device = new Device();
     List<GroupsListClass> grobj;
     List<UserListClass> usrobj;
