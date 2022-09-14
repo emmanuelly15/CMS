@@ -56,8 +56,6 @@
 
 
 @code {
-    //timestamp for image issue - 12:00...need to create @onclick for image 
-    //proper setup to call img link timestamp - 18:16
     private Imageupload[] imageuploads;
     protected override async Task OnInitializedAsync()
     {
@@ -68,23 +66,12 @@
     {
         await DocumentService.ApproveDocumentById(Id);
         Console.WriteLine(Id);
-        // await DocumentService.SaveAsync(document);
     }
     protected async Task Reject(MouseEventArgs args, int Id)
     {
         await DocumentService.RejectDocumentById(Id);
         Console.WriteLine(Id);
-        // await DocumentService.SaveAsync(document);
     }
-    /*[Parameter]
-    public int Id { get; set; }
     
-    
-    private string apilink;
-   
-    protected async Task Save()
-    {
-        await DocumentService.SaveAsync(document);
-    }*/
 
 }

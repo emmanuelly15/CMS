@@ -17,7 +17,7 @@ namespace Api.Controllers
     [ApiController]
     public class ImageUploadController : Controller
     {
-        public IHostingEnvironment hostingEnvironment; //
+        public IHostingEnvironment hostingEnvironment; 
         public DatabaseContext dbaseContext;
 
         public ImageUploadController(IHostingEnvironment hostingEnv, DatabaseContext db)
@@ -66,8 +66,6 @@ namespace Api.Controllers
                         if (hasAmount) 
                         {
                             var amt = Decimal.Parse(amount[0], CultureInfo.InvariantCulture);
-                           //ecimal.TryParse(amount[0], out decimal amt);
-                            //var amt = amount[0];
                             imageupload.Amount = amt;
 
                         }
@@ -87,12 +85,7 @@ namespace Api.Controllers
                 return el.Message; //exception message
             }
         }
-        /* [HttpGet]
-         public ActionResult<List<Imageupload>> GetImageUpload()
-         {
-             var result = dbaseContext.Imageuploads.ToList();
-             return result;
-         }*/
+        
         [HttpGet]
         public IEnumerable<Imageupload> Get()
         {
@@ -137,31 +130,6 @@ namespace Api.Controllers
             return imageuploadview;
         }
     }
-    /* [HttpPost]
-     public async Task<IActionResult> UploadImage(CommonModels.Model.Imageupload imageupload)
-     {
-         if (ModelState.IsValid)
-         {
-             if (imageupload.Image != null)
-             {
-                 string folder = "api/images/";
-                 folder + -Guid.NewGuid().ToString() + "_" + imageupload.CoverPhoto.FileName;
-
-                 CommonModels.Model.Imageupload.CoverImageUrl = folder;
-
-                 string serverFolder = Path.Combine(_webHostEnvironment.WebRootPath, folder);
-
-                 await imageupload.CoverPhoto.CopyToAsync(new FileStream(serverFolder, FileMode.Create));
-             }
-
-             int id = await _imageRepository.AddNewImage(Imageupload);
-             if (id > 0)
-             {
-                 return RedirectToAction(nameof(AddNewImage), new { isSuccess = true, imgId = id });
-             }
-         }
-
-     }*/
    
 }
     
