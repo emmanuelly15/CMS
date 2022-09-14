@@ -89,19 +89,5 @@ namespace Api.Controllers
 
         }
 
-        /* [HttpPost("id")]
-        public bool Login( string Email, string Password)
-        {
-            var adminuser = db.AdminUsers.Where(u => u.Email == Email && u.Password == Password).FirstOrDefault();
-            if (adminuser != null)
-            {
-                return true;
-            }
-            else 
-            {
-                return false;
-            } 
-        } */
-
     }
 }

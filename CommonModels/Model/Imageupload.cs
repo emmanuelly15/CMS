@@ -14,6 +14,5 @@ namespace CommonModels.Model
         public string Location { get; set; }
         public string Status { get; set; }
         public Decimal Amount { get; set; }
-        /*public string CoverImageUrl { get; set; }*/
     }
 }
