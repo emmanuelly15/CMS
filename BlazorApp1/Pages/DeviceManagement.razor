@@ -56,14 +56,21 @@
         </select>
         </div>
     </div>
-    
-    <div class="col-md-6">
-        <div class="form-group">
-            <label for="Auhtorisation"> Auhtorisation *</label>
-            <input form="Auhtorisation" class="form-control" @bind="@device.Authorisation" />
-        </div>
-    </div>
-    
+<p>
+    Is Authorised?
+    <br />
+ <label>
+     <input type ="radio" value="Yes" name="@device.Authorisation" checked="@(IsAuthorised == true)" @onclick ="@(()=>IsAuthorised = true)"/> yes
+ </label>
+        <label>
+            <input type="radio" value="No" name="@device.Authorisation" checked="@(IsAuthorised == false)" @onclick="@(()=>IsAuthorised = false)" /> no
+        </label>
+
+        <br /> 
+ @IsAuthorised
+ </p>   
+ 
+
 </div>
 <div class="row">
     <div class="col-md-4">
@@ -76,11 +83,12 @@
 
 
 @code {
-    [Parameter]
     public string Id { get; set; }
+    bool IsAuthorised = true;
     Device device = new Device();
     List<GroupsListClass> grobj;
     List<UserListClass> usrobj;
+
     protected override void OnInitialized()
     {
         //base.OnInitialized();
