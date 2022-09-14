@@ -7,8 +7,6 @@ namespace CommonModels.Model
     using System.Collections.Generic;
     using System.Reflection.Metadata;
     using System.Xml.Linq;
-    using Microsoft.AspNetCore.Mvc;
-    using Microsoft.AspNetCore.Http;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.ComponentModel.DataAnnotations;
 

@@ -80,7 +80,7 @@ namespace Api.Controllers
             var dbGroup = db.Groups.Find(group.Id);
             if (dbGroup != null)
             {
-                dbGroup = group;
+                dbGroup.Groups = group.Groups;
                 db.SaveChanges();
             }
 

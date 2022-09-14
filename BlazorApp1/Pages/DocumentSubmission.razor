@@ -31,15 +31,20 @@
                         <td>@p.Email</td>
                         <td>@p.Title</td>
                         <td>@p.InsertedOn</td>
-                        <td><a href="@p.ImagePath"> @p.ImagePath</a></td>
+                        <td><a href="@p.ImagePath" target="_blank"> @p.ImagePath</a></td>
                         <td>@p.FileFormat</td>
                         <td>@p.Comment</td>
                         <td>@p.Location</td>
                         <td>@p.Status</td>
                         <td>@p.Amount</td>
                         <td>
-                            <a href="/editdevice/@p.Id">Approve</a> |
-                            <a href="/deletedevice/@p.Id">Reject</a>
+                             
+                        @if (@p.Status=="Pending")
+                       {
+                           <button @onclick="@(k => Approve(k,@p.Id))">Approve</button>
+                           <button @onclick="@(k => Reject(k,@p.Id))">Reject</button>
+                       }
+                            
                         </td>
                     </tr>
                 }
@@ -56,9 +61,21 @@
     private Imageupload[] imageuploads;
     protected override async Task OnInitializedAsync()
     {
-      imageuploads = await DocumentService.GetDocumentsAsync();
+        imageuploads = await DocumentService.GetDocumentsAsync();
     }
 
+    protected async Task Approve(MouseEventArgs args, int Id)
+    {
+        await DocumentService.ApproveDocumentById(Id);
+        Console.WriteLine(Id);
+        // await DocumentService.SaveAsync(document);
+    }
+    protected async Task Reject(MouseEventArgs args, int Id)
+    {
+        await DocumentService.RejectDocumentById(Id);
+        Console.WriteLine(Id);
+        // await DocumentService.SaveAsync(document);
+    }
     /*[Parameter]
     public int Id { get; set; }
     

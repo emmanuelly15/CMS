@@ -8,18 +8,18 @@
 <h2>Edit User</h2>
 
 
-<EditForm Model=@group OnValidSubmit="HandleOnValidEdit">
-    <div class="row">
+<div class="row">
         <div class="col-md-6">
-            <div class="form-group">
-                <label for="Groups">  Group *</label>
-                <input form="Groups" class="form-control" @bind="@group.Groups" />
-            </div>
+                <div class="form-group">
+                        <label for="Email">  Email *</label>
+                        <input form="Email" class="form-control" @bind="@group.Groups" />
+                    </div>
+            
+                    </div>
+            
         </div>
-
-
-    </div>
-    <div class="row">
+        
+        <div class="row">
         <div class="col-md-4">
             <div class="form-group">
                 <input type="button" class="btn btn-primary" @onclick="@UpdateGroup" value="Save" />
@@ -27,7 +27,7 @@
             </div>
         </div>
     </div>
-</EditForm>
+
 
 @code {
     [Parameter]
@@ -37,6 +37,7 @@
     {
         group = await GroupService.GetGroupById(int.Parse(Id));
     }
+    
     protected async Task UpdateGroup()
     {
         await GroupService.EditGroup(int.Parse(Id));
@@ -47,9 +48,11 @@
     {
         NavigationManager.NavigateTo("GroupList");
     }
-    private void HandleOnValidEdit() 
+    
+   /* private void HandleOnValidEdit() 
     {
-        GroupService.EditGroup(int.Parse(Id)); //connection to controller, calling edit method
-    }
+         GroupService.EditGroup(int.Parse(Id)); //connection to controller, calling edit method
+         NavigationManager.NavigateTo("GroupList");
+    }*/
 
         }

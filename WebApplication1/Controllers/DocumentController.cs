@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using CommonModels.Model;
 using System.Linq;
-using Api.Models;
 using System.IO;
 using System;
 using Microsoft.Extensions.Hosting.Internal;
@@ -35,6 +34,7 @@ namespace WebApplication1.Controllers
 
             var allImageuploads = db.Documents.ToList().Select(v => new Imageupload
             {
+                Id =v.Id,
                 Email = v.Email,
                 Title = v.Title,
                 InsertedOn = (DateTime)v.InsertedOn,
@@ -51,6 +51,7 @@ namespace WebApplication1.Controllers
                                  //get all devices information
 
         }
+        [HttpGet("{id}")]
         public Imageupload Get(int id)
         {
             var imageupload = db.Documents.FirstOrDefault(u => u.Id == id);
@@ -70,7 +71,22 @@ namespace WebApplication1.Controllers
 
             return imageuploadview;
         }
-
+        [HttpGet("/ApproveDoc/{id}")]
+        public void ApproveDoc(int id)
+        {
+          var imageupload = db.Documents.FirstOrDefault(u => u.Id == id);
+            imageupload.Status = "A";
+            db.Update(imageupload);
+            db.SaveChanges();
+        }
+        [HttpGet("/RejectDoc/{id}")]
+        public void RejectDoc(int id)
+        {
+            var imageupload = db.Documents.FirstOrDefault(u => u.Id == id);
+            imageupload.Status = "R";
+            db.Update(imageupload);
+            db.SaveChanges();
+        }
         //private readonly ILogger<DocumentController>_logger;
 
         // public DocumentController(ILogger<DocumentController> logger)
@@ -122,7 +138,7 @@ namespace WebApplication1.Controllers
              return docList;*/
 
 
-        
+
         /*[HttpPost]
         public ActionResult<string> UploadDocument(Document document, int v)
         {
@@ -178,22 +194,22 @@ namespace WebApplication1.Controllers
             return results; //maybe connected to imageupload error
         }*/
 
-         /*[HttpPost("{id}")]
-         [Route("UploadDocument")]
-         public async Task<IActionResult> Upload([FromForm] Document doc)
-         {
-             var dbDocuments = db.Documents.FirstOrDefault(u => u.Id == doc.Id);
-             var imagePath = Path.Combine(@"C:\uploadfolder\", doc.img_jpg.FileName);
-             using (Stream fileStream = new FileStream(imagePath, FileMode.Create))
-             {
-                 await doc.img_jpg.CopyToAsync(fileStream);
-             }
-             var filePath = Path.Combine(@"C:\uploadfolder\", doc.file_pdf.FileName);
-             using (Stream fileStream = new FileStream(filePath, FileMode.Create))
-             {
-                 await doc.file_pdf.CopyToAsync(fileStream);
-             }
-             return Ok();
-         }*/
+        /*[HttpPost("{id}")]
+        [Route("UploadDocument")]
+        public async Task<IActionResult> Upload([FromForm] Document doc)
+        {
+            var dbDocuments = db.Documents.FirstOrDefault(u => u.Id == doc.Id);
+            var imagePath = Path.Combine(@"C:\uploadfolder\", doc.img_jpg.FileName);
+            using (Stream fileStream = new FileStream(imagePath, FileMode.Create))
+            {
+                await doc.img_jpg.CopyToAsync(fileStream);
+            }
+            var filePath = Path.Combine(@"C:\uploadfolder\", doc.file_pdf.FileName);
+            using (Stream fileStream = new FileStream(filePath, FileMode.Create))
+            {
+                await doc.file_pdf.CopyToAsync(fileStream);
+            }
+            return Ok();
+        }*/
     }
 }
