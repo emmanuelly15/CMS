@@ -67,14 +67,13 @@ namespace BlazorApp1.Data
 
             return bool.Parse(data);
         }
-        public async Task<User> EditUser(int id)
+        public async Task<int> EditUser(User user)
         {
             var client = new HttpClient();
-            var response = await client.PutAsync(apiurl, new StringContent(JsonConvert.SerializeObject(id), Encoding.UTF8, "application/json"));
+            var response = await client.PutAsync(apiurl, new StringContent(JsonConvert.SerializeObject(user), Encoding.UTF8, "application/json"));
             var data = await response.Content.ReadAsStringAsync();
 
-            var user = Newtonsoft.Json.JsonConvert.DeserializeObject<User>(data);
-            return user;
+            return int.Parse(data);
         }
     }
 }

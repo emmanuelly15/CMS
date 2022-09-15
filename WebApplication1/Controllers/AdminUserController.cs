@@ -28,7 +28,7 @@ namespace Api.Controllers
                 Id = v.Id,
                 Name = v.Name,
                 Email = v.Email,
-                
+                Password = v.Password
             });
 
             return allAdminUsers;

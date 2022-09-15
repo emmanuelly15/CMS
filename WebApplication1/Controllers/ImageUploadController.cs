@@ -45,7 +45,7 @@ namespace Api.Controllers
                     foreach (var file in files)
                     {
                         FileInfo fi = new FileInfo(file.FileName);
-                        var newfilename = "Image_" + DateTime.Now.TimeOfDay.Milliseconds + fi.Extension;
+                        var newfilename = "File_" + DateTime.Now.TimeOfDay.Milliseconds + fi.Extension;
                         var path = Path.Combine("\\Users\\shank\\Source\\Repos\\emmanuelly15\\CMS\\BlazorApp1\\wwwroot\\Images\\" + newfilename);
                         var dbPath = Path.Combine("",  "Images/" + newfilename);
                         using (var stream = new FileStream(path, FileMode.Create))

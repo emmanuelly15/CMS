@@ -48,14 +48,13 @@ namespace BlazorApp1.Data
 
             return bool.Parse(data);
         }
-        public async Task<MailingListC> EditMailingList(MailingListC ml)
+        public async Task<int> EditMailingList(MailingListC ml)
         {
             var client = new HttpClient();
             var response = await client.PutAsync(apiurls, new StringContent(JsonConvert.SerializeObject(ml), Encoding.UTF8, "application/json"));
             var data = await response.Content.ReadAsStringAsync();
 
-            var mlresponse = Newtonsoft.Json.JsonConvert.DeserializeObject<MailingListC>(data);
-            return mlresponse;
+            return int.Parse(data);
         }
     }
 }
