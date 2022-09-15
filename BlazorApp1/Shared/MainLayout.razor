@@ -1,6 +1,7 @@
-﻿@inherits LayoutComponentBase
+﻿@using BlazorApp1.Data
+@inherits LayoutComponentBase
 @inject NavigationManager navManager;
-
+@inject AuthenticationStateProvider AuthenticationStateProvider
 
     <div class="sidebar">
         <NavMenu />
@@ -9,7 +10,17 @@
 
 <div class="main">
    
-        <div class="top-row px-4 auth">
+        <div class="top-row px-4 ">
+            <AuthorizeView>
+                <Authorized>
+                    <a href ="/" @onclick="(() => Logout())">Logout</a>
+                </Authorized>
+                <NotAuthorized>
+                    <a href="/">Login</a>
+                </NotAuthorized>
+        </AuthorizeView>
+
+
             <LoginDisplay />
         <a href="https://docs.microsoft.com/aspnet/" target="_blank">About</a>
     </div>
@@ -21,6 +32,11 @@
 
 @code
 {
-   // public bool isAdminLoggedIn = false;
+    public void Logout()
+    {
+        
+    }
+   
+    // public bool isAdminLoggedIn = false;
    
 }

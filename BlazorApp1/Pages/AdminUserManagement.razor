@@ -4,10 +4,20 @@
 @inject NavigationManager NavigationManager
 @inject IJSRuntime JsRuntime
 @inject AdminUserService AdminUserService
+@attribute [Authorize(Roles = "Admin")]
 
 <h1>Admin User Management</h1>
 <h2>Add Admin User</h2>
 
+<AuthorizeView Roles ="Admin">
+    <Authorized>
+        The user(@context.User.FindFirst(System.Security.Claims.ClaimTypes.Name).Value) is authorized.
+    </Authorized>
+    <NotAuthorized>
+        <h4>You are not authorized to view this page</h4>
+    </NotAuthorized>
+
+</AuthorizeView>
 <div class="row">
         <div class="col-md-6">
                 <div class="form-group">

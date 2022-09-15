@@ -3,23 +3,19 @@ using System.Collections.Generic;
 using System.Text;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
+using System.Linq;
+using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CommonModels.Model
 {
-    [DebuggerDisplay("{" + nameof(GetDebuggerDisplay) + "(),nq}")]
-    public class LoginModel
+    public class AuthenticationAdminModel
     {
         [Required(ErrorMessage = "Email is required")]
         public string email { get; set; }
       
 
-        [Required(ErrorMessage = "password is required")]
+        [Required(ErrorMessage = "Password is required")]
         public string password { get; set; }
-        
-
-        private string GetDebuggerDisplay()
-        {
-            return ToString();
-        }
     }
 }

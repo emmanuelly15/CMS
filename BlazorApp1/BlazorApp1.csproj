@@ -11,8 +11,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Blazored.LocalStorage" Version="4.2.0" />
     <PackageReference Include="Material.Icons" Version="1.1.14" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.Forms" Version="3.1.26" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Forms" Version="3.1.29" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Authentication" Version="6.0.9" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebView.WindowsForms" Version="6.0.540" />
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="3.1.26" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.26" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.1.26" />
