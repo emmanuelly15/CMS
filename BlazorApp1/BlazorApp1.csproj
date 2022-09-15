@@ -6,7 +6,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-	  <Content Remove="Pages\ApproveDoc.razor" />
 	  <Content Remove="Pages\Login.razor" />
     <Content Remove="Shared\SurveyPrompt.razor" />
   </ItemGroup>
@@ -36,7 +35,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="Pages\ApproveDoc.razor" />
     <None Include="Pages\Login.razor" />
     <None Include="Pages\MailingListList.razor" />
   </ItemGroup>

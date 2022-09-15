@@ -84,7 +84,7 @@ namespace WebApplication1.Controllers
             db.SaveChanges();
             return true;
         }
-        [HttpPut("{id}")]
+        [HttpPut]
         public int UpdateDevice(Device device)
         {
             var dbDevice = db.Devices.FirstOrDefault(u => u.Id == device.Id);
