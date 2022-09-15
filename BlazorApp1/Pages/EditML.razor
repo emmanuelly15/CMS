@@ -40,7 +40,7 @@
     }
         protected async Task UpdateMailingList()
         {
-           await MailingListService.EditMailingList(int.Parse(Id));
+           await MailingListService.EditMailingList(ml);
             NavigationManager.NavigateTo("MailingListList");
                 
             }

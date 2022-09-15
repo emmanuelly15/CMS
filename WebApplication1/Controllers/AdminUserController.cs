@@ -45,7 +45,7 @@ namespace Api.Controllers
                 Id = adminuser.Id,
                 Name = adminuser.Name,
                 Email = adminuser.Email,
-                
+                Password = adminuser.Password
             };
 
             return adminuserview;
@@ -75,7 +75,7 @@ namespace Api.Controllers
             db.SaveChanges();
             return true;
         }
-        [HttpPut("{id}")]
+        [HttpPut]
         public int UpdateAdminUser(AdminUser adminuser)
         {
             var dbAdminUser = db.AdminUsers.FirstOrDefault(u => u.Id == adminuser.Id);
@@ -83,7 +83,7 @@ namespace Api.Controllers
             dbAdminUser.Name = adminuser.Name;
             dbAdminUser.Email = adminuser.Email;
             dbAdminUser.Password = adminuser.Password;
-
+            
             db.SaveChanges();
             return dbAdminUser.Id;
 
