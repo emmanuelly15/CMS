@@ -1,5 +1,6 @@
 ﻿using Api.Model.Database;
 using BlazorApp1.Pages;
+using BlazorApp1.Services;
 using CommonModels.Model;
 using Newtonsoft.Json;
 using System.Net.Http;
@@ -8,13 +9,13 @@ using System.Threading.Tasks;
 
 namespace BlazorApp1.DbServices
 {
-    public class DocumentService
+    public class DocumentService : BaseServices
     {
-        
+        private string apiUrl = BaseApiUrl + "document/";
         public async Task<int> SaveAsync(Imageupload imageupload) //saving a device to the database
         {
             var client = new HttpClient();
-            var response = await client.PostAsync("https://localhost:44304/document", new StringContent(JsonConvert.SerializeObject(imageupload), Encoding.UTF8, "application/json"));
+            var response = await client.PostAsync(apiUrl, new StringContent(JsonConvert.SerializeObject(imageupload), Encoding.UTF8, "application/json"));
             var data = await response.Content.ReadAsStringAsync();
 
 
@@ -23,7 +24,7 @@ namespace BlazorApp1.DbServices
         public async Task<int> Upload(Document doc) //saving a device to the database
         {
             var client = new HttpClient();
-            var response = await client.PostAsync("https://localhost:44304/document", new StringContent(JsonConvert.SerializeObject(doc), Encoding.UTF8, "application/json"));
+            var response = await client.PostAsync(apiUrl, new StringContent(JsonConvert.SerializeObject(doc), Encoding.UTF8, "application/json"));
             var data = await response.Content.ReadAsStringAsync();
 
 
@@ -34,7 +35,7 @@ namespace BlazorApp1.DbServices
         {
 
             var client = new HttpClient();
-            var response = await client.GetAsync("https://localhost:44304/document");
+            var response = await client.GetAsync(apiUrl);
             var data = await response.Content.ReadAsStringAsync();
 
             var listOfImageuploads = Newtonsoft.Json.JsonConvert.DeserializeObject<Imageupload[]>(data);
@@ -44,7 +45,7 @@ namespace BlazorApp1.DbServices
         public async Task<Imageupload> GetDocumentById(int id)
         {
             var client = new HttpClient();
-            var response = await client.GetAsync("https://localhost:44304/document" + id);
+            var response = await client.GetAsync(apiUrl + id);
             var data = await response.Content.ReadAsStringAsync();
 
             var imageupload = Newtonsoft.Json.JsonConvert.DeserializeObject<Imageupload>(data);
@@ -53,13 +54,13 @@ namespace BlazorApp1.DbServices
         public async Task ApproveDocumentById(int id)
         {
             var client = new HttpClient();
-            var response = await client.GetAsync("https://localhost:44304/ApproveDoc/" + id);
+            var response = await client.GetAsync(apiUrl +"/ApproveDoc/" + id);
             
         }
         public async Task RejectDocumentById(int id)
         {
             var client = new HttpClient();
-            var response = await client.GetAsync("https://localhost:44304/RejectDoc/" + id);
+            var response = await client.GetAsync(apiUrl + "/RejectDoc/" + id);
 
         }
     }

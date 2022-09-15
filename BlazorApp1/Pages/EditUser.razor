@@ -58,7 +58,7 @@
     }
         protected async Task UpdateUser() //calling the controller
         {
-           await UserService.EditUser(int.Parse(Id)); //calling the service to edit.
+           await UserService.EditUser(user); //calling the service to edit.
             NavigationManager.NavigateTo("UserList"); //taking user back to the list once save is pressed.
                 
             }
