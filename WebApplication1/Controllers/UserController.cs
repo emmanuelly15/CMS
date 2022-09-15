@@ -78,7 +78,7 @@ namespace Api.Controllers
             db.SaveChanges();
             return true;
         }
-        [HttpPut("{id}")]
+        [HttpPut]
         public int UpdateUser(User user)
         {
             var dbUser = db.Users.FirstOrDefault(u => u.Id == user.Id);
@@ -89,8 +89,8 @@ namespace Api.Controllers
             dbUser.EmpId = user.EmpId;
             dbUser.Password = user.Password;
             
-                 db.SaveChanges();
-                 return dbUser.Id;
+            db.SaveChanges();
+            return dbUser.Id;
 
         }
         

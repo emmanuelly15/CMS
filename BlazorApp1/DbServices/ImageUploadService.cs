@@ -7,11 +7,13 @@ using System.Security.Cryptography;
 using System.Threading.Tasks;
 using static System.Console;
 using System;
+using BlazorApp1.Services;
+
 namespace BlazorApp1.DbServices
 {
-    public class ImageUploadService
+    public class ImageUploadService : BaseServices
     {
-        string apiurl4 = "https://localhost:44304/imageupload/";
+        string apiurl4 = BaseApiUrl + "imageupload/";
         public async Task<Imageupload[]> GetImagesAsync()
         {
 

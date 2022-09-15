@@ -6,13 +6,14 @@ using System.Security.Cryptography;
 using System.Threading.Tasks;
 using static System.Console;
 using System;
+using BlazorApp1.Services;
 
 namespace BlazorApp1.Data
 
 {
-    public class UserService
+    public class UserService : BaseServices
     {
-        string apiurl = "https://localhost:44304/user/";
+        string apiurl = BaseApiUrl + "user/";
         public async Task<int> SaveAsync(User user)
         {
             var client = new HttpClient();
@@ -67,14 +68,14 @@ namespace BlazorApp1.Data
 
             return bool.Parse(data);
         }
-        public async Task<User> EditUser(int id)
+        public async Task<User> EditUser(User user)
         {
             var client = new HttpClient();
-            var response = await client.PutAsync(apiurl, new StringContent(JsonConvert.SerializeObject(id), Encoding.UTF8, "application/json"));
+            var response = await client.PutAsync(apiurl, new StringContent(JsonConvert.SerializeObject(user), Encoding.UTF8, "application/json"));
             var data = await response.Content.ReadAsStringAsync();
 
-            var user = Newtonsoft.Json.JsonConvert.DeserializeObject<User>(data);
-            return user;
+            var responseUser = Newtonsoft.Json.JsonConvert.DeserializeObject<User>(data);
+            return responseUser;
         }
     }
 }

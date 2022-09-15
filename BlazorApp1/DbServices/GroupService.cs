@@ -1,4 +1,5 @@
-﻿using CommonModels.Model;
+﻿using BlazorApp1.Services;
+using CommonModels.Model;
 using Newtonsoft.Json;
 using System.Linq;
 using System.Net.Http;
@@ -8,9 +9,10 @@ using System.Threading.Tasks;
 namespace BlazorApp1.Data
 
 {
-    public class GroupService
+    public class GroupService : BaseServices
     {
-        string apiur = "https://localhost:44304/groupmanagement/";
+        //string apiur = "https://localhost:44304/groupmanagement/";
+        string apiur = BaseApiUrl + "groupmanagement/";
         public async Task<int> SaveAsync(Group group)
         {
             var client = new HttpClient();

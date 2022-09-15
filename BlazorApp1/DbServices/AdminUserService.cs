@@ -1,4 +1,5 @@
-﻿using CommonModels.Model;
+﻿using BlazorApp1.Services;
+using CommonModels.Model;
 using Newtonsoft.Json;
 using System.Net.Http;
 using System.Text;
@@ -7,9 +8,9 @@ using System.Threading.Tasks;
 namespace BlazorApp1.Data
 
 {
-    public class AdminUserService
+    public class AdminUserService: BaseServices
     {
-        string apiurl2 = "https://localhost:44304/adminuser/";
+        string apiurl2 = BaseApiUrl + "adminuser/";
         public async Task<int> SaveAsync(AdminUser adminuser)
         {
             var client = new HttpClient();
