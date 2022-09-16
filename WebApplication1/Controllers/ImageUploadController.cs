@@ -46,7 +46,7 @@ namespace Api.Controllers
                     {
                         FileInfo fi = new FileInfo(file.FileName);
                         var newfilename = "File_" + DateTime.Now.TimeOfDay.Milliseconds + fi.Extension;
-                        var path = Path.Combine("\\Users\\shank\\Source\\Repos\\emmanuelly15\\CMS\\BlazorApp1\\wwwroot\\Images\\" + newfilename);
+                        var path = Path.Combine("\\Users\\alber\\source\\repos\\CMS\\BlazorApp1\\wwwroot\\Images\\" + newfilename);
                         var dbPath = Path.Combine("",  "Images/" + newfilename);
                         using (var stream = new FileStream(path, FileMode.Create))
                         {
