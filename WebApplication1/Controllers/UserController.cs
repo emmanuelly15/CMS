@@ -46,7 +46,8 @@ namespace Api.Controllers
                 Name = user.Name,
                 Email = user.Email,
                 Telephone = user.Telephone,
-                EmpId = user.EmpId
+                EmpId = user.EmpId,
+                Password = user.Password
             };
 
             return userview;

@@ -3,15 +3,15 @@
 @using BlazorApp1.Data
 @inject NavigationManager NavigationManager
 @inject IJSRuntime JsRuntime
-@inject UserService UserService
+@inject UserService UserService 
 <h2>Edit User</h2>
-
+@*Form to bring users information from the db and display it, so the user can decide what to edit.*@
 <div class="row">
         <div class="col-md-6">
                 <div class="form-group">
                         <label for="Name">  Name *</label>
-                        <input form="Name" class="form-control" @bind="@user.Name" />
-                    </div>
+                        <input form="Name" class="form-control" @bind="@user.Name" /> @*The bind function is what binds the user(from the user class, to the fields for example Name, Email...)*@ 
+                 </div>
             </div>
         
         <div class="col-md-6">
@@ -56,24 +56,16 @@
     {
         user = await UserService.GetUserById(int.Parse(Id)); //getting users information from db to display in edit boxes.
     }
-        protected async Task UpdateUser() //calling the controller
-        {
-           await UserService.EditUser(user); //calling the service to edit.
-            NavigationManager.NavigateTo("UserList"); //taking user back to the list once save is pressed.
+    protected async Task UpdateUser() //calling the controller
+    {
+        await UserService.EditUser(user); //calling the service to edit.
+        NavigationManager.NavigateTo("UserList"); //taking user back to the list once save is pressed.
                 
             }
             void Cancel()
             {
-                NavigationManager.NavigateTo("UserList");
+                NavigationManager.NavigateTo("UserList");// taking user back to UserList if cancel button is pressed.
             }
-       /* protected async Task HandleValidSubmit()
-        {
-            Mapper.Map(User, user);
-            var result = await UserService.UpdateUser(user);
-            if (result != null)
-            {
-            NavigationManager.NavigateTo("UserList");
-            }
-        }*/
+       
 
         }
