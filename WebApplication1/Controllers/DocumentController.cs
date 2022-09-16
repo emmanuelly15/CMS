@@ -3,7 +3,11 @@ using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using CommonModels.Model;
 using System.Linq;
-using Api.Models;
+using System.IO;
+using System;
+using Microsoft.Extensions.Hosting.Internal;
+using Microsoft.AspNetCore.Hosting;
+using System.Threading.Tasks;
 
 namespace WebApplication1.Controllers
 {
@@ -11,120 +15,78 @@ namespace WebApplication1.Controllers
     [Route("[controller]")]
     public class DocumentController : ControllerBase
     {
+        public IHostingEnvironment hostingEnvironment;
+        //private readonly DocumentService svc;
         private readonly DatabaseContext db; //refer to DatabaseContext.cs 
-        public DocumentController(DatabaseContext db)
+        public DocumentController(IHostingEnvironment hostingEnv, DatabaseContext db)
         {
+            hostingEnvironment = hostingEnv;
             this.db = db;
         }
-
+        
+        
+        
         [HttpGet]
-        public IEnumerable<Document> Get()
+        public IEnumerable<Imageupload> Get()
         {
 
-            var docList = new List<Document>();
+            var docList = new List<Imageupload>();
 
-            var allDocuments = db.Documents.ToList().Select(v => new Document
+            var allImageuploads = db.Documents.ToList().Select(v => new Imageupload
             {
-                UserId = v.UserId,
-                GroupId = v.GroupId,
-                DeviceId = v.DeviceId,
-                SentDateTime = v.SentDateTime,
+                Id =v.Id,
+                Email = v.Email,
+                Title = v.Title,
+                InsertedOn = (DateTime)v.InsertedOn,
+                ImagePath = v.ImagePath,
                 FileFormat = v.FileFormat,
-                Img = v.Img,
-                Description = v.Description,
+                Comment = v.Comment,
                 Location = v.Location,
-                Status = v.Status,
-                DocType = v.DocType,
-                Amount = v.Amount,
-                Comment = v.Comment
+                Status = v.Status == "A"? "Accepted" :(v.Status == "R" ? "Rejected" : "Pending" ),
+                Amount = v.Amount
+
             });
 
-            return allDocuments; //} End of block 1. getting device data
-                                   //get all devices information
+            return allImageuploads; //} End of block 1. getting device data
+                                 //get all devices information
 
-
-
-        //private readonly ILogger<DocumentController>_logger;
-
-       // public DocumentController(ILogger<DocumentController> logger)
-        //{
-          //  _logger = logger;
-        //}
-
-        //[HttpGet]
-        //public IEnumerable<WeatherForecast> Get()
-        //{
-        //    var rng = new Random();
-        //    return Enumerable.Range(1, 5).Select(index => new WeatherForecast
-        //    {
-        //        Date = DateTime.Now.AddDays(index),
-        //        TemperatureC = rng.Next(-20, 55),
-        //        Summary = Summaries[rng.Next(Summaries.Length)]
-        //    })
-        //    .ToArray();
-        //}
-
-       /* [HttpPost]
-        public object PostImage()
-        {
-            return null;
         }
-
-            [HttpGet]
-        public IEnumerable<Document> Get()
+        [HttpGet("{id}")]
+        public Imageupload Get(int id)
         {
-            var docList = new List<Document>();
-
-            docList.Add(new Document
+            var imageupload = db.Documents.FirstOrDefault(u => u.Id == id);
+            var imageuploadview = new Imageupload
             {
-                Name = "Invoice",
-                CreationDate = DateTime.Now,
-                Creator = "Shanon",
-                CellphoneNumber = "0729981533"
-
-            });
-
-            docList.Add(new Document
-            {
-                Name = "Purchase Order",
-                CreationDate = DateTime.Now,
-                Creator = "Shanon",
-                CellphoneNumber = "0729981533"
-            });
-
-            return docList;*/
-           
-        }
-        [HttpPost]
-        public int Create(Document document)
-        {
-            var dbDocument = new DbDocument 
-            {
-                UserId = document.UserId,
-                GroupId = document.GroupId,
-                DeviceId = document.DeviceId,
-                SentDateTime = document.SentDateTime,
-                FileFormat = document.FileFormat,
-                Img = document.Img,
-                Description = document.Description,
-                Location = document.Location,
-                Status = document.Status,
-                DocType = document.DocType,
-                Amount = document.Amount,
-                Comment = document.Comment
+                Id = imageupload.Id,
+                Email = imageupload.Email,
+                Title = imageupload.Title,
+                InsertedOn = (DateTime)imageupload.InsertedOn,
+                ImagePath = imageupload.ImagePath,
+                FileFormat = imageupload.FileFormat,
+                Comment = imageupload.Comment,
+                Location = imageupload.Location,
+                Status = imageupload.Status == "A" ? "Accepted" : (imageupload.Status == "R" ? "Rejected" : "Pending"),
+                Amount = imageupload.Amount,
             };
 
-            db.Documents.Add(dbDocument);
-
-            db.SaveChanges();
-            return dbDocument.Id;
+            return imageuploadview;
         }
-      /*  public class DocumentImg  --got from link that Gilbert sent
+        [HttpGet("/ApproveDoc/{id}")]
+        public void ApproveDoc(int id)
         {
-           [FromForm(Img = "img_jpg")]
-            public List<Document> img_jpg { get; set; }
-            [FromForm(FileFormat = "file_pdf")]
-            public List<Document> ifile_pdf { get; set; }
-        }*/
+          var imageupload = db.Documents.FirstOrDefault(u => u.Id == id);
+            imageupload.Status = "A";
+            db.Update(imageupload);
+            db.SaveChanges();
+        }
+        [HttpGet("/RejectDoc/{id}")]
+        public void RejectDoc(int id)
+        {
+            var imageupload = db.Documents.FirstOrDefault(u => u.Id == id);
+            imageupload.Status = "R";
+            db.Update(imageupload);
+            db.SaveChanges();
+        }
+        
     }
 }

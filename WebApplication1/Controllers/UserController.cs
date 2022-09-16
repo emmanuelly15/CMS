@@ -16,7 +16,6 @@ namespace Api.Controllers
             this.db = db;
         }
 
-
         [HttpGet]
 
         public IEnumerable<User> Get()
@@ -47,7 +46,8 @@ namespace Api.Controllers
                 Name = user.Name,
                 Email = user.Email,
                 Telephone = user.Telephone,
-                EmpId = user.EmpId
+                EmpId = user.EmpId,
+                Password = user.Password
             };
 
             return userview;
@@ -79,7 +79,7 @@ namespace Api.Controllers
             db.SaveChanges();
             return true;
         }
-        [HttpPut("{id}")]
+        [HttpPut]
         public int UpdateUser(User user)
         {
             var dbUser = db.Users.FirstOrDefault(u => u.Id == user.Id);
@@ -90,9 +90,9 @@ namespace Api.Controllers
             dbUser.EmpId = user.EmpId;
             dbUser.Password = user.Password;
             
-                 db.SaveChanges();
-                 return dbUser.Id;
-            
+            db.SaveChanges();
+            return dbUser.Id;
+
         }
         
     }

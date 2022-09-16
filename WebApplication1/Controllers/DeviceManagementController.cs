@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using CommonModels.Model;
 using System.Linq;
-using Api.Models;
+using System.Net;
 
 namespace WebApplication1.Controllers
 {
@@ -31,10 +31,10 @@ namespace WebApplication1.Controllers
                     IMEI = v.IMEI,
                     User = v.User,
                     Groups = v.Groups,
-                    Authorisation = v.Authorisation
+                    Authorisation = v.Authorisation,
                 });
 
-                return allDevices; //} End of block 1. getting device data
+                return allDevices; //getting device data
                                    //get all devices information
 
                
@@ -84,7 +84,7 @@ namespace WebApplication1.Controllers
             db.SaveChanges();
             return true;
         }
-        [HttpPut("{id}")]
+        [HttpPut]
         public int UpdateDevice(Device device)
         {
             var dbDevice = db.Devices.FirstOrDefault(u => u.Id == device.Id);

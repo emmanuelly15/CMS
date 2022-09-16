@@ -17,6 +17,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BlazorApp1.DbServices;
 
 namespace BlazorApp1
 {
@@ -42,13 +43,13 @@ namespace BlazorApp1
             services.AddRazorPages();
             services.AddServerSideBlazor();
             services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<IdentityUser>>();
-            services.AddSingleton<WeatherForecastService>();
             services.AddSingleton<UserService>();
             services.AddSingleton<DeviceService>();
             services.AddSingleton<GroupService>();
             services.AddSingleton<MailingListService>();
             services.AddSingleton<AdminUserService>();
             services.AddSingleton<DocumentService>();
+            services.AddSingleton<ImageUploadService>();
             services.AddScoped<GroupsListService>();
             services.AddScoped<UserListService>();
         }

@@ -1,0 +1,23 @@
+{
+  "name": "cms",
+  "version": "1.0.0",
+  "description": "BlazorApp1",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/emmanuelly15/CMS.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/emmanuelly15/CMS/issues"
+  },
+  "homepage": "https://github.com/emmanuelly15/CMS#readme",
+  "dependencies": {
+    "firebase": "^9.9.4"
+  }
+}

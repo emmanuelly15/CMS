@@ -1,7 +1,36 @@
 ﻿@page "/Admin"
-<h3>Administrator</h3>
-
+@using CommonModels.Model
+@using BlazorApp1.Data
+@inject NavigationManager NavigationManager
+@inject IJSRuntime JsRuntime
+@inject AdminUserService AdminUserService
+<h2> User Profile</h2>
+@if(adminusers != null)
+{
+<p>User Information: <b>@adminusers.Name</b></p>
+<div class="row">
+       <table class="table">
+               <tr>
+                       <td>Name</td>
+                       <td>@adminusers.Name </td>
+                   </tr>
+               <tr>
+                       <td>Email</td>
+                       <td>@adminusers.Email</td>
+                   </tr>
+               
+           </table>
+</div>
+}
 
 @code {
-
-}
+    [Parameter]
+    public string Id{ get; set; }
+    AdminUser adminusers = new AdminUser();
+    protected override async Task OnInitializedAsync()
+    {
+        adminusers = await AdminUserService.GetAdminUserById(int.Parse(Id));
+    }
+        
+   
+        }

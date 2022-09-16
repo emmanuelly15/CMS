@@ -22,7 +22,7 @@ namespace CommonModels.Model
         public string Groups { get; set; }
 
         [Required(ErrorMessage = "Authorisation is required")]
-        public bool Authorisation { get; set; }
+        public Boolean Authorisation { get; set; }
 
     }
 }

@@ -2,14 +2,19 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UserSecretsId>c6d693e7-8116-454f-b8a9-b5509d1a7d21</UserSecretsId>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <DockerfileTag>payco_web_api</DockerfileTag>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.12" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.12">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.10.9" />
     <PackageReference Include="MySqlConnector" Version="2.1.11" />
     <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="5.0.3" />
     <PackageReference Include="Syncfusion.Blazor.Buttons" Version="20.2.0.45" />
@@ -17,6 +22,11 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CommonModels\CommonModels.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Images\" />
+    <Folder Include="wwwroot\NewFolder\" />
   </ItemGroup>
 
 
