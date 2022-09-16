@@ -1,6 +1,7 @@
 ﻿@page "/EditDevice/{Id}"
 @using BlazorApp1.Models
 @using CommonModels.Model
+@using BlazorApp1.Services
 @using BlazorApp1.Data
 @inject NavigationManager NavigationManager
 @inject IJSRuntime JsRuntime
@@ -75,15 +76,16 @@
             </div>
 </div>
 @code {
-    [Parameter]
     public string Id{ get; set; }
     Device device = new Device();
     List<GroupsListClass> grobj;
     List<UserListClass> usrobj;
 
-    protected override async Task OnInitializedAsync()
+    protected override void OnInitialized()
     {
-        device = await DeviceService.GetDevicesById(int.Parse(Id));
+       // device = await DeviceService.GetDevicesById(int.Parse(Id));
+        grobj = Service.groupsobj();
+        usrobj = Service.usersobj();
     }
         protected async Task UpdateDevice()
         {
