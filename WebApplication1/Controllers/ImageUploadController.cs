@@ -41,7 +41,7 @@ namespace Api.Controllers
                     foreach (var file in files)
                     {
                         FileInfo fi = new FileInfo(file.FileName);
-                        var newfilename = "Image_" + DateTime.Now.TimeOfDay.Milliseconds + fi.Extension;
+                        var newfilename = "File_" + DateTime.Now.TimeOfDay.Milliseconds + fi.Extension;
                         var path = Path.Combine(@"wwwroot/images/" + newfilename);
                         var dbPath = Path.Combine("",  newfilename);
                         using (var stream = new FileStream(path, FileMode.Create))
