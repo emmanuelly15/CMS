@@ -2,6 +2,8 @@
 @using BlazorApp1.Models
 @using CommonModels.Model
 @using BlazorApp1.Data
+@using BlazorApp1.Services
+@inherits OwningComponentBase<GroupsListService>
 @inject NavigationManager NavigationManager
 @inject IJSRuntime JsRuntime
 @inject DeviceService DeviceService
@@ -80,7 +82,12 @@
     Device device = new Device();
     List<GroupsListClass> grobj;
     List<UserListClass> usrobj;
-
+    protected override void OnInitialized()
+    {
+        //base.OnInitialized();
+        grobj = Service.groupsobj();
+        usrobj = Service.usersobj();
+    }
     protected override async Task OnInitializedAsync()
     {
         device = await DeviceService.GetDevicesById(int.Parse(Id));
