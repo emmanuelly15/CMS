@@ -1,6 +1,7 @@
 ﻿@page "/EditDevice/{Id}"
 @using BlazorApp1.Models
 @using CommonModels.Model
+@using BlazorApp1.Services
 @using BlazorApp1.Data
 @using BlazorApp1.Services
 @inherits OwningComponentBase<GroupsListService>
@@ -77,7 +78,6 @@
             </div>
 </div>
 @code {
-    [Parameter]
     public string Id{ get; set; }
     Device device = new Device();
     List<GroupsListClass> grobj;
@@ -90,7 +90,9 @@
     }
     protected override async Task OnInitializedAsync()
     {
-        device = await DeviceService.GetDevicesById(int.Parse(Id));
+       // device = await DeviceService.GetDevicesById(int.Parse(Id));
+        grobj = Service.groupsobj();
+        usrobj = Service.usersobj();
     }
         protected async Task UpdateDevice()
         {

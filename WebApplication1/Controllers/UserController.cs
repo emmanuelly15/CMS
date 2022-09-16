@@ -90,8 +90,8 @@ namespace Api.Controllers
             dbUser.EmpId = user.EmpId;
             dbUser.Password = user.Password;
             
-                 db.SaveChanges();
-                 return dbUser.Id;
+            db.SaveChanges();
+            return dbUser.Id;
 
         }
         
