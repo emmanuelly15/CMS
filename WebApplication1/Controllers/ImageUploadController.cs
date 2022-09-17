@@ -1,5 +1,4 @@
 ﻿using Api.Model.Database;
-using Api.Model;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using CommonModels.Model;
@@ -7,7 +6,6 @@ using System.IO;
 using System;
 using Microsoft.AspNetCore.Hosting;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using System.Globalization;
 
@@ -15,14 +13,12 @@ namespace Api.Controllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
-    public class ImageUploadController : Controller
+    public class ImageUploadController : ControllerBase
     {
-        public IHostingEnvironment hostingEnvironment; 
         public DatabaseContext dbaseContext;
 
-        public ImageUploadController(IHostingEnvironment hostingEnv, DatabaseContext db)
+        public ImageUploadController(DatabaseContext db)
         {
-            hostingEnvironment = hostingEnv;
             dbaseContext = db;
         }
 
@@ -48,6 +44,10 @@ namespace Api.Controllers
                         var newfilename = "File_" + DateTime.Now.TimeOfDay.Milliseconds + fi.Extension;
                         var path = Path.Combine("\\Users\\alber\\source\\repos\\CMS\\BlazorApp1\\wwwroot\\Images\\" + newfilename);
                         var dbPath = Path.Combine("",  "Images/" + newfilename);
+
+                        //var path = Path.Combine(@"wwwroot/images/" + newfilename); path for the server
+                        //var dbPath = Path.Combine("",  newfilename);
+
                         using (var stream = new FileStream(path, FileMode.Create))
                         {
                             file.CopyTo(stream); //copying url to stream
