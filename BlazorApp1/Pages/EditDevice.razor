@@ -1,7 +1,6 @@
 ﻿@page "/EditDevice/{Id}"
 @using BlazorApp1.Models
 @using CommonModels.Model
-@using BlazorApp1.Services
 @using BlazorApp1.Data
 @using BlazorApp1.Services
 @inherits OwningComponentBase<GroupsListService>
@@ -68,17 +67,18 @@
         @device.Authorisation
     </p>
 
-</div>      
+</div>
 <div class="row">
-        <div class="col-md-4">
-                <div class="form-group">
-                        <input type="button" class="btn btn-primary" @onclick="@UpdateDevice" value="Save" />
-                        <input type="button" class="btn" @onclick="@Cancel" value="Cancel" />
-                    </div>
-            </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <input type="button" class="btn btn-primary" @onclick="@UpdateDevice" value="Save" />
+            <input type="button" class="btn" @onclick="@Cancel" value="Cancel" />
+        </div>
+    </div>
 </div>
 @code {
-    public string Id{ get; set; }
+    [Parameter]
+    public string Id { get; set; }
     Device device = new Device();
     List<GroupsListClass> grobj;
     List<UserListClass> usrobj;
@@ -90,19 +90,17 @@
     }
     protected override async Task OnInitializedAsync()
     {
-       // device = await DeviceService.GetDevicesById(int.Parse(Id));
-        grobj = Service.groupsobj();
-        usrobj = Service.usersobj();
+        device = await DeviceService.GetDevicesById(int.Parse(Id));
     }
-        protected async Task UpdateDevice()
-        {
-           
-            await DeviceService.EditDevice(device);
-            NavigationManager.NavigateTo("DeviceList");
-                
-            }
-            void Cancel()
-            {
-                NavigationManager.NavigateTo("DeviceList");
-            }
-        }
+    protected async Task UpdateDevice()
+    {
+
+        await DeviceService.EditDevice(device);
+        NavigationManager.NavigateTo("DeviceList");
+
+    }
+    void Cancel()
+    {
+        NavigationManager.NavigateTo("DeviceList");
+    }
+}

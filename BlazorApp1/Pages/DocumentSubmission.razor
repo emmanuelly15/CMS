@@ -38,18 +38,18 @@
                         <td>@p.Status</td>
                         <td>@p.Amount</td>
                         <td>
-                             
-                        @if (@p.Status=="Pending")
-                       {
-                           <button @onclick="@(k => Approve(k,@p.Id))">Approve</button>
-                           <button @onclick="@(k => Reject(k,@p.Id))">Reject</button>
-                       }
-                            
+
+                            @if (@p.Status == "Pending")
+                            {
+                                <button @onclick="@(k => Approve(k,@p.Id))">Approve</button>
+                                <button @onclick="@(k => Reject(k,@p.Id))">Reject</button>
+                            }
+
                         </td>
                     </tr>
                 }
             </tbody>
-            
+
         </table>
     }
 </div>
@@ -72,6 +72,6 @@
         await DocumentService.RejectDocumentById(Id);
         Console.WriteLine(Id);
     }
-    
+
 
 }

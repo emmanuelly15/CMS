@@ -12,7 +12,7 @@ namespace WebApplication1.Controllers
     [Route("[controller]")]
     public class DeviceManagementController : ControllerBase
     {
-        private readonly DatabaseContext db; //refer to DatabaseContext.cs 
+        private readonly DatabaseContext db; //refer to DatabaseContext.cs
         public DeviceManagementController(DatabaseContext db)
         {
             this.db = db;
@@ -22,22 +22,22 @@ namespace WebApplication1.Controllers
         [HttpGet]
         public IEnumerable<Device> Get()
         {
-           
-                var docList = new List<Device>();
 
-                var allDevices = db.Devices.ToList().Select(v => new Device
-                {
-                    Id = v.Id,
-                    IMEI = v.IMEI,
-                    User = v.User,
-                    Groups = v.Groups,
-                    Authorisation = v.Authorisation,
-                });
+            var docList = new List<Device>();
 
-                return allDevices; //getting device data
-                                   //get all devices information
+            var allDevices = db.Devices.ToList().Select(v => new Device
+            {
+                Id = v.Id,
+                IMEI = v.IMEI,
+                User = v.User,
+                Groups = v.Groups,
+                Authorisation = v.Authorisation,
+            });
 
-               
+            return allDevices; //getting device data
+                               //get all devices information
+
+
         }
         [HttpGet("{id}")]
 
@@ -62,7 +62,7 @@ namespace WebApplication1.Controllers
         {
             var dbDevice = new DbDevice
             {
-                
+
                 IMEI = device.IMEI,
                 User = device.User,
                 Groups = device.Groups,
@@ -99,5 +99,5 @@ namespace WebApplication1.Controllers
 
         }
     }
-      
+
 }

@@ -1,5 +1,4 @@
 ﻿using BlazorApp1.Pages;
-using BlazorApp1.Services;
 using CommonModels.Model;
 using Newtonsoft.Json;
 using System.Net.Http;
@@ -8,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace BlazorApp1.Data
 {
-    public class DeviceService: BaseServices
+    public class DeviceService
     {
-        string apiurl1 = BaseApiUrl + "devicemanagement/";
+        string apiurl1 = "https://localhost:44304/devicemanagement/";
         public async Task<int> SaveAsync(Device device) //saving a device to the database
         {
             var client = new HttpClient();

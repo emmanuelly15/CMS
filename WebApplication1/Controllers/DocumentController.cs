@@ -17,15 +17,15 @@ namespace WebApplication1.Controllers
     {
         public IHostingEnvironment hostingEnvironment;
         //private readonly DocumentService svc;
-        private readonly DatabaseContext db; //refer to DatabaseContext.cs 
+        private readonly DatabaseContext db; //refer to DatabaseContext.cs
         public DocumentController(IHostingEnvironment hostingEnv, DatabaseContext db)
         {
             hostingEnvironment = hostingEnv;
             this.db = db;
         }
-        
-        
-        
+
+
+
         [HttpGet]
         public IEnumerable<Imageupload> Get()
         {
@@ -34,7 +34,7 @@ namespace WebApplication1.Controllers
 
             var allImageuploads = db.Documents.ToList().Select(v => new Imageupload
             {
-                Id =v.Id,
+                Id = v.Id,
                 Email = v.Email,
                 Title = v.Title,
                 InsertedOn = (DateTime)v.InsertedOn,
@@ -42,13 +42,13 @@ namespace WebApplication1.Controllers
                 FileFormat = v.FileFormat,
                 Comment = v.Comment,
                 Location = v.Location,
-                Status = v.Status == "A"? "Accepted" :(v.Status == "R" ? "Rejected" : "Pending" ),
+                Status = v.Status == "A" ? "Accepted" : (v.Status == "R" ? "Rejected" : "Pending"),
                 Amount = v.Amount
 
             });
 
             return allImageuploads; //} End of block 1. getting device data
-                                 //get all devices information
+                                    //get all devices information
 
         }
         [HttpGet("{id}")]
@@ -74,7 +74,7 @@ namespace WebApplication1.Controllers
         [HttpGet("/ApproveDoc/{id}")]
         public void ApproveDoc(int id)
         {
-          var imageupload = db.Documents.FirstOrDefault(u => u.Id == id);
+            var imageupload = db.Documents.FirstOrDefault(u => u.Id == id);
             imageupload.Status = "A";
             db.Update(imageupload);
             db.SaveChanges();
@@ -87,6 +87,6 @@ namespace WebApplication1.Controllers
             db.Update(imageupload);
             db.SaveChanges();
         }
-        
+
     }
 }
