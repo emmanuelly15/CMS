@@ -94,34 +94,6 @@ namespace Api.Controllers
             return dbUser.Id;
 
         }
-
-        //Authentification Login
-        [HttpPost("/login")]
-        public UserProfile LoginUser(UserLogin ul)
-        {
-            var dbUser = db.Users.FirstOrDefault(u => u.Email == ul.Email);
-            UserProfile ud = new UserProfile();
-            if (dbUser == null || dbUser.Id <= 0)
-            {
-                //throw new System.Exception("Invalid User"); 
-                ud.ErrorMessage = "Invalid Email Address";
-                return ud;
-            }
-
-            if(dbUser.Password != ul.Password)
-            {
-                ud.ErrorMessage = "Invalid Password";
-                return ud;
-            }
-            
-            ud.Name = dbUser.Name;
-            ud.Telephone = dbUser.Telephone;
-            ud.EmpId = dbUser.EmpId;
-            ud.ErrorMessage = "";
-            return ud;
-            //System.Console.WriteLine(ul.ToString());
-        }
-
         
     }
 }
