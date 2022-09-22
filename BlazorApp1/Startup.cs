@@ -52,6 +52,7 @@ namespace BlazorApp1
             services.AddSingleton<ImageUploadService>();
             services.AddScoped<GroupsListService>();
             services.AddScoped<UserListService>();
+            services.AddSingleton<DashboardService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

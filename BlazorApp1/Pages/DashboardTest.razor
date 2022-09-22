@@ -1,0 +1,44 @@
+﻿@page "/dashboard"
+@using BlazorApp1.Data
+@using BlazorApp1.DbServices
+@using CommonModels.Model
+@using BlazorApp1.Services
+@using BlazorApp1.Models
+@inject DashboardService DashboardService
+
+<h1>Dashboard Test</h1>
+
+<RadzenButton Text="It Works!" />
+
+@if (dashboards != null)
+{
+    <table class="table-bordered">
+        <thead>
+            <tr>
+                <th width="30%">ActiveDevices</th>
+                <th width="20%">ActiveEmails</th>
+                <th width="20%">DocsSentDaily</th>   
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var p in dashboards)
+            {
+                <tr>
+                    <td>@p.ActiveDevices</td>
+                    <td>@p.ActiveEmails</td>
+                    <td>@p.DocsSentDaily</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+@code{
+   
+    private Dashboard[] dashboards;
+    protected override void OnInitialized()
+    {
+        //base.OnInitialized();
+       //usrobj = Service.usersobj();
+        //dashboards = await DashboardsService.GetDashboardsAsync();
+    }
+}
