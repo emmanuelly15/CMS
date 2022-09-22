@@ -71,7 +71,7 @@ namespace WebApplication1.Controllers
 
             return imageuploadview;
         }
-        [HttpGet("/ApproveDoc/{id}")]
+        [HttpGet("ApproveDoc/{id}")]
         public void ApproveDoc(int id)
         {
           var imageupload = db.Documents.FirstOrDefault(u => u.Id == id);
@@ -79,7 +79,7 @@ namespace WebApplication1.Controllers
             db.Update(imageupload);
             db.SaveChanges();
         }
-        [HttpGet("/RejectDoc/{id}")]
+        [HttpGet("RejectDoc/{id}")]
         public void RejectDoc(int id)
         {
             var imageupload = db.Documents.FirstOrDefault(u => u.Id == id);

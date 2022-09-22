@@ -18,5 +18,8 @@ namespace CommonModels.Model
 
        [Required(ErrorMessage = "Password is required")]
         public string Password { get; set; }
+
+        [Required(ErrorMessage = "Authorisation is required")]
+        public Boolean Authorize { get; set; }
     }
 }

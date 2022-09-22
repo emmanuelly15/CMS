@@ -12,7 +12,7 @@ namespace BlazorApp1.DbServices
     public class DocumentService : BaseServices
     {
         private string apiUrl = BaseApiUrl + "document/";
-        public async Task<int> SaveAsync(Imageupload imageupload) //saving a device to the database
+        public async Task<int> SaveAsync(Imageupload imageupload) //saving a document to the database
         {
             var client = new HttpClient();
             var response = await client.PostAsync(apiUrl, new StringContent(JsonConvert.SerializeObject(imageupload), Encoding.UTF8, "application/json"));
@@ -54,13 +54,13 @@ namespace BlazorApp1.DbServices
         public async Task ApproveDocumentById(int id)
         {
             var client = new HttpClient();
-            var response = await client.GetAsync(apiUrl +"/ApproveDoc/" + id);
-            
+            var response = await client.GetAsync(apiUrl + "ApproveDoc/" + id);
+
         }
         public async Task RejectDocumentById(int id)
         {
             var client = new HttpClient();
-            var response = await client.GetAsync(apiUrl + "/RejectDoc/" + id);
+            var response = await client.GetAsync(apiUrl + "RejectDoc/" + id);
 
         }
     }

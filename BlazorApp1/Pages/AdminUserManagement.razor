@@ -29,6 +29,20 @@
                     </div>
             </div>
 </div>
+<p>
+    Is Authorised?
+    <br />
+    <label>
+        <input type="radio" value="Yes" name="@adminuser.Authorize" checked="@(adminuser.Authorize == true)" @onclick="@(()=>adminuser.Authorize = true)" /> yes
+    </label>
+    <label>
+        <input type="radio" value="No" name="@adminuser.Authorize" checked="@(adminuser.Authorize == false)" @onclick="@(()=>adminuser.Authorize = false)" /> no
+    </label>
+
+    <br />
+    @adminuser.Authorize
+</p>
+
 <div class="row">
         <div class="col-md-4">
                 <div class="form-group">
