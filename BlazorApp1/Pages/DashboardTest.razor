@@ -4,41 +4,59 @@
 @using CommonModels.Model
 @using BlazorApp1.Services
 @using BlazorApp1.Models
-@inject DashboardService DashboardService
+@inherits OwningComponentBase<GroupsListService>
+@inject NavigationManager NavigationManager
+@inject IJSRuntime JsRuntime
+@inject DashboardService DashboardService 
 
 <h1>Dashboard Test</h1>
 
 <RadzenButton Text="It Works!" />
 
-@if (dashboards != null)
-{
-    <table class="table-bordered">
-        <thead>
-            <tr>
-                <th width="30%">ActiveDevices</th>
-                <th width="20%">ActiveEmails</th>
-                <th width="20%">DocsSentDaily</th>   
-            </tr>
-        </thead>
+<div class="col-md-6">
+    <div class="form-group">
+        @*<input form="User" class="form-control" @bind="@device.User" />*@
+        <th>-- Active Emails --</th>
         <tbody>
-            @foreach (var p in dashboards)
+            @foreach (var item in usrobj.GroupBy(e => e.GetType()).OrderByDescending(s => s.Count()))
             {
-                <tr>
-                    <td>@p.ActiveDevices</td>
-                    <td>@p.ActiveEmails</td>
-                    <td>@p.DocsSentDaily</td>
-                </tr>
+                <td>@item.Count()</td>
             }
         </tbody>
-    </table>
-}
+    </div>
+</div>
+
+<div class="col-md-6">
+    <div class="form-group">
+        @*<input form="User" class="form-control" @bind="@device.User" />*@
+        <th>-- Active Devices --</th>
+        <tbody>
+            @foreach (var devitem in devobj.GroupBy(e => e.GetType()).OrderByDescending(s => s.Count()))
+            {
+                <td>@devitem.Count()</td>
+            }
+        </tbody>
+    </div>
+</div>
+
+
+
 @code{
-   
+
     private Dashboard[] dashboards;
-    protected override void OnInitialized()
+    Dashboard dashboard = new Dashboard();
+    List<UserListClass> usrobj;
+    List<DeviceListClass> devobj;
+    //List<DocsListClass> docobj;
+    //defining the fields that hold the data for the charts
+
+    //load the data when the component is initialized on the screen
+    protected override async Task OnInitializedAsync()
     {
         //base.OnInitialized();
-       //usrobj = Service.usersobj();
-        //dashboards = await DashboardsService.GetDashboardsAsync();
+        usrobj = Service.usersobj();
+        devobj = Service.devobj();
+        //dashboards = await DashboardService.GetDashboardsAsync();
     }
+
 }

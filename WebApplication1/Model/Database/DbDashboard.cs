@@ -1,14 +1,13 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.EntityFrameworkCore;
 
 namespace Api.Model.Database
 {
+    [Keyless]
     [Table("Dashboard", Schema = "dbo")]
     public class DbDashboard
     {
-        [Required]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
         [Required]
         public int ActiveDevices { get; set; }
         [Required]

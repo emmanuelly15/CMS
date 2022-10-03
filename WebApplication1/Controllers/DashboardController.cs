@@ -24,7 +24,6 @@ namespace Api.Controllers
 
             var allInfo = db.Dashboards.ToList().Select(v => new Dashboard
             {
-                Id = v.Id,
                 ActiveDevices = v.ActiveDevices,
                 ActiveEmails = v.ActiveEmails,
                 DocsSentDaily = v.DocsSentDaily,
