@@ -8,6 +8,9 @@ using Microsoft.AspNetCore.Hosting;
 using System.Linq;
 using Microsoft.AspNetCore.Http;
 using System.Globalization;
+using System.Security.Principal;
+using CloudinaryDotNet;
+using CloudinaryDotNet.Actions;
 
 namespace Api.Controllers
 {
@@ -16,13 +19,21 @@ namespace Api.Controllers
     public class ImageUploadController : ControllerBase
     {
         public DatabaseContext dbaseContext;
-
+        private Account account;
+        private Cloudinary cloudinary;
         public ImageUploadController(DatabaseContext db)
         {
             dbaseContext = db;
+            account = new Account(
+              "ducsowt3l",
+              "258279323544422",
+              "v9x1HtBtd0SjPqZIU4Mx3FT9cFw");
+
+            cloudinary = new Cloudinary(account);
         }
 
         [HttpPost]
+
         public ActionResult<string> UploadImages()
         {
 
@@ -47,15 +58,21 @@ namespace Api.Controllers
 
                         //var path = Path.Combine(@"wwwroot/images/" + newfilename); path for the server
                         //var dbPath = Path.Combine("",  newfilename);
-
+                        ImageUploadResult uploadResult;
                         using (var stream = new FileStream(path, FileMode.Create))
                         {
-                            file.CopyTo(stream); //copying url to stream
+                            
+                            file.CopyTo(stream);
+                            
                         }
-
+                        var upload = new ImageUploadParams()
+                        {
+                            File = new FileDescription(file.FileName, path),
+                        };
+                        uploadResult = cloudinary.Upload(upload);//copying url to s
                         Imageupload imageupload = new Imageupload();
                        
-                        imageupload.ImagePath = dbPath;
+                        imageupload.ImagePath = uploadResult.Url.ToString();
                         imageupload.InsertedOn = DateTime.Now;
                         if(hasEmail) imageupload.Email = email;
                         if(hasTitle) imageupload.Title = title;
