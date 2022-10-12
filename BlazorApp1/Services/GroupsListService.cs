@@ -30,5 +30,10 @@ namespace BlazorApp1.Services
         {
             return _dbcontext.Device.ToList();
         }
+
+        public List<DocumentListClass> docobj()
+        {
+            return _dbcontext.Document.ToList();
+        }
     }
 }
