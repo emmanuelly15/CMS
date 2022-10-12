@@ -17,7 +17,7 @@ namespace BlazorApp1.Data
         public DbSet<GroupsListClass> Groups { get; set; }
         public DbSet<UserListClass> User { get; set; }
         public DbSet<DeviceListClass> Device { get; set; }
-        public DbSet<DocumentListClass> Document { get; set; }
+        public DbSet<DocumentListClass> Imageuploads { get; set; }
     }
 }
 

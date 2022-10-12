@@ -19,7 +19,7 @@ namespace Api.Model.Database
         public DbSet<DbMailingList> ML { get; set; }
         public DbSet<DbImageuploads> Documents { get; set; }
         public DbSet<Imageupload> Imageuploads { get; set; }
-        public DbSet<DbDashboard> Dashboards { get; set; }
+       // public DbSet<DbDashboard> Dashboards { get; set; }
 
 
         public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options)

@@ -39,6 +39,40 @@
     </div>
 </div>
 
+<div class="col-md-6">
+    <div class="form-group">
+        @*<input form="User" class="form-control" @bind="@device.User" />*@
+        <th>-- Documents --</th>
+        <tbody>
+            @foreach (var docitem in docobj.GroupBy(e => e.GetType()).OrderByDescending(s => s.Count()))
+            {
+                <td>@docitem.Count()</td>
+            }
+        </tbody>
+    </div>
+</div>
+
+<p>Document Submissions List</p>
+<div>
+        <table class="table-bordered">
+            <thead>
+                <tr>
+                    <th width="20%">ID</th>
+                </tr>
+            </thead>
+            <tbody>
+            @foreach (var p in docobj)
+            {
+                        <tr>
+                            <td>@p.Id</td>
+                        </tr>
+            }
+            </tbody>
+
+        </table>
+</div>
+
+
 
 
 @code{
@@ -47,7 +81,7 @@
     Dashboard dashboard = new Dashboard();
     List<UserListClass> usrobj;
     List<DeviceListClass> devobj;
-    //List<DocsListClass> docobj;
+    List<DocumentListClass> docobj;
     //defining the fields that hold the data for the charts
 
     //load the data when the component is initialized on the screen
@@ -56,6 +90,7 @@
         //base.OnInitialized();
         usrobj = Service.usersobj();
         devobj = Service.devobj();
+        docobj = Service.docobj();
         //dashboards = await DashboardService.GetDashboardsAsync();
     }
 

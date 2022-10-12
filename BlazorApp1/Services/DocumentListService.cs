@@ -16,7 +16,7 @@ namespace BlazorApp1.Services
 
         public List<DocumentListClass> docobj()
         {
-            return _dbcontext.Document.ToList();
+            return _dbcontext.Imageuploads.ToList();
         }
     }
 }
