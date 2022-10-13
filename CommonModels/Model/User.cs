@@ -21,11 +21,12 @@ namespace CommonModels.Model
         public string Email { get; set; }
 
         [Required(ErrorMessage = "Telephone is required")]
-        [StringLength(10)]
-        [Phone] //ensure that only numbers are entered --NEED TO VALIDATE LENGTH OF PHONE NUMBER      
+        [RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Invalid phone number.")] //ensure that only numbers are entered and validates length of phone number
         public string Telephone { get; set; }
 
+        [RegularExpression(@"^.{8,}$")] //validate minimum amount of characters entered 
         [Required(ErrorMessage = "EmpId is required")]
+        [StringLength(8, MinimumLength = 8, ErrorMessage = "Employee Id must contain 8 characters.")] //validate maximum amount of characters entered and error message
         public string EmpId { get; set; }
 
         [Required(ErrorMessage = "Password is required")]
