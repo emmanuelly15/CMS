@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualBasic;
+﻿using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace BlazorApp1.Models
@@ -8,6 +8,6 @@ namespace BlazorApp1.Models
         [Key]
         public int Id { get; set; }
 
-        //public DateFormat InsertedOn { get; set; }
+        public DateTime? InsertedOn { get; set; }
     }
 }

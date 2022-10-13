@@ -7,6 +7,13 @@
 <h1>User Management</h1>
 <h2>Add User</h2>
 
+<EditForm Model="@user" OnValidSubmit="@HandleValidSubmit">
+
+    <DataAnnotationsValidator />
+
+    <ValidationSummary />
+
+
 <div class="row">
         <div class="col-md-6">
                 <div class="form-group">
@@ -43,24 +50,31 @@
 <div class="row">
         <div class="col-md-4">
                 <div class="form-group">
-                        <input type="button" class="btn btn-primary" @onclick="@Save" value="Save" />
+                        <button type="submit">Submit</button>
                         <input type="button" class="btn" @onclick="@Cancel" value="Cancel" />
                     </div>
             </div>
 </div>
+</EditForm>
+
 @code {
     [Parameter]
     public string Id{ get; set; }
     User user = new User();
-    
-    protected async Task Save()
+
+    private async void HandleValidSubmit() //handles user exception to ensure valid information is entered before saving
+
     {
-        await UserService.SaveAsync(user);
+       await UserService.SaveAsync(user); 
+        NavigationManager.NavigateTo("UserList");
+        Console.WriteLine("OnValidSubmit");
+
+    }
+
+    void Cancel()
+    {
         NavigationManager.NavigateTo("UserList");
     }
-            void Cancel()
-            {
-                NavigationManager.NavigateTo("UserList");
-            }
+
 }
 

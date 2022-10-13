@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.VisualBasic;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -20,7 +21,7 @@ namespace Api.Model.Database
         [Required]
         public string Title { get; set; }
         [Required]
-        public DateTime? InsertedOn { get; set; }
+        public DateTime InsertedOn { get; set; }
         [Required]
         public string ImagePath { get; set; }
         [Required]
