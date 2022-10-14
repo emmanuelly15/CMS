@@ -13,7 +13,7 @@ namespace CommonModels.Model
         public int Id { get; set; }
 
         [Required(ErrorMessage = "Name is required")]
-        [RegularExpression(@"^[a-zA-Z\s.\-']{2,}$", ErrorMessage = "Employee name contains invalid characters.")] //enusres that user enter alphabet characters 
+        [RegularExpression(@"^[a-zA-Z\s.\-']{2,}$", ErrorMessage = "Employee name contains invalid characters.")] //ensures that user enters alphabet characters 
         public string Name { get; set; }
 
         [Required(ErrorMessage = "Email is required")]

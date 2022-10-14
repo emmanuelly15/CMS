@@ -4,8 +4,15 @@
 @inject NavigationManager NavigationManager
 @inject IJSRuntime JsRuntime
 @inject AdminUserService AdminUserService
+
 <h2>Edit Admin User</h2>
 
+
+<EditForm Model="@adminuser" OnValidSubmit="@HandleValidSubmit">
+
+    <DataAnnotationsValidator />
+
+    <ValidationSummary />
 <div class="row">
         <div class="col-md-6">
                 <div class="form-group">
@@ -43,11 +50,13 @@
 <div class="row">
         <div class="col-md-4">
                 <div class="form-group">
-                        <input type="button" class="btn btn-primary" @onclick="@UpdateAdminUser" value="Save" />
+                        <button type="submit">Submit</button>
                         <input type="button" class="btn" @onclick="@Cancel" value="Cancel" />
                     </div>
             </div>
 </div>
+</EditForm>
+
 @code {
     [Parameter]
     public string Id{ get; set; }
@@ -56,12 +65,14 @@
     {
         adminuser = await AdminUserService.GetAdminUserById(int.Parse(Id));
     }
-        protected async Task UpdateAdminUser()
-        {
-           await AdminUserService.EditAdminUser(adminuser);
-            NavigationManager.NavigateTo("AdminUserList");
-                
-            }
+    private async void HandleValidSubmit() //handles user exception to ensure valid information is entered before saving
+
+    {
+        await AdminUserService.EditAdminUser(adminuser);
+        NavigationManager.NavigateTo("AdminUserList");
+        Console.WriteLine("OnValidSubmit");
+
+    }
             void Cancel()
             {
                 NavigationManager.NavigateTo("AdminUserList");

@@ -11,12 +11,15 @@ namespace CommonModels.Model
         public int Id { get; set; }
 
         [Required(ErrorMessage = "Name is required")]
+        [RegularExpression(@"^[a-zA-Z\s.\-']{2,}$", ErrorMessage = "Name entered contains invalid characters.")] //ensures that user enter alphabet characters 
         public string Name { get; set; }
 
         [Required(ErrorMessage = "Email is required")]
+        [EmailAddress] //ensure an actual email is entered
         public string Email { get; set; }
 
        [Required(ErrorMessage = "Password is required")]
+        [RegularExpression(@"^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\w\d\s:])([^\s]){8,32}$", ErrorMessage = "Password doesn't meet security rules.")] //validate that password meets standard requirements
         public string Password { get; set; }
 
         [Required(ErrorMessage = "Authorisation is required")]

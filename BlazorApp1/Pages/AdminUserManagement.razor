@@ -8,6 +8,11 @@
 <h1>Admin User Management</h1>
 <h2>Add Admin User</h2>
 
+<EditForm Model="@adminuser" OnValidSubmit="@HandleValidSubmit">
+
+    <DataAnnotationsValidator />
+
+    <ValidationSummary />
 <div class="row">
         <div class="col-md-6">
                 <div class="form-group">
@@ -46,11 +51,13 @@
 <div class="row">
         <div class="col-md-4">
                 <div class="form-group">
-                        <input type="button" class="btn btn-primary" @onclick="@Save" value="Save" />
+                        <button type="submit">Submit</button>
                         <input type="button" class="btn" @onclick="@Cancel" value="Cancel" />
                     </div>
             </div>
 </div>
+</EditForm>
+
 @code {
     [Parameter]
     public string Id{ get; set; }
@@ -60,10 +67,13 @@
         await AdminUserService.Login(int.Parse(Id));
         NavigationManager.NavigateTo("AdminUserList");
     }*/
-    protected async Task Save()
+    private async void HandleValidSubmit() //handles user exception to ensure valid information is entered before saving
+
     {
         await AdminUserService.SaveAsync(adminuser);
         NavigationManager.NavigateTo("AdminUserList");
+        Console.WriteLine("OnValidSubmit");
+
     }
             void Cancel()
             {
