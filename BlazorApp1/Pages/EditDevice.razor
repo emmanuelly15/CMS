@@ -8,7 +8,14 @@
 @inject NavigationManager NavigationManager
 @inject IJSRuntime JsRuntime
 @inject DeviceService DeviceService
+
 <h2>Edit Device</h2>
+
+<EditForm Model="@device" OnValidSubmit="@HandleValidSubmit">
+
+    <DataAnnotationsValidator />
+
+    <ValidationSummary />
 
 <div class="row">
     <div class="col-md-6">
@@ -72,37 +79,48 @@
 <div class="row">
         <div class="col-md-4">
                 <div class="form-group">
-                        <input type="button" class="btn btn-primary" @onclick="@UpdateDevice" value="Save" />
+                        <button type="submit">Save</button>
                         <input type="button" class="btn" @onclick="@Cancel" value="Cancel" />
                     </div>
             </div>
 </div>
+</EditForm>
+
 @code {
     public string Id{ get; set; }
     Device device = new Device();
     List<GroupsListClass> grobj;
     List<UserListClass> usrobj;
+   
+    /*protected override async Task OnInitializedAsync()
+    {
+        device = await DeviceService.GetDevicesById(int.Parse(Id)); //getting users information from db to display in edit boxes.
+    }*/
     protected override void OnInitialized()
     {
         //base.OnInitialized();
         grobj = Service.groupsobj();
         usrobj = Service.usersobj();
     }
+
     protected override async Task OnInitializedAsync()
     {
-       // device = await DeviceService.GetDevicesById(int.Parse(Id));
+        device = await DeviceService.GetDevicesById(int.Parse(Id));
         grobj = Service.groupsobj();
         usrobj = Service.usersobj();
     }
-        protected async Task UpdateDevice()
-        {
-           
-            await DeviceService.EditDevice(device);
-            NavigationManager.NavigateTo("DeviceList");
-                
-            }
-            void Cancel()
-            {
-                NavigationManager.NavigateTo("DeviceList");
-            }
-        }
+
+    private async void HandleValidSubmit() //handles user exception to ensure valid information is entered before saving
+
+    {
+        await DeviceService.EditDevice(device);
+        NavigationManager.NavigateTo("DeviceList"); //navigation link to table page after device has been added
+        Console.WriteLine("OnValidSubmit");
+
+    }
+
+    void Cancel()
+    {
+        NavigationManager.NavigateTo("DeviceList");
+    }
+ }

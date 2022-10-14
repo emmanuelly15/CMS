@@ -12,6 +12,11 @@
 
 <p>Add, edit, or delete a device.</p>
 
+<EditForm Model="@device" OnValidSubmit="@HandleValidSubmit">
+
+    <DataAnnotationsValidator />
+
+    <ValidationSummary />
 <div class="row">
     <div class="col-md-6">
         <div class="form-group">
@@ -75,12 +80,12 @@
 <div class="row">
     <div class="col-md-4">
         <div class="form-group">
-            <input type="button" class="btn btn-primary" @onclick="@Save" value="Save" />
+            <button type="submit">Submit</button>
             <input type="button" class="btn" @onclick="@Cancel" value="Cancel" />
         </div>
     </div>
 </div>
-
+</EditForm>
 
 @code {
     public string Id { get; set; }
@@ -94,10 +99,13 @@
         grobj = Service.groupsobj();
         usrobj = Service.usersobj();
     }
-    protected async Task Save()
+    private async void HandleValidSubmit() //handles user exception to ensure valid information is entered before saving
+
     {
-       await DeviceService.SaveAsync(device);
+        await DeviceService.SaveAsync(device);
         NavigationManager.NavigateTo("DeviceList"); //navigation link to table page after device has been added
+        Console.WriteLine("OnValidSubmit");
+
     }
     void Cancel()
     {
