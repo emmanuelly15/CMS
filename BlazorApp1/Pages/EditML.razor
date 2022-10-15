@@ -18,25 +18,15 @@
 
 <div class="col-md-6">
     <div class="form-group">
-        <label for="User"> User *</label>
+        <label for="User"> User email</label>
         @*<input form="User" class="form-control" @bind="@device.User" />*@
-        <select class="form-control" @bind="@ml.Email">
-            <option value="">-- Select User --</option>
-            @if (usrobj != null)
-            {
-                @foreach (var item in usrobj)
-                {
-                    <option value="@item.Email">@item.Email</option>
-
-                }
-            }
-        </select>
+        <label for="User">@ml.Email</label>
     </div>
 </div>
 
 <div class="col-md-6">
     <div class="form-group">
-        <label for="Groups">  Group *</label>
+        <label for="Groups">Edit Group</label>
         @*<input form="Groups" class="form-control" @bind="@ml.Groups" />*@
         <select class="form-control" @bind="@ml.Groups">
             <option value="">-- Select Group --</option>
