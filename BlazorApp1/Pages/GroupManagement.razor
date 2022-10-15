@@ -18,7 +18,8 @@
         <div class="col-md-6">
                 <div class="form-group">
                         <label for="Groups">  Group *</label>
-                <RadzenTextBox @bind-Value=@group.Groups TextTransform="Uppercase" />
+                <input form="Group name" class="form-control" @bind="@group.Groups" style='text-transform:uppercase' />
+                        
                     </div>
             </div>
         
@@ -27,7 +28,7 @@
 <div class="row">
         <div class="col-md-4">
                 <div class="form-group">
-                        <button type="submit">Submit</button>
+                        <button type="submit">Save</button>
                         <input type="button" class="btn" @onclick="@Cancel" value="Cancel" />
                     </div>
             </div>
@@ -48,14 +49,10 @@
         Console.WriteLine("OnValidSubmit");
 
     }
-    void OnChange(string value)
-    {
-        this.value = value.ToUpper();
-    }
 
     void Cancel()
-        {
-                NavigationManager.NavigateTo("GroupList");
-            }
+    {
+         NavigationManager.NavigateTo("GroupList");
+    }
 }
 

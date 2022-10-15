@@ -9,6 +9,11 @@
 @inject IJSRuntime JsRuntime
 @inject MailingListService MailingListService
 
+<EditForm Model="@ml" OnValidSubmit="@HandleValidSubmit">
+
+    <DataAnnotationsValidator />
+
+    <ValidationSummary />
 <h2>Edit Mailing List</h2>
 
 <div class="col-md-6">
@@ -26,10 +31,9 @@
                 }
             }
         </select>
-
-
     </div>
 </div>
+
 <div class="col-md-6">
     <div class="form-group">
         <label for="Groups">  Group *</label>
@@ -50,11 +54,13 @@
 <div class="row">
         <div class="col-md-4">
                 <div class="form-group">
-                        <input type="button" class="btn btn-primary" @onclick="@UpdateMailingList" value="Save" />
+                       <button type="submit">Save</button>
                         <input type="button" class="btn" @onclick="@Cancel" value="Cancel" />
                     </div>
             </div>
 </div>
+</EditForm>
+
 @code {
     [Parameter]
     public string Id{ get; set; }
@@ -74,11 +80,21 @@
         ml = await MailingListService.GetMLById(int.Parse(Id));
     }
 
+    private async void HandleValidSubmit() //handles user exception to ensure valid information is entered before saving
+
+    {
+        await MailingListService.EditMailingList(ml);
+        NavigationManager.NavigateTo("MailingListList");
+        Console.WriteLine("OnValidSubmit");
+
+    }
+
+   /* <input type="button" class="btn btn-primary" @onclick="@UpdateMailingList" value="Save" />
     protected async Task UpdateMailingList()
     {
         await MailingListService.EditMailingList(ml);
         NavigationManager.NavigateTo("MailingListList");         
-    }
+    }*/
     
     void Cancel()
     {

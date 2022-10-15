@@ -16,6 +16,7 @@ namespace CommonModels.Model
 
         [Required(ErrorMessage = "Email is required")]
         [EmailAddress] //ensure an actual email is entered
+        [RegularExpression(@"^[^@\s]+@[^@\s]+\.(com|net|org|gov|co.za)$", ErrorMessage = "Invalid pattern at email.")]
         public string Email { get; set; }
 
        [Required(ErrorMessage = "Password is required")]
