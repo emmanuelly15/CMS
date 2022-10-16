@@ -53,6 +53,21 @@ namespace BlazorApp1.Authentication
             return result;
         }
 
-     
+        public async Task Logout()
+        {
+            await _localStorage.RemoveItemAsync(key: "authToken");
+            ((AuthStateProvider)_authStateProvider).NotifyAdminLogout();
+            _client.DefaultRequestHeaders.Authorization = null;
+        }
+
+        Task<AuthenticatedAdminModel> IAuthenticationService.Login(AuthenticationAdminModel adminForAuthentication)
+        {
+            throw new NotImplementedException();
+        }
+
+        Task<AuthenticatedAdminModel> IAuthenticationService.Logout()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

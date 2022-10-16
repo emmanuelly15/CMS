@@ -20,6 +20,7 @@ using System.Threading.Tasks;
 using BlazorApp1.DbServices;
 using BlazorApp1.Authentication;
 using Blazored.LocalStorage;
+using System.Net.Http;
 
 namespace BlazorApp1
 {
@@ -54,6 +55,7 @@ namespace BlazorApp1
             services.AddSingleton<ImageUploadService>();
             services.AddScoped<GroupsListService>();
             services.AddScoped<UserListService>();
+            services.AddScoped<HttpClient>();
             services.AddScoped<IAuthenticationService, AuthenticationService>();
             services.AddBlazoredLocalStorage();
             services.AddAuthorizationCore();

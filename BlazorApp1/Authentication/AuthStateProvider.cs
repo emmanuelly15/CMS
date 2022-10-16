@@ -35,7 +35,10 @@ namespace BlazorApp1.Authentication
                 return _anonymous;
             }
 
-            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(scheme: "bearer", token);
+                _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(scheme: "bearer", token);
+
+                
+            
 
             return new AuthenticationState(user: new ClaimsPrincipal(identity: new ClaimsIdentity(JwtParser.ParseClaimsFromJwt(token), authenticationType: "jwtAuthType")));
 

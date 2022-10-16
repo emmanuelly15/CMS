@@ -5,10 +5,38 @@
 @using Microsoft.JSInterop
 @using Microsoft.AspNetCore.Components.Forms
 @inject IJSRuntime JsRuntime
-@inject AdminUserService AdminUserService
+@inject AdminUserService adminuser
 @inject IAuthenticationService AuthService
 @inject NavigationManager NavManager
 
+
+<EditForm Model="adminuser" OnValidSubmit="ExecuteLogin">
+    <DataAnnotationValidator />
+    <ValidationSummary />
+
+    <div>
+        <br /><br /><br /><br /><br />
+    </div>
+    <div>
+        <h3 style="font-weight:bold; color:purple">Payco Login</h3>
+    </div>
+    <div>
+        <br />
+    </div>
+    <div class="col-12 row">
+        <input class="form-control col-12" @bind="adminuser.Email" placeholder="email address" />
+    </div>
+    <br />
+    <div class="col-12 row">
+        <input type="password" class="form-control col-12" @bind="adminuser.Password" placeholder="password" />
+    </div>
+    <br />
+    <div class="row">
+        <span class="col-12"></span>
+        <button type="submit" class="btn btn-success">Log in</button>
+    </div>>
+
+</EditForm>
 
 @if (showAuthenticationError)
 {
@@ -18,15 +46,7 @@
 }
 
 
-    <div class ="form-group row">
-        <label for="email class="col-md-2 col-form-label">Email:</label>"
-        <div class="col-md-10">
-            <InputText id="email class=form-control" @bind-Value="adminuser.email"/>
-            <ValidationMessage For="(( => model.email))" />
-        </div>
-    </div>
 
-    </EditForm>
 
 @code {
 
@@ -39,7 +59,7 @@
     {
         showAuthenticationError = false;
 
-        var result = await AuthService.Login(model);
+        AuthenticatedAdminModel result = await AuthService.Login(model);
 
         if(result != null)
         {
@@ -52,12 +72,6 @@
         }
     }
 
-    /*
-    [Parameter]
-    public string Id{ get; set; }
-    protected async Task Login()
-    {
-        await AdminUserService.Login(int.Parse(Id));
-    }
-    */
+
+    
 }

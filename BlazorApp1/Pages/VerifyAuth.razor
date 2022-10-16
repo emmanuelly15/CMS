@@ -5,15 +5,14 @@
 {
     <h4>@adminEmail is authenticated</h4>
     <ul>
-        <li>Access to Admin Role: @isAdmin</li>
-        <li>Access to Marketing Role: @isMarketing</li>
-        <li>Access to Finance Role: @isFinance</li>
-        <li>Access to Human Resources Role: @isHumanResources</li>
+        <li>Is Admin Higher Level : </li>
+        <li>Is Admin Lower Level : </li>
+
     </ul>
 }
 else
 {
-    <h4>The user is not authenticated</h4>
+    <h4>The admin is not authenticated</h4>
 }
 @code {
 
@@ -22,11 +21,9 @@ else
 
     private bool isAuthenticated = false;
     private string adminEmail;
-    private bool isAdmin = false;
-    private bool isMarketing = false;
-    private bool isFinance = false;
-    private bool isHumanResources = false;
-    private bool isOther = false;
+    private bool isAdminHigherLevel = false;
+    private bool isAdminLowerLevel = false;
+  
 
     protected override async Task OnInitializedAsync()
     {
@@ -38,11 +35,9 @@ else
 
             adminEmail = authState.User.FindFirst(System.Security.Claims.ClaimTypes.Name).Value;
 
-            isAdmin = authState.User.IsInRole("Admin");
-            isMarketing = authState.User.IsInRole("Marketing");
-            isFinance = authState.User.IsInRole("Finance");
-            isHumanResources = authState.User.IsInRole("HumanResources");
-            isOther = authState.User.IsInRole("Other");
+            isAdminHigherLevel = authState.User.IsInRole("Higher Level Admin");
+            isAdminLowerLevel = authState.User.IsInRole("Lower Level Admin");
+          
         }
     }
 }
