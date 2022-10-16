@@ -54,14 +54,14 @@ namespace BlazorApp1.DbServices
         public async Task ApproveDocumentById(int id)
         {
             var client = new HttpClient();
-            var response = await client.GetAsync(apiUrl +"/ApproveDoc/" + id);
+            var response = await client.GetAsync("https://localhost:44304/ApproveDoc/" + id);
             
         }
         public async Task RejectDocumentById(int id)
         {
             var client = new HttpClient();
-            var response = await client.GetAsync(apiUrl + "/RejectDoc/" + id);
-
+            var response = await client.GetAsync("https://localhost:44304/RejectDoc/" + id);
+           
         }
     }
 }
