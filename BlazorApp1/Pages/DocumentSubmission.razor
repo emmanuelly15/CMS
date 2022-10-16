@@ -2,6 +2,9 @@
 @using BlazorApp1.DbServices
 @using CommonModels.Model
 @inject DocumentService DocumentService
+@inject NavigationManager NavigationManager
+
+
 
 <h3>Document Submission</h3>
 <p>View documents and approve or reject the document</p>
@@ -44,7 +47,7 @@
                            <button @onclick="@(k => Approve(k,@p.Id))">Approve</button>
                            <button @onclick="@(k => Reject(k,@p.Id))">Reject</button>
                        }
-                            
+                          
                         </td>
                     </tr>
                 }
@@ -66,11 +69,14 @@
     {
         await DocumentService.ApproveDocumentById(Id);
         Console.WriteLine(Id);
+        NavigationManager.NavigateTo("UserList");
     }
+
     protected async Task Reject(MouseEventArgs args, int Id)
     {
         await DocumentService.RejectDocumentById(Id);
         Console.WriteLine(Id);
+        NavigationManager.NavigateTo("UserList");
     }
     
 
