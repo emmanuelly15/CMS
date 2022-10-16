@@ -6,19 +6,27 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CommonModels.Model
 {
-   
-    internal class User
+    
+    public class User
     {
+       
         public int Id { get; set; }
-        [Required]
+
+        [Required(ErrorMessage = "Name is required")]
         public string Name { get; set; }
-        [Required]
+
+        [Required(ErrorMessage = "Email is required")]
         public string Email { get; set; }
-        [Required]
-        public string EmpId { get; set; }
-        [Required]
-        public string Password { get; set; }
-        [Required]
+
+        [Required(ErrorMessage = "Telephone is required")]
         public string Telephone { get; set; }
+
+        [Required(ErrorMessage = "EmpId is required")]
+        public string EmpId { get; set; }
+
+        [Required(ErrorMessage = "Password is required")]
+        public string Password { get; set; }
+
+        
     }
 }

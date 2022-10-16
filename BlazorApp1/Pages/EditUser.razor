@@ -1,0 +1,71 @@
+﻿@page "/EditUser/{Id}"
+@using CommonModels.Model
+@using BlazorApp1.Data
+@inject NavigationManager NavigationManager
+@inject IJSRuntime JsRuntime
+@inject UserService UserService 
+<h2>Edit User</h2>
+@*Form to bring users information from the db and display it, so the user can decide what to edit.*@
+<div class="row">
+        <div class="col-md-6">
+                <div class="form-group">
+                        <label for="Name">  Name *</label>
+                        <input form="Name" class="form-control" @bind="@user.Name" /> @*The bind function is what binds the user(from the user class, to the fields for example Name, Email...)*@ 
+                 </div>
+            </div>
+        
+        <div class="col-md-6">
+                <div class="form-group">
+                        <label for="Email"> Email *</label>
+                        <input form="Email" class="form-control" @bind="@user.Email" />
+                    </div>
+            </div>
+        <div class="col-md-6">
+                <div class="form-group">
+                        <label for="Telephone"> Telephone *</label>
+                        <input form="Telephone" class="form-control" @bind="@user.Telephone" />
+                    </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                        <label for="EmpId"> Employee_ID *</label>
+                        <input form="EmpId" class="form-control" @bind="@user.EmpId" />
+                    </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                        <label for="Password"> Password *</label>
+                        <input form="Password" class="form-control" @bind="@user.Password" />
+                    </div>
+            </div>
+    </div>       
+<div class="row">
+        <div class="col-md-4">
+                <div class="form-group">
+                        <input type="button" class="btn btn-primary" @onclick="@UpdateUser" value="Save" />
+                        <input type="button" class="btn" @onclick="@Cancel" value="Cancel" />
+                    </div>
+            </div>
+</div>
+@code {
+    [Parameter]
+    public string Id{ get; set; }
+    User user = new User();
+
+    protected override async Task OnInitializedAsync()
+    {
+        user = await UserService.GetUserById(int.Parse(Id)); //getting users information from db to display in edit boxes.
+    }
+    protected async Task UpdateUser() //calling the controller
+    {
+        await UserService.EditUser(user); //calling the service to edit.
+        NavigationManager.NavigateTo("UserList"); //taking user back to the list once save is pressed.
+                
+            }
+            void Cancel()
+            {
+                NavigationManager.NavigateTo("UserList");// taking user back to UserList if cancel button is pressed.
+            }
+       
+
+        }

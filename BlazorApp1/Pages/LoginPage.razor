@@ -1,0 +1,54 @@
+﻿@page "/Login"
+@using CommonModels.Model
+@using BlazorApp1.Data
+@inject IJSRuntime JsRuntime
+@inject AdminUserService AdminUserService
+
+<EditForm Model="@adminuser" OnValidSubmit="@ValidateAdminUser">
+    <div>
+        <br /><br /><br /><br /><br />
+    </div>
+    <div>
+        <h3 style="font-weight:bold; color:purple">Payco Login</h3>
+    </div>
+    <div>
+        <br />
+    </div>
+    <div class="col-12 row">
+        <input class="form-control col-12" @bind="adminuser.Email" placeholder="email address" />
+    </div>
+    <br />
+    <div class="col-12 row">
+        <input type="password" class="form-control col-12" @bind="adminuser.Password" placeholder="password" />
+    </div>
+    <br />
+    <div class="col-12 row">
+        <span class="col-12"></span>
+        <input type="submit" class="form-control col-6 btn btn-primary" value="Login" />
+        <a href="/Login" class="col-3">Login</a>
+    </div>
+    <br />
+    <div class="col-12 row" style="text-align:left; font-weight:bold">
+        <span class="col-12">@LoginMesssage</span>
+    </div>
+</EditForm>
+
+@code {
+    [Parameter]
+    public string Id { get; set; }
+    public string LoginMesssage { get; set; }
+    AdminUser adminuser = new  AdminUser();
+    protected async Task Login()
+    {
+        await AdminUserService.Login(int.Parse(Id));
+    }
+
+
+    private async Task<bool> ValidateAdminUser()
+    {
+        //assume that user is valid
+        //call an API
+
+        return await Task.FromResult(true);
+    }
+}

@@ -1,0 +1,65 @@
+﻿@page "/EditDevice/{Id}"
+@using CommonModels.Model
+@using BlazorApp1.Data
+@inject NavigationManager NavigationManager
+@inject IJSRuntime JsRuntime
+@inject DeviceService DeviceService
+<h2>Edit Device</h2>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="form-group">
+            <label for="IMEI">  IMEI *</label>
+            <input form="IMEI" class="form-control" @bind="@device.IMEI" />
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="form-group">
+            <label for="User"> User *</label>
+            <input form="User" class="form-control" @bind="@device.User" />
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            <label for="Group"> Select Group *</label>
+            <input form="Group" class="form-control" @bind="@device.Groups" />
+        </div>
+    </div>
+    
+    <div class="col-md-6">
+        <div class="form-group">
+            <label for="Auhtorisation"> Auhtorisation *</label>
+            <input form="Auhtorisation" class="form-control" @bind="@device.Authorisation" />
+        </div>
+    </div>
+    
+</div>      
+<div class="row">
+        <div class="col-md-4">
+                <div class="form-group">
+                        <input type="button" class="btn btn-primary" @onclick="@UpdateDevice" value="Save" />
+                        <input type="button" class="btn" @onclick="@Cancel" value="Cancel" />
+                    </div>
+            </div>
+</div>
+@code {
+    [Parameter]
+    public string Id{ get; set; }
+    Device device = new Device();
+    protected override async Task OnInitializedAsync()
+    {
+        device = await DeviceService.GetDevicesById(int.Parse(Id));
+    }
+        protected async Task UpdateDevice()
+        {
+           
+            await DeviceService.EditDevice(device);
+            NavigationManager.NavigateTo("DeviceList");
+                
+            }
+            void Cancel()
+            {
+                NavigationManager.NavigateTo("DeviceList");
+            }
+        }

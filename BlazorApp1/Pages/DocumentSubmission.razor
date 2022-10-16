@@ -1,68 +1,77 @@
 @page "/DocumentSubmission"
-<h3>Document Submissions</h3>
-<br />
-<style>
+@using BlazorApp1.DbServices
+@using CommonModels.Model
+@inject DocumentService DocumentService
+
+<h3>Document Submission</h3>
+<p>View documents and approve or reject the document</p>
+<p>Document Submissions List</p>
+<div>
+    @if (imageuploads != null)
     {
-        border-radius: 25px;
-        background: grey;
-        background-position: left top;
-        background-repeat: repeat;
-        padding: 20px;
-        width: 200px;
-        height: 150px;
+        <table class="table-bordered">
+            <thead>
+                <tr>
+                    <th width="30%">Email</th>
+                    <th width="20%">Title</th>
+                    <th width="20%">Inserted On</th>
+                    <th width="30%">File</th>
+                    <th width="30%">FileFormat</th>
+                    <th width="20%">Comment</th>
+                    <th width="20%">Location</th>
+                    <th width="20%">Status</th>
+                    <th width="20%">Amount</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var p in imageuploads)
+                {
+                    <tr>
+                        <td>@p.Email</td>
+                        <td>@p.Title</td>
+                        <td>@p.InsertedOn</td>
+                        <td><a href="@p.ImagePath" target="_blank"> @p.ImagePath</a></td>
+                        <td>@p.FileFormat</td>
+                        <td>@p.Comment</td>
+                        <td>@p.Location</td>
+                        <td>@p.Status</td>
+                        <td>@p.Amount</td>
+                        <td>
+                             
+                        @if (@p.Status=="Pending")
+                       {
+                           <button @onclick="@(k => Approve(k,@p.Id))">Approve</button>
+                           <button @onclick="@(k => Reject(k,@p.Id))">Reject</button>
+                       }
+                            
+                        </td>
+                    </tr>
+                }
+            </tbody>
+            
+        </table>
     }
-</style>
-
-<p>
-    Show
-    <select>
-        <option>10</option>
-        <option>15</option>
-        <option>20</option>
-        <option>25</option>
-        <option>30</option>
-    </select>
-    entries
-</p>    
-
-<table class="table">
-    <thead>
-        <tr>
-            <th>Sent On</th>
-            <th>Name</th>
-            <th>Device IMEI</th>
-            <th>Group</th>
-            <th>File</th>
-            <th>Raw Image</th>
-            <th>Description</th>
-            <th>Location</th>
-            <th>Decision</th>
-        </tr>
-    </thead>
-
-    <tbody>
-        <tr>
-            <td>2022-03-31 <br /> 04:22:54</td>
-            <td>James</td>
-            <td>D009CDF12F6171EC</td>
-            <td>Finance</td>
-            <td>NewScanInvoice.pdf</td>
-            <td>NewScanInvoice79860.jpg</td>
-            <td>View Location</td>
-            <td>
-                <button class="btn btn-primary">
-                    <span class="oi oi-pencil"></span>
-                </button>
-                <button class="btn btn-danger">
-                    <span class="oi oi-trash"></span>
-                </button>
-            </td>
-        </tr>
-    </tbody>
-</table>
-
+</div>
 
 
 @code {
+    private Imageupload[] imageuploads;
+    protected override async Task OnInitializedAsync()
+    {
+        imageuploads = await DocumentService.GetDocumentsAsync();
+    }
+
+    protected async Task Approve(MouseEventArgs args, int Id)
+    {
+        await DocumentService.ApproveDocumentById(Id);
+        Console.WriteLine(Id);
+    }
+    protected async Task Reject(MouseEventArgs args, int Id)
+    {
+        await DocumentService.RejectDocumentById(Id);
+        Console.WriteLine(Id);
+    }
     
+
 }

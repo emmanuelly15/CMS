@@ -7,24 +7,19 @@
 
 <div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
     <ul class="nav flex-column">
+
+      <AuthorizeView>
+          <Authorized>
+
         <li class="nav-item px-3">
             <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
                 <span class="oi oi-home" aria-hidden="true"></span> Dashboard
             </NavLink>
         </li>
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="counter">
-                <span class="oi oi-plus" aria-hidden="true"></span> Counter
-            </NavLink>
-        </li>
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="fetchdata">
-                <span class="oi oi-badge" aria-hidden="true"></span> Fetch data
-            </NavLink>
-        </li>
+        
           <li class="nav-item px-3">
-            <NavLink class="nav-link" href="Administrator">
-                <span class="oi oi-person" aria-hidden="true"></span> Admin
+            <NavLink class="nav-link" href="Admin">
+                <span class="oi oi-person" aria-hidden="true"></span> Administrator
             </NavLink>
         </li>
 
@@ -35,35 +30,42 @@
         </li>
 
           <li class="nav-item px-3">
-            <NavLink class="nav-link" href="AdminUserManagement">
+            <NavLink class="nav-link" href="AdminUserList">
                 <span class="oi oi-people" aria-hidden="true"></span> Admin Management
             </NavLink>
         </li>
           <li class="nav-item px-3">
-            <NavLink class="nav-link" href="MailingList">
+            <NavLink class="nav-link" href="MailingListList">
                 <span class="oi oi-envelope-closed" aria-hidden="true"></span> Mailing List
             </NavLink>
         </li>
           <li class="nav-item px-3">
-            <NavLink class="nav-link" href="DeviceManagement">
+            <NavLink class="nav-link" href="DeviceList">
                 <span class="oi oi-phone" aria-hidden="true"></span> Device Management
             </NavLink>
         </li>
-          <li class="nav-item px-3">
-            <NavLink class="nav-link" href="UserManagement">
-                <span class="oi oi-person" aria-hidden="true"></span> User Management
-            </NavLink>
+          
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="UserList">
+                <span class="oi oi-person" aria-hidden="true"></span>User Management
+                </NavLink>
         </li>
           <li class="nav-item px-3">
-            <NavLink class="nav-link" href="GroupManagement">
+            <NavLink class="nav-link" href="GroupList">
                 <span class="oi oi-people" aria-hidden="true"></span> Group Management
             </NavLink>
         </li>
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="DeviceManagement">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Device Management
-            </NavLink>
-        </li>
+            </Authorized>
+        <NotAuthorized>
+              <div class="nav-item px-4">
+    <NavLink class="nav-link" href="LoginPage">
+        <span class="oi oi-list-rich" aria-hidden="true"></span>Login Page
+    </NavLink>
+</div>
+        </NotAuthorized>
+        </AuthorizeView>
+        
+     
     </ul>
 </div>
 

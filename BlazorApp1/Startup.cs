@@ -1,6 +1,8 @@
 using BlazorApp1.Areas.Identity;
 using BlazorApp1.Data;
 using Microsoft.AspNetCore.Builder;
+using BlazorApp1.Services;
+
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Hosting;
@@ -15,6 +17,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BlazorApp1.DbServices;
 
 namespace BlazorApp1
 {
@@ -31,15 +34,26 @@ namespace BlazorApp1
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(
-                    Configuration.GetConnectionString("DefaultConnection")));
+            string mySqlConnectionStr = Configuration["ConnectionStrings:Default"];
+            services.AddDbContextPool<ApplicationDbContext>(options => options.UseMySql(mySqlConnectionStr, ServerVersion.AutoDetect(mySqlConnectionStr)));
+            services.AddControllers();
+            services.AddAuthentication("Identity.Application")
+                .AddCookie();
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddRazorPages();
             services.AddServerSideBlazor();
             services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<IdentityUser>>();
-            services.AddSingleton<WeatherForecastService>();
+            services.AddSingleton<UserService>();
+            services.AddSingleton<DeviceService>();
+            services.AddSingleton<GroupService>();
+            services.AddSingleton<MailingListService>();
+            services.AddSingleton<AdminUserService>();
+            services.AddSingleton<DocumentService>();
+            services.AddSingleton<ImageUploadService>();
+            services.AddScoped<GroupsListService>();
+            services.AddScoped<UserListService>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -48,7 +62,7 @@ namespace BlazorApp1
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseDatabaseErrorPage();
+               // app.UseDatabaseErrorPage();
             }
             else
             {

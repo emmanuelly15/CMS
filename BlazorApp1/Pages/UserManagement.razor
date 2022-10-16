@@ -1,4 +1,9 @@
-﻿@page "/userManagement"
+﻿@page "/UserManagement"
+@using BlazorApp1.Data
+@using CommonModels.Model
+@inject NavigationManager NavigationManager
+@inject IJSRuntime JsRuntime
+@inject UserService UserService
 <h1>User Management</h1>
 <h2>Add User</h2>
 
@@ -6,43 +11,56 @@
         <div class="col-md-6">
                 <div class="form-group">
                         <label for="Name">  Name *</label>
-                        <input form="Name" class="form-control"  />
+                        <input form="Name" class="form-control" @bind="@user.Name" />
                     </div>
             </div>
         
         <div class="col-md-6">
                 <div class="form-group">
                         <label for="Email"> Email *</label>
-                        <input form="Email" class="form-control"  />
+                        <input form="Email" class="form-control" @bind="@user.Email" />
                     </div>
             </div>
         <div class="col-md-6">
                 <div class="form-group">
                         <label for="Telephone"> Telephone *</label>
-                        <input form="Telephone" class="form-control"  />
+                        <input form="Telephone" class="form-control" @bind="@user.Telephone"/>
                     </div>
             </div>
             <div class="col-md-6">
                 <div class="form-group">
                         <label for="EmpId"> Employee_ID *</label>
-                        <input form="EmpId" class="form-control"  />
+                        <input form="EmpId" class="form-control" @bind="@user.EmpId" />
                     </div>
             </div>
             <div class="col-md-6">
                 <div class="form-group">
                         <label for="Password"> Password *</label>
-                        <input form="Password" class="form-control"  />
+                        <input form="Password" class="form-control" @bind="@user.Password" />
                     </div>
             </div>
 </div>
 <div class="row">
         <div class="col-md-4">
                 <div class="form-group">
-                        <input type="button" class="btn btn-primary"  value="Save" />
-                        <input type="button" class="btn"  value="Cancel" />
+                        <input type="button" class="btn btn-primary" @onclick="@Save" value="Save" />
+                        <input type="button" class="btn" @onclick="@Cancel" value="Cancel" />
                     </div>
             </div>
 </div>
 @code {
-
+    [Parameter]
+    public string Id{ get; set; }
+    User user = new User();
+    
+    protected async Task Save()
+    {
+        await UserService.SaveAsync(user);
+        NavigationManager.NavigateTo("UserList");
+    }
+            void Cancel()
+            {
+                NavigationManager.NavigateTo("UserList");
+            }
 }
+

@@ -1,7 +1,48 @@
-﻿@page "/"
+﻿@page "/index"
+@using BlazorApp1.Data
+@using System.Security.Claims
+@inject NavigationManager navigationManager
+@inject IAuthorizationService authorizationService
 
-<h1>Hello, world!</h1>
+@if (IsAdminAuthenticated)
+{
+    <h3><b>@user.Identity.Name</b> is logged in!!!</h3>
+    <br />
+    <p>Is Admin Higher Level : @IsAdminHigherLevel</p>
+    <p>Is Admin Lower Level : @IsAdminLowerLevel</p>
+}
+else
+{
+    <h3><b>Admin is logged out</b></h3>
+}
 
-Welcome to your new app.
+<p>Hello World - Test @Count</p>
 
-<SurveyPrompt Title="How is Blazor working for you?" />
+
+
+@code {
+
+    [CascadingParameter]
+    private Task<AuthenticationState> authenticationStateTask { get; set; }
+    ClaimsPrincipal user;
+
+    bool IsAdminAuthenticated;
+    bool IsAdminHigherLevel;
+    bool IsAdminLowerLevel;
+
+    public int Count { get; set; } = 400;
+
+    protected override async Task OnInitializedAsync()
+    {
+        user = (await authenticationStateTask).User;
+
+        if (user.Identity.IsAuthenticated)
+            IsAdminAuthenticated = true;
+
+        if (user.IsInRole("AuthorizedAdmin"))
+            IsAdminHigherLevel = true;
+
+        if ((await authorizationService.AuthorizeAsync(user, "NotAuthorizedAdmin")).Succeeded)
+            IsAdminLowerLevel = true;
+    }
+}

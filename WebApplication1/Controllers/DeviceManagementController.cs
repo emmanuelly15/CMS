@@ -1,11 +1,9 @@
-﻿using Api.Models;
+﻿using Api.Model.Database;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using System;
 using System.Collections.Generic;
+using CommonModels.Model;
 using System.Linq;
-using System.Threading.Tasks;
-using WebApplication1.Model;
+using System.Net;
 
 namespace WebApplication1.Controllers
 {
@@ -14,44 +12,92 @@ namespace WebApplication1.Controllers
     [Route("[controller]")]
     public class DeviceManagementController : ControllerBase
     {
-    
-
-            [HttpGet]
-        public IEnumerable<DeviceManagement> Get()
+        private readonly DatabaseContext db; //refer to DatabaseContext.cs 
+        public DeviceManagementController(DatabaseContext db)
         {
-           using (var context = new PaycoDBContext())
+            this.db = db;
+        }
+
+        //get user input and selections
+        [HttpGet]
+        public IEnumerable<Device> Get()
+        {
+           
+                var docList = new List<Device>();
+
+                var allDevices = db.Devices.ToList().Select(v => new Device
+                {
+                    Id = v.Id,
+                    IMEI = v.IMEI,
+                    User = v.User,
+                    Groups = v.Groups,
+                    Authorisation = v.Authorisation,
+                });
+
+                return allDevices; //getting device data
+                                   //get all devices information
+
+               
+        }
+        [HttpGet("{id}")]
+
+        public Device Get(int id)
+        {
+            var device = db.Devices.FirstOrDefault(u => u.Id == id);
+            var deviceview = new Device
             {
+                Id = device.Id,
+                IMEI = device.IMEI,
+                User = device.User,
+                Groups = device.Groups,
+                Authorisation = device.Authorisation,
+            };
 
-                //get all devices information
+            return deviceview;
+        }
 
-                //return context.DeviceManagements.ToList();
+        //post inputted data to table
+        [HttpPost]
+        public int Create(Device device)
+        {
+            var dbDevice = new DbDevice
+            {
+                
+                IMEI = device.IMEI,
+                User = device.User,
+                Groups = device.Groups,
+                Authorisation = device.Authorisation
+            };
 
-                //Add Device information to database
+            db.Devices.Add(dbDevice);
 
-                DeviceManagement deviceManagement = new DeviceManagement();
-                deviceManagement.DeviceImei = "SVF2TGVEHJD990";
-                deviceManagement.UserId = 01010;
-                deviceManagement.GroupId = 01010;
-                deviceManagement.RegisteredDate = null;
-                deviceManagement.LastUpdate = null;
-                deviceManagement.LastLocation = "EASTRAND";
-                deviceManagement.Authorised = null;
+            db.SaveChanges();
+            return dbDevice.Id;
+        }
+        [HttpDelete("{id}")]
+        public bool Delete(int id)
+        {
+            var device = db.Devices.FirstOrDefault(u => u.Id == id);
+            if (device != null)
+                db.Devices.Remove(device);
 
-                context.DeviceManagements.Add(deviceManagement);
+            db.SaveChanges();
+            return true;
+        }
+        [HttpPut]
+        public int UpdateDevice(Device device)
+        {
+            var dbDevice = db.Devices.FirstOrDefault(u => u.Id == device.Id);
 
-                //Update device management information
-                DeviceManagement devicemanagement = context.DeviceManagements.Where(deviceManagement => deviceManagement.UserId == 01010).FirstOrDefault();
-                deviceManagement.UserId = 10000;
+            dbDevice.IMEI = device.IMEI;
+            dbDevice.User = device.User;
+            dbDevice.Groups = device.Groups;
+            dbDevice.Authorisation = device.Authorisation;
 
-                //Remove device
-                DeviceManagement devicemanagement1 = context.DeviceManagements.Where(deviceManagement => deviceManagement.UserId == 01010).FirstOrDefault();
-                context.DeviceManagements.Remove(devicemanagement1);
+            db.SaveChanges();
+            return dbDevice.Id;
 
-
-                context.SaveChanges();
-
-                return context.DeviceManagements.Where(deviceManagement => deviceManagement.UserId == 01010).ToList();
-            }
         }
     }
+      
 }

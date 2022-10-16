@@ -1,96 +1,107 @@
 ﻿@page "/DeviceManagement"
+@using BlazorApp1.Data
+@using CommonModels.Model
+@using BlazorApp1.Services
+@using BlazorApp1.Models
+@inherits OwningComponentBase<GroupsListService>
+@inject NavigationManager NavigationManager
+@inject IJSRuntime JsRuntime
+@inject DeviceService DeviceService
 
-<h3>Device Management</h3>
+<h3>Device Management Page</h3>
 
 <p>Add, edit, or delete a device.</p>
 
-<div class="card"> 
-    <div class="card-body">
-        <h4>Add Device</h4>
-        Device IMEI <input @bind="imei">
-        <br><br />
-        Select User <input @bind="name">
-        <br><br />
-        Select group <input @bind="group">
-        <br><br />
-        Authorised? <input @bind="authorisation">
-        <br><br />
-        <button class="btn btn-primary">
-            <span class="oi oi-plus"></span>
-            Add Device
-        </button>
+<div class="row">
+    <div class="col-md-6">
+        <div class="form-group">
+            <label for="IMEI">  IMEI *</label>
+            <input form="IMEI" class="form-control" @bind="@device.IMEI" />
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="form-group">
+            <label for="User"> User *</label>
+            @*<input form="User" class="form-control" @bind="@device.User" />*@
+        <select class="form-control" @bind="@device.User">
+            <option value="">-- Select User --</option>
+            @if (usrobj != null)
+            {
+                @foreach (var item in usrobj)
+                {
+                    <option value="@item.Email">@item.Email</option>
+
+                }
+            }
+        </select>
+
+
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            <label for="Group"> Select Group *</label>
+            @*<input form="Group" class="form-control" @bind="@device.Groups" />*@
+
+        <select class="form-control" @bind="@device.Groups" >
+            <option value="">-- Select Group --</option>
+            @if (grobj != null)
+                @foreach (var item in grobj)
+                {
+                    <option value="@item.Groups">@item.Groups</option>
+
+                }
+            }
+        </select>
+        </div>
+    </div>
+<p>
+    Is Authorised?
+    <br />
+ <label>
+            <input type="radio" value="Yes" name="@device.Authorisation" checked="@(device.Authorisation == true)" @onclick="@(()=>device.Authorisation = true)" /> yes
+ </label>
+        <label>
+            <input type="radio" value="No" name="@device.Authorisation" checked="@(device.Authorisation == false)" @onclick="@(()=>device.Authorisation = false)" /> no
+        </label>
+
+        <br />
+        @device.Authorisation
+ </p>   
+ 
+
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <div class="form-group">
+            <input type="button" class="btn btn-primary" @onclick="@Save" value="Save" />
+            <input type="button" class="btn" @onclick="@Cancel" value="Cancel" />
+        </div>
     </div>
 </div>
-<br />
-<br />
-<p>
-    Show
-    <select>
-        <option>1</option>
-        <option>5</option>
-        <option>10</option>
-        <option>15</option>
-        <option>20</option>
-        <option>25</option>
-        <option>30</option>
-        <option>35</option>
-        <option>40</option>
-        <option>45</option>
-        <option>50</option>
-        <option>55</option>
-        <option>60</option>
-        <option>65</option>
-        <option>70</option>
-        <option>75</option>
-    </select>
-    entries
 
-    Search
-    <input type="text" name=" " />
-</p>
-
-<table class="table">
-    <thead>
-         <tr>
-            <th>#</th>
-            <th>IMEI</th>
-            <th>User name</th>
-            <th>Group</th>
-            <th>Registered On</th>
-            <th>Last Update</th>
-            <th>Last Location</th>
-            <th>Authorised</th>
-            <th>Actions</th>
-         </tr>
-    </thead>
-    <tbody>
-         <tr>
-            <td>Idno1</td>
-            <td>2901987979</td>
-            <td>Mark</td>
-            <td>Finance</td>
-            <td>Date...</td>
-            <td>Date...</td>
-            <td>LocationLink</td>
-            <td>Yes/no</td>
-            <td>
-                <button class="btn btn-primary">
-                    <span class="oi oi-pencil"></span>
-                </button>
-                <button class="btn btn-danger">
-                    <span class="oi oi-trash"></span>
-                </button>
-            </td>
-         </tr>
-    </tbody>
-    </table>
 
 @code {
-    private int id;
-    private string imei;
-    private string name;
-    private string group;
-    private string regdate;
-    private string lastupdate;
-    private string authorisation;
+    public string Id { get; set; }
+    Device device = new Device();
+    List<GroupsListClass> grobj;
+    List<UserListClass> usrobj;
+
+    protected override void OnInitialized()
+    {
+        //base.OnInitialized();
+        grobj = Service.groupsobj();
+        usrobj = Service.usersobj();
+    }
+    protected async Task Save()
+    {
+       await DeviceService.SaveAsync(device);
+        NavigationManager.NavigateTo("DeviceList"); //navigation link to table page after device has been added
+    }
+    void Cancel()
+    {
+        NavigationManager.NavigateTo("DeviceList"); // navigation link to table page after cancel btn has been clicked
+    }
+
 }
