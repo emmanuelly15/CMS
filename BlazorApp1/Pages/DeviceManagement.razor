@@ -8,15 +8,19 @@
 @inject IJSRuntime JsRuntime
 @inject DeviceService DeviceService
 
+<!-- Edit form for the device management -->
+<EditForm Model="@device" OnValidSubmit="@HandleValidSubmit">
+
+    <!-- This will validate the form -->
+    <DataAnnotationsValidator />
+
+    <!-- This will show any validation errors -->
+    <ValidationSummary />
+
 <h3>Device Management Page</h3>
 
 <p>Add, edit, or delete a device.</p>
 
-<EditForm Model="@device" OnValidSubmit="@HandleValidSubmit">
-
-    <DataAnnotationsValidator />
-
-    <ValidationSummary />
 <div class="row">
     <div class="col-md-6">
         <div class="form-group">
@@ -36,7 +40,6 @@
                 @foreach (var item in usrobj)
                 {
                     <option value="@item.Email">@item.Email</option>
-
                 }
             }
         </select>
@@ -80,7 +83,9 @@
 <div class="row">
     <div class="col-md-4">
         <div class="form-group">
+                <!-- Button to save the device -->
             <button type="submit">Submit</button>
+                <!-- Button to cancel adding a new device -->
             <input type="button" class="btn" @onclick="@Cancel" value="Cancel" />
         </div>
     </div>

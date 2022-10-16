@@ -5,6 +5,7 @@ using CommonModels.Model;
 using System.Linq;
 using System.Threading.Tasks;
 using System;
+using Microsoft.EntityFrameworkCore;
 
 namespace Api.Controllers
 {
@@ -52,13 +53,13 @@ namespace Api.Controllers
         [HttpPost]
         public int Create(Group group)
         {
+            //var dbGroupExists = db.Groups.Where(u => u.Groups == group).FirstOrDefault();
+
             var dbGroup = new DbGroup
             {
                 Groups = group.Groups,
-                
-            };
-
-            db.Groups.Add(dbGroup);
+    
+            };          
 
             db.SaveChanges();
             return dbGroup.Id;

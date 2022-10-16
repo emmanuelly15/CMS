@@ -15,10 +15,7 @@ namespace Api.Model.Database
         [Required]
         public string Groups { get; set; }
 
-        public static implicit operator DbGroup(Group v)
-        {
-            throw new NotImplementedException();
-        }
+       
     }
 
 }
