@@ -52,7 +52,7 @@
 
     protected async override Task OnInitializedAsync()
     {
-        admin = new Admin();
+        adminuser = new AdminUser();
 
         claimsPrincipal = (await authenticationStateTask).Admin;
 
@@ -61,8 +61,8 @@
             NavigationManager.NavigateTo("/index");
         }
         {
-            user.EmailAddress = "brad";
-            user.Password = "brad";
+            adminuser.Email = "brad";
+            adminuser.Password = "brad";
         }
 
     } 
@@ -72,7 +72,7 @@
         //assume that user is valid
         //call an API
 
-        var returnedUser = await AdminUserService.LoginAsync(adminuser);
+        var returnedUser = await AdminUserService.Login(adminuser);
 
         if (returnedUser.EmailAddress != null)
         {
