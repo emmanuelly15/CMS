@@ -1,54 +1,66 @@
 ﻿@page "/Login"
+@using BlazorApp1.Authentication
 @using CommonModels.Model
+@using Microsoft.JSInterop
 @using BlazorApp1.Data
 @inject IJSRuntime JsRuntime
-@inject AdminUserService AdminUserService
+@inject NavigationManager NavigationManager
+@inject IAuthService AuthService
 
-<EditForm Model="@adminuser" OnValidSubmit="@ValidateAdminUser">
-    <div>
-        <br /><br /><br /><br /><br />
+<h1>Login</h1>
+
+@if (ShowErrors)
+{
+    <div class="alert alert-danger" role="alert">
+        <p>@Error</p>
     </div>
-    <div>
-        <h3 style="font-weight:bold; color:purple">Payco Login</h3>
+}
+
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">Please enter your details</h5>
+        <EditForm Model="loginModel" OnValidSubmit="HandleLogin">
+            <DataAnnotationsValidator />
+            <ValidationSummary />
+
+            <div class="form-group">
+                <label for="email">Email address</label>
+                <InputText Id="email" Class="form-control" @bind-Value="loginModel.email" />
+                <ValidationMessage For="@(() => loginModel.email)" />
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <InputText Id="password" type="password" Class="form-control" @bind-Value="loginModel.password" />
+                <ValidationMessage For="@(() => loginModel.password)" />
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </EditForm>
     </div>
-    <div>
-        <br />
-    </div>
-    <div class="col-12 row">
-        <input class="form-control col-12" @bind="adminuser.Email" placeholder="email address" />
-    </div>
-    <br />
-    <div class="col-12 row">
-        <input type="password" class="form-control col-12" @bind="adminuser.Password" placeholder="password" />
-    </div>
-    <br />
-    <div class="col-12 row">
-        <span class="col-12"></span>
-        <input type="submit" class="form-control col-6 btn btn-primary" value="Login" />
-        <a href="/Login" class="col-3">Login</a>
-    </div>
-    <br />
-    <div class="col-12 row" style="text-align:left; font-weight:bold">
-        <span class="col-12">@LoginMesssage</span>
-    </div>
-</EditForm>
+</div>
 
 @code {
-    [Parameter]
-    public string Id { get; set; }
-    public string LoginMesssage { get; set; }
-    AdminUser adminuser = new  AdminUser();
-    protected async Task Login()
+
+    private LoginModel loginModel = new LoginModel();
+    private bool ShowErrors;
+    private string Error = "";
+
+    private async Task HandleLogin()
     {
-        await AdminUserService.Login(int.Parse(Id));
-    }
+        ShowErrors = false;
 
+        var result = await AuthService.Login(loginModel);
 
-    private async Task<bool> ValidateAdminUser()
-    {
-        //assume that user is valid
-        //call an API
-
-        return await Task.FromResult(true);
+        if (result.Successful)
+        {
+            NavigationManager.NavigateTo("/Admin");
+        }
+        else
+        {
+            Error = result.Error;
+            ShowErrors = true;
+        }
     }
 }
+
+
+

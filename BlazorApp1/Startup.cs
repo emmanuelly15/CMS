@@ -18,6 +18,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using BlazorApp1.DbServices;
+using BlazorApp1.Authentication;
+using Blazored.LocalStorage;
 
 namespace BlazorApp1
 {
@@ -44,7 +46,13 @@ namespace BlazorApp1
             services.AddRazorPages();
             services.AddServerSideBlazor();
             services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<IdentityUser>>();
+            services.AddBlazoredLocalStorage();
+
+           
             services.AddSingleton<UserService>();
+           
+            services.AddSingleton<AdminAccountService>();
+            services.AddAuthenticationCore();
             services.AddSingleton<DeviceService>();
             services.AddSingleton<GroupService>();
             services.AddSingleton<MailingListService>();
@@ -53,6 +61,7 @@ namespace BlazorApp1
             services.AddSingleton<ImageUploadService>();
             services.AddScoped<GroupsListService>();
             services.AddScoped<UserListService>();
+          
 
         }
 

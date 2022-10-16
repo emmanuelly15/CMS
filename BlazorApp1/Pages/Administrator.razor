@@ -1,4 +1,6 @@
 ﻿@page "/Admin"
+@attribute [Authorize(Roles = "1,0")]
+
 @using CommonModels.Model
 @using BlazorApp1.Data
 @inject NavigationManager NavigationManager

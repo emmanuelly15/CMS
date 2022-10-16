@@ -1,4 +1,6 @@
 ﻿@page "/DeviceManagement"
+@attribute [Authorize(Roles = "1,0")]
+
 @using BlazorApp1.Data
 @using CommonModels.Model
 @using BlazorApp1.Services

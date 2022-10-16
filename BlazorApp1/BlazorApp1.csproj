@@ -10,9 +10,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Intersoft.Crosslight" Version="6.0.5000.975" />
+    <PackageReference Include="Blazored.LocalStorage" Version="4.2.0" />
+    <PackageReference Include="Blazored.LocalStorage.TestExtensions" Version="4.2.0" />
+    <PackageReference Include="Blazored.SessionStorage" Version="2.2.0" />
     <PackageReference Include="Material.Icons" Version="1.1.14" />
     <PackageReference Include="Microsoft.AspNetCore.Components.Forms" Version="3.1.26" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="6.0.10" />
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="3.1.26" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.26" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.1.26" />
@@ -23,6 +26,7 @@
     <PackageReference Include="NEST" Version="7.17.4" />
     <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="5.0.3" />
     <PackageReference Include="RestSharp" Version="108.0.1" />
+    <PackageReference Include="Solutaris.InfoWARE.ProtectedBrowserStorage" Version="1.0.0" />
     <PackageReference Include="Syncfusion.Blazor.Buttons" Version="20.2.0.45" />
   </ItemGroup>
 

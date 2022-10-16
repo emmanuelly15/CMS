@@ -1,48 +1,15 @@
 ﻿@page "/index"
-@using BlazorApp1.Data
-@using System.Security.Claims
-@inject NavigationManager navigationManager
-@inject IAuthorizationService authorizationService
 
-@if (IsAdminAuthenticated)
-{
-    <h3><b>@user.Identity.Name</b> is logged in!!!</h3>
-    <br />
-    <p>Is Admin Higher Level : @IsAdminHigherLevel</p>
-    <p>Is Admin Lower Level : @IsAdminLowerLevel</p>
-}
-else
-{
-    <h3><b>Admin is logged out</b></h3>
-}
+<AuthorizeView>
+    <Authorized>
+        <h1>Hello, @context.User.Identity.Name</h1>
+    </Authorized>
+    <NotAuthorized>
+        <h1>Log in to see page</h1>
+    </NotAuthorized>
+</AuthorizeView>
 
-<p>Hello World - Test @Count</p>
-
-
-
-@code {
-
+@code{
     [CascadingParameter]
-    private Task<AuthenticationState> authenticationStateTask { get; set; }
-    ClaimsPrincipal user;
-
-    bool IsAdminAuthenticated;
-    bool IsAdminHigherLevel;
-    bool IsAdminLowerLevel;
-
-    public int Count { get; set; } = 400;
-
-    protected override async Task OnInitializedAsync()
-    {
-        user = (await authenticationStateTask).User;
-
-        if (user.Identity.IsAuthenticated)
-            IsAdminAuthenticated = true;
-
-        if (user.IsInRole("AuthorizedAdmin"))
-            IsAdminHigherLevel = true;
-
-        if ((await authorizationService.AuthorizeAsync(user, "NotAuthorizedAdmin")).Succeeded)
-            IsAdminLowerLevel = true;
-    }
+    private Task<AuthenticationState> authenticationState { get; set; }
 }

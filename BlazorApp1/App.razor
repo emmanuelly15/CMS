@@ -1,17 +1,19 @@
-﻿
+﻿<CascadingAuthenticationState>
  <Router AppAssembly="@typeof(Program).Assembly">
         <Found Context="routeData">
             <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
         </Found>
         <NotFound>
-           <CascadingAuthenticationState>
+          
             <LayoutView Layout="@typeof(MainLayout)">
-                <p>WELCOME TO PAYCO</p>
-                <br/>
-                <br />
-               <a href="https://localhost:44310/LoginPage">LOGIN</a>
+                <center>
+                    <p>WELCOME TO PAYCO</p>
+                    <br />
+                    <br />
+                </center>
+               
             </LayoutView>
-            </CascadingAuthenticationState>
+            
         </NotFound>
     </Router>
-
+</CascadingAuthenticationState>
