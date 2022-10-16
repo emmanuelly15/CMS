@@ -1,8 +1,6 @@
 ﻿@page "/Administrator"
 <h3>Admin Profile</h3>
 
-<p>
-    Admin: Sarah Kate
 
 </p>
 <br/>
@@ -11,24 +9,5 @@
     Email Address: sk@gmail.com
 </p>
 
-<div class="card">
-    <div class="card-body">
-        <h4>Add admin</h4>
-        Enter name: <input @bind="name" /><br /><br />
-        Enter email address:  <input @bind="email"/><br /><br />
-        Enter password: <input @bind="password"/>
-        <br><br />
        
-        <button class="btn btn-primary">
-            <span class="oi oi-plus"></span>
-            Add User
-        </button>
-    </div>
-</div>
-<br />
-<br />
-@code {
-    private string name;
-    private string email;
-    private string password;
 }
