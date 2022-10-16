@@ -27,10 +27,7 @@
         <input type="submit" class="form-control col-6 btn btn-primary" value="Login" />
         <a href="/Login" class="col-3">Login</a>
     </div>
-    <br />
-    <div class="col-12 row" style="text-align:left; font-weight:bold">
-        <span class="col-12">@LoginMesssage</span>
-    </div>
+
 </EditForm>
 
 @code {
@@ -48,6 +45,43 @@
     {
         //assume that user is valid
         //call an API
+
+        return await Task.FromResult(true);
+    }
+
+    protected async override Task OnInitializedAsync()
+    {
+        admin = new Admin();
+
+        claimsPrincipal = (await authenticationStateTask).Admin;
+
+        if (claimsPrincipal.Identity.IsAuthenticated)
+        {
+            NavigationManager.NavigateTo("/index");
+        }
+        {
+            user.EmailAddress = "brad";
+            user.Password = "brad";
+        }
+
+    } 
+
+    private async Task<bool> ValidateUser()
+    {
+        //assume that user is valid
+        //call an API
+
+        var returnedUser = await AdminUserService.LoginAsync(adminuser);
+
+        if (returnedUser.EmailAddress != null)
+        {
+            await ((CustomAuthenticationStateProvider)AuthenticationStateProvider).MarkUserAsAuthenticated(returnedUser);
+            NavigationManager.NavigateTo("/index");
+        }
+        else
+        {
+            LoginMesssage = "Invalid username or password";
+        }
 
         return await Task.FromResult(true);
     }
