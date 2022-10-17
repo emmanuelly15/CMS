@@ -20,16 +20,18 @@
 
 <h3>Device Management Page</h3>
 
-<p>Add, edit, or delete a device.</p>
+<p>Add a device.</p>
+<p>Note: All fields marked with '*' are required.</p>
 
 <div class="row">
     <div class="col-md-6">
         <div class="form-group">
             <label for="IMEI">  IMEI *</label>
+            <p>A device's IMEI contains a 15-digit number. You can find it at the back of the device or in the settings.</p>
             <input form="IMEI" class="form-control" @bind="@device.IMEI" />
         </div>
     </div>
-
+    <br>
     <div class="col-md-6">
         <div class="form-group">
             <label for="User"> User *</label>
@@ -48,6 +50,7 @@
 
         </div>
     </div>
+    <br>
     <div class="col-md-6">
         <div class="form-group">
             <label for="Group"> Select Group *</label>
@@ -65,8 +68,10 @@
         </select>
         </div>
     </div>
+    <br>
 <p>
     Is Authorised?
+    <p>This field authorizes devices to use the Payco mobile application.</p>
     <br />
  <label>
             <input type="radio" value="Yes" name="@device.Authorisation" checked="@(device.Authorisation == true)" @onclick="@(()=>device.Authorisation = true)" /> yes
@@ -78,9 +83,8 @@
         <br />
         @device.Authorisation
  </p>   
- 
-
 </div>
+<br>
 <div class="row">
     <div class="col-md-4">
         <div class="form-group">

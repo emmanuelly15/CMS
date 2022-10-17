@@ -12,14 +12,16 @@
 
     <ValidationSummary />
 <h1>Group Management</h1>
-<h2>Add Group</h2>
 
+<p>Add Group</p>
+<p>Note: All fields marked with '*' are required.</p>
     
 <div class="row">
         <div class="col-md-6">
                 <div class="form-group">
                         <label for="Groups">  Group *</label>
-                <input form="Group name" class="form-control" @bind="@group.Groups" style='text-transform:uppercase' />
+                        <p>Please start the group department with a Capital.</p>
+                        <input form="Group name" class="form-control" @bind="@group.Groups" />
                         
                     </div>
             </div>

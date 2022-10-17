@@ -16,18 +16,19 @@
     <ValidationSummary />
 
  <h2>Edit Device</h2>
-
+ 
 <div class="row">
     <div class="col-md-6">
         <div class="form-group">
-            <label for="IMEI">  IMEI *</label>
+            <label for="IMEI">  IMEI </label>
+            <p>A device's IMEI contains a 15-digit number. You can find it at the back of the device or in the settings.</p>
             <input form="IMEI" class="form-control" @bind="@device.IMEI" />
         </div>
     </div>
-
+    <br>
     <div class="col-md-6">
         <div class="form-group">
-            <label for="User"> User *</label>
+            <label for="User"> User </label>
             @*<input form="User" class="form-control" @bind="@device.User" />*@
             <select class="form-control" @bind="@device.User">
                 <option value="">-- Select User --</option>
@@ -40,14 +41,12 @@
                     }
                 }
             </select>
-
-
         </div>
     </div>
-
+    <br>
     <div class="col-md-6">
         <div class="form-group">
-            <label for="Group"> Select Group *</label>
+            <label for="Group"> Select Group </label>
             @*<input form="Group" class="form-control" @bind="@device.Groups" />*@
             <select class="form-control" @bind="@device.Groups">
                 <option value="">-- Select Group --</option>
@@ -61,8 +60,10 @@
             </select>
         </div>
     </div>
+    <br>
     <p>
-        Is Authorised?
+        Is Authorised?       
+        <p>This field authorizes devices to use the Payco mobile application.</p>
         <br />
         <label>
             <input type="radio" value="Yes" name="@device.Authorisation" checked="@(device.Authorisation == true)" @onclick="@(()=>device.Authorisation = true)" /> yes
@@ -74,7 +75,6 @@
         <br />
         @device.Authorisation
     </p>
-
 </div>      
 <div class="row">
         <div class="col-md-4">

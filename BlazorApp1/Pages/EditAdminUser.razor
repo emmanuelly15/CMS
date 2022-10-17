@@ -6,25 +6,26 @@
 @inject IJSRuntime JsRuntime
 @inject AdminUserService AdminUserService
 
-<h2>Edit Admin User</h2>
-
-
 <EditForm Model="@adminuser" OnValidSubmit="@HandleValidSubmit">
 
     <DataAnnotationsValidator />
 
     <ValidationSummary />
+<h2>Edit Admin User</h2>
+
 <div class="row">
         <div class="col-md-6">
                 <div class="form-group">
-                        <label for="Name">  Name *</label>
+                        <label for="Name">  Name </label>
+                        <p>Enter the name and surname of the administrator.</p>
                         <input form="Name" class="form-control" @bind="@adminuser.Name" />
                     </div>
             </div>
         
         <div class="col-md-6">
                 <div class="form-group">
-                        <label for="Email"> Email *</label>
+                        <label for="Email"> Email </label>
+                        <p>Enter the email address of the administrator.</p>
                         <input form="Email" class="form-control" @bind="@adminuser.Email" />
                     </div>
             </div>
