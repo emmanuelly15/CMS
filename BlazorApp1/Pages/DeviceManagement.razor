@@ -9,6 +9,15 @@
 @inject IJSRuntime JsRuntime
 @inject DeviceService DeviceService
 
+<!-- Edit form for the device management -->
+<EditForm Model="@device" OnValidSubmit="@HandleValidSubmit">
+
+    <!-- This will validate the form -->
+    <DataAnnotationsValidator />
+
+    <!-- This will show any validation errors -->
+    <ValidationSummary />
+
 <h3>Device Management Page</h3>
 
 <p>Add, edit, or delete a device.</p>
@@ -32,7 +41,6 @@
                 @foreach (var item in usrobj)
                 {
                     <option value="@item.Email">@item.Email</option>
-
                 }
             }
         </select>
@@ -76,12 +84,14 @@
 <div class="row">
     <div class="col-md-4">
         <div class="form-group">
-            <input type="button" class="btn btn-primary" @onclick="@Save" value="Save" />
+                <!-- Button to save the device -->
+            <button type="submit">Submit</button>
+                <!-- Button to cancel adding a new device -->
             <input type="button" class="btn" @onclick="@Cancel" value="Cancel" />
         </div>
     </div>
 </div>
-
+</EditForm>
 
 @code {
     public string Id { get; set; }
@@ -95,10 +105,13 @@
         grobj = Service.groupsobj();
         usrobj = Service.usersobj();
     }
-    protected async Task Save()
+    private async void HandleValidSubmit() //handles user exception to ensure valid information is entered before saving
+
     {
-       await DeviceService.SaveAsync(device);
+        await DeviceService.SaveAsync(device);
         NavigationManager.NavigateTo("DeviceList"); //navigation link to table page after device has been added
+        Console.WriteLine("OnValidSubmit");
+
     }
     void Cancel()
     {

@@ -5,8 +5,15 @@
 @inject NavigationManager NavigationManager
 @inject IJSRuntime JsRuntime
 @inject UserService UserService 
+
 <h2>Edit User</h2>
 @*Form to bring users information from the db and display it, so the user can decide what to edit.*@
+
+<EditForm Model="@user" OnValidSubmit="@HandleValidSubmit">
+
+    <DataAnnotationsValidator />
+
+    <ValidationSummary />
 <div class="row">
         <div class="col-md-6">
                 <div class="form-group">
@@ -43,11 +50,14 @@
 <div class="row">
         <div class="col-md-4">
                 <div class="form-group">
-                        <input type="button" class="btn btn-primary" @onclick="@UpdateUser" value="Save" />
+                        <button type="submit">Save</button>
+                        
                         <input type="button" class="btn" @onclick="@Cancel" value="Cancel" />
                     </div>
             </div>
 </div>
+</EditForm>
+
 @code {
     [Parameter]
     public string Id{ get; set; }
@@ -57,12 +67,16 @@
     {
         user = await UserService.GetUserById(int.Parse(Id)); //getting users information from db to display in edit boxes.
     }
-    protected async Task UpdateUser() //calling the controller
+
+    private async void HandleValidSubmit() //handles user exception to ensure valid information is entered before saving
+
     {
-        await UserService.EditUser(user); //calling the service to edit.
-        NavigationManager.NavigateTo("UserList"); //taking user back to the list once save is pressed.
-                
-            }
+        await UserService.EditUser(user);
+        NavigationManager.NavigateTo("UserList");
+        Console.WriteLine("OnValidSubmit");
+
+    }
+
             void Cancel()
             {
                 NavigationManager.NavigateTo("UserList");// taking user back to UserList if cancel button is pressed.

@@ -1,0 +1,99 @@
+﻿@page "/dashboard"
+@using BlazorApp1.Data
+@using BlazorApp1.DbServices
+@using CommonModels.Model
+@using BlazorApp1.Services
+@using BlazorApp1.Models
+@inherits OwningComponentBase<GroupsListService>
+@inject NavigationManager NavigationManager
+@inject IJSRuntime JsRuntime
+@inject DashboardService DashboardService 
+
+<h1>Dashboard Test</h1>
+
+<RadzenButton Text="It Works!" />
+
+<div class="col-md-6">
+    <div class="form-group">
+        @*<input form="User" class="form-control" @bind="@device.User" />*@
+        <th>-- Active Emails --</th>
+        <tbody>
+            @foreach (var item in usrobj.GroupBy(e => e.GetType()).OrderByDescending(s => s.Count()))
+            {
+                <td>@item.Count()</td>
+            }
+        </tbody>
+    </div>
+</div>
+
+<div class="col-md-6">
+    <div class="form-group">
+        @*<input form="User" class="form-control" @bind="@device.User" />*@
+        <th>-- Active Devices --</th>
+        <tbody>
+            @foreach (var devitem in devobj.GroupBy(e => e.GetType()).OrderByDescending(s => s.Count()))
+            {
+                <td>@devitem.Count()</td>
+            }
+        </tbody>
+    </div>
+</div>
+
+<div class="col-md-6">
+    <div class="form-group">
+        @*<input form="User" class="form-control" @bind="@device.User" />*@
+        <th>-- Documents --</th>
+        <tbody>
+            @foreach (var docitem in docobj.GroupBy(e => e.GetType()).OrderByDescending(s => s.Count()))
+            {
+                <td>@docitem.Count()</td>
+            }
+        </tbody>
+    </div>
+</div>
+
+<p>Document Submissions List</p>
+<div>
+        <table class="table-bordered">
+            <thead>
+                <tr>
+                    <th width="20%">ID</th>
+                    <th width="20%">Inserted On</th>
+                </tr>
+            </thead>
+            <tbody>
+            @foreach (var p in docobj)
+            {
+                        <tr>
+                            <td>@p.Id</td>
+                            <td>@p.InsertedOn</td>
+                        </tr>
+            }
+            </tbody>
+
+        </table>
+</div>
+
+
+
+
+@code{
+
+    private Dashboard[] dashboards;
+    Dashboard dashboard = new Dashboard();
+    List<UserListClass> usrobj;
+    List<DeviceListClass> devobj;
+    List<DocumentListClass> docobj;
+    //defining the fields that hold the data for the charts
+
+    //load the data when the component is initialized on the screen
+    protected override async Task OnInitializedAsync()
+    {
+        //base.OnInitialized();
+        usrobj = Service.usersobj();
+        devobj = Service.devobj();
+        docobj = Service.docobj();
+        //dashboards = await DashboardService.GetDashboardsAsync();
+    }
+
+}

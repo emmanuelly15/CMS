@@ -4,12 +4,18 @@
 @using CommonModels.Model
 @using BlazorApp1.Services
 @using BlazorApp1.Data
-@using BlazorApp1.DbServices
 @inherits OwningComponentBase<GroupsListService>
 @inject NavigationManager NavigationManager
 @inject IJSRuntime JsRuntime
 @inject DeviceService DeviceService
-<h2>Edit Device</h2>
+
+<EditForm Model="@device" OnValidSubmit="@HandleValidSubmit">
+
+    <DataAnnotationsValidator />
+
+    <ValidationSummary />
+
+ <h2>Edit Device</h2>
 
 <div class="row">
     <div class="col-md-6">
@@ -38,11 +44,11 @@
 
         </div>
     </div>
+
     <div class="col-md-6">
         <div class="form-group">
             <label for="Group"> Select Group *</label>
             @*<input form="Group" class="form-control" @bind="@device.Groups" />*@
-
             <select class="form-control" @bind="@device.Groups">
                 <option value="">-- Select Group --</option>
                 @if (grobj != null)
@@ -73,38 +79,50 @@
 <div class="row">
         <div class="col-md-4">
                 <div class="form-group">
-                        <input type="button" class="btn btn-primary" @onclick="@UpdateDevice" value="Save" />
+                        <button type="submit">Save</button>
                         <input type="button" class="btn" @onclick="@Cancel" value="Cancel" />
                     </div>
             </div>
 </div>
+</EditForm>
+
 @code {
     [Parameter]
     public string Id{ get; set; }
     Device device = new Device();
     List<GroupsListClass> grobj;
     List<UserListClass> usrobj;
+   
     protected override void OnInitialized()
     {
         //base.OnInitialized();
         grobj = Service.groupsobj();
         usrobj = Service.usersobj();
     }
+
     protected override async Task OnInitializedAsync()
+    {
+        device = await DeviceService.GetDevicesById(int.Parse(Id)); //getting users information from db to display in edit boxes.
+    }
+    
+    /*protected override async Task OnInitializedAsync()
     {
         device = await DeviceService.GetDevicesById(int.Parse(Id));
         grobj = Service.groupsobj();
         usrobj = Service.usersobj();
+    }*/
+
+    private async void HandleValidSubmit() //handles user exception to ensure valid information is entered before saving
+
+    {
+        await DeviceService.EditDevice(device);
+        NavigationManager.NavigateTo("DeviceList"); //navigation link to table page after device has been added
+        Console.WriteLine("OnValidSubmit");
+
     }
-        protected async Task UpdateDevice()
-        {
-           
-            await DeviceService.EditDevice(device);
-            NavigationManager.NavigateTo("DeviceList");
-                
-            }
-            void Cancel()
-            {
-                NavigationManager.NavigateTo("DeviceList");
-            }
-        }
+
+    void Cancel()
+    {
+        NavigationManager.NavigateTo("DeviceList");
+    }
+ }

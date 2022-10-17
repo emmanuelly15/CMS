@@ -28,7 +28,8 @@ namespace Api.Controllers
                 Id = v.Id,
                 Name = v.Name,
                 Email = v.Email,
-                Password = v.Password
+                Password = v.Password,
+                Authorize = v.Authorize,
             });
 
             return allAdminUsers;
@@ -45,7 +46,8 @@ namespace Api.Controllers
                 Id = adminuser.Id,
                 Name = adminuser.Name,
                 Email = adminuser.Email,
-                Password = adminuser.Password
+                Password = adminuser.Password,
+                Authorize = adminuser.Authorize
             };
 
             return adminuserview;
@@ -57,7 +59,8 @@ namespace Api.Controllers
             {
                 Name = adminuser.Name,
                 Email = adminuser.Email,
-               Password = adminuser.Password
+               Password = adminuser.Password,
+               Authorize = adminuser.Authorize
             };
 
             db.AdminUsers.Add(dbAdminUser);
@@ -83,7 +86,9 @@ namespace Api.Controllers
             dbAdminUser.Name = adminuser.Name;
             dbAdminUser.Email = adminuser.Email;
             dbAdminUser.Password = adminuser.Password;
-            
+            dbAdminUser.Authorize = adminuser.Authorize;
+
+
             db.SaveChanges();
             return dbAdminUser.Id;
 

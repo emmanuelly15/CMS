@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using CommonModels.Model;
 using System.Linq;
+using System;
+
 
 namespace Api.Controllers
 {
@@ -94,6 +96,37 @@ namespace Api.Controllers
             return dbUser.Id;
 
         }
-        
+
+        /*public JsonResult IsAlreadySignedUpStudent(string Email)
+        {
+            DbUser user_Details = new DbUser();
+
+            using (var user = new User())
+            {
+
+                user_Details = db.Users.Where(a => a.Email.ToLower() == Email.ToLower()).FirstOrDefault();
+            }
+
+
+            bool status;
+            if (user_Details != null)
+            {
+                //Already registered  
+                status = false;
+            }
+            else
+            {
+                //Available to use  
+                status = true;
+            }
+
+            return Json(status, System.Web.Mvc.JsonRequestBehavior.AllowGet);
+
+        }
+
+        private JsonResult Json(bool status, object allowGet)
+        {
+            throw new NotImplementedException();
+        }*/
     }
 }

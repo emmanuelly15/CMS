@@ -5,14 +5,22 @@
 @inject NavigationManager NavigationManager
 @inject IJSRuntime JsRuntime
 @inject GroupService GroupService
+
+<EditForm Model="@group" OnValidSubmit="@HandleValidSubmit">
+
+    <DataAnnotationsValidator />
+
+    <ValidationSummary />
 <h1>Group Management</h1>
 <h2>Add Group</h2>
 
+    
 <div class="row">
         <div class="col-md-6">
                 <div class="form-group">
                         <label for="Groups">  Group *</label>
-                        <input form="Groups" class="form-control" @bind="@group.Groups" />
+                <input form="Group name" class="form-control" @bind="@group.Groups" style='text-transform:uppercase' />
+                        
                     </div>
             </div>
         
@@ -21,24 +29,31 @@
 <div class="row">
         <div class="col-md-4">
                 <div class="form-group">
-                        <input type="button" class="btn btn-primary" @onclick="@Save" value="Save" />
+                        <button type="submit">Save</button>
                         <input type="button" class="btn" @onclick="@Cancel" value="Cancel" />
                     </div>
             </div>
 </div>
+</EditForm>
+
 @code {
     [Parameter]
     public string Id{ get; set; }
+    string value;
     Group group = new Group();
     
-    protected async Task Save()
+    private async void HandleValidSubmit() //handles user exception to ensure valid information is entered before saving
+
     {
         await GroupService.SaveAsync(group);
         NavigationManager.NavigateTo("GroupList");
+        Console.WriteLine("OnValidSubmit");
+
     }
-            void Cancel()
-            {
-                NavigationManager.NavigateTo("GroupList");
-            }
+
+    void Cancel()
+    {
+         NavigationManager.NavigateTo("GroupList");
+    }
 }
 
