@@ -69,14 +69,14 @@
     {
         await DocumentService.ApproveDocumentById(Id);
         Console.WriteLine(Id);
-        NavigationManager.NavigateTo("UserList");
+        NavigationManager.NavigateTo("dashboard");
     }
 
     protected async Task Reject(MouseEventArgs args, int Id)
     {
         await DocumentService.RejectDocumentById(Id);
         Console.WriteLine(Id);
-        NavigationManager.NavigateTo("UserList");
+        NavigationManager.NavigateTo("dashboard");
     }
 
 
