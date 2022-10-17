@@ -6,18 +6,20 @@
 @inject IJSRuntime JsRuntime
 @inject AdminUserService AdminUserService
 
-<h1>Admin User Management</h1>
-<h2>Add Admin User</h2>
-
 <EditForm Model="@adminuser" OnValidSubmit="@HandleValidSubmit">
 
     <DataAnnotationsValidator />
 
     <ValidationSummary />
+<h1>Admin User Management</h1>
+
+<h2>Add an Administrator</h2>
+<p>Note: All fields marked with '*' are required.</p>
 <div class="row">
         <div class="col-md-6">
                 <div class="form-group">
                         <label for="Name">  Name *</label>
+                        <p>Enter the name and surname of the administrator.</p>
                         <input form="Name" class="form-control" @bind="@adminuser.Name" />
                     </div>
             </div>
@@ -25,18 +27,21 @@
         <div class="col-md-6">
                 <div class="form-group">
                         <label for="Email"> Email *</label>
+                        <p>Enter the email address of the administrator.</p>
                         <input form="Email" class="form-control" @bind="@adminuser.Email" />
                     </div>
             </div>
                 <div class="col-md-6">
                 <div class="form-group">
                         <label for="Password"> Password *</label>
+                        <p>Enter the password that the administrator will be using when logging into the Payco system.</p>
                         <input form="Password" class="form-control" @bind="@adminuser.Password" />
                     </div>
             </div>
 </div>
 <p>
     Is Authorised?
+    <p>This field decides if an administrator has higher level authorisation.</p>
     <br />
     <label>
         <input type="radio" value="Yes" name="@adminuser.Authorize" checked="@(adminuser.Authorize == true)" @onclick="@(()=>adminuser.Authorize = true)" /> yes

@@ -17,32 +17,36 @@
 <div class="row">
         <div class="col-md-6">
                 <div class="form-group">
-                        <label for="Name">  Name *</label>
+                        <label for="Name">  Name </label>
+                        <p>Enter the name and surname of the user.</p>
                         <input form="Name" class="form-control" @bind="@user.Name" /> @*The bind function is what binds the user(from the user class, to the fields for example Name, Email...)*@ 
                  </div>
             </div>
         
         <div class="col-md-6">
                 <div class="form-group">
-                        <label for="Email"> Email *</label>
+                        <label for="Email"> Email </label>
+                        <p>Enter the email address of the user.</p>
                         <input form="Email" class="form-control" @bind="@user.Email" />
                     </div>
             </div>
         <div class="col-md-6">
                 <div class="form-group">
-                        <label for="Telephone"> Telephone *</label>
+                        <label for="Telephone"> Telephone </label>
+                        <p>Enter the phone number of the user.</p>
                         <input form="Telephone" class="form-control" @bind="@user.Telephone" />
                     </div>
             </div>
             <div class="col-md-6">
                 <div class="form-group">
-                        <label for="EmpId"> Employee_ID *</label>
+                        <label for="EmpId"> Employee_ID </label>
                         <input form="EmpId" class="form-control" @bind="@user.EmpId" />
                     </div>
             </div>
             <div class="col-md-6">
                 <div class="form-group">
-                        <label for="Password"> Password *</label>
+                        <label for="Password"> Password </label>
+                        <p>Enter the password that the user will be using when logging into the Payco mobile application.</p>
                         <input form="Password" class="form-control" @bind="@user.Password" />
                     </div>
             </div>
