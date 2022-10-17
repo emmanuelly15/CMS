@@ -30,7 +30,11 @@ namespace WebApplication1
         public void ConfigureServices(IServiceCollection services)
         {
            string mySqlConnectionStr = Configuration["ConnectionStrings:Default"];
-            services.AddDbContextPool<DatabaseContext>(options => options.UseMySql(mySqlConnectionStr, ServerVersion.AutoDetect(mySqlConnectionStr)));
+            services.AddDbContextPool<DatabaseContext>(options => { options.UseMySql(mySqlConnectionStr, ServerVersion.AutoDetect(mySqlConnectionStr), options => options.EnableRetryOnFailure(
+                    maxRetryCount: 5,
+                    maxRetryDelay: System.TimeSpan.FromSeconds(30),
+                    errorNumbersToAdd: null));
+            });
             services.AddControllers();
         }
 

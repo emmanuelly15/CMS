@@ -43,8 +43,13 @@ namespace Api.Controllers
                     {
                         FileInfo fi = new FileInfo(file.FileName);
                         var newfilename = "File_" + DateTime.Now.TimeOfDay.Milliseconds + fi.Extension;
-                        var path = Path.Combine(@"wwwroot/images/" + newfilename);
-                        var dbPath = Path.Combine("",  newfilename);
+
+                        var path = Path.Combine("\\Users\\shank\\Source\\Repos\\emmanuelly15\\CMS\\BlazorApp1\\wwwroot\\Images\\" + newfilename);
+                        var dbPath = Path.Combine("",  "Images/" + newfilename);
+
+                        //var path = Path.Combine(@"wwwroot/images/" + newfilename); path for the server
+                        //var dbPath = Path.Combine("",  newfilename);
+
                         using (var stream = new FileStream(path, FileMode.Create))
                         {
                             file.CopyTo(stream); //copying url to stream
