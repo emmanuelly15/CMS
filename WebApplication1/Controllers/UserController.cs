@@ -115,6 +115,7 @@ namespace Api.Controllers
             }
             
             ud.Name = dbUser.Name;
+            ud.Email = dbUser.Email;
             ud.Telephone = dbUser.Telephone;
             ud.EmpId = dbUser.EmpId;
             ud.ErrorMessage = "";
