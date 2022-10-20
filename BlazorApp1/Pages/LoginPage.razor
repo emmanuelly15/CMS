@@ -1,4 +1,5 @@
 ﻿@page "/Login"
+@layout LoginLayout
 @using BlazorApp1.Authentication
 @using CommonModels.Model
 @using Microsoft.JSInterop
@@ -34,9 +35,11 @@
                 <ValidationMessage For="@(() => loginModel.password)" />
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
-        </EditForm>
-    </div>
+    <div>
+</EditForm>
+
 </div>
+
 
 @code {
 
@@ -57,10 +60,7 @@
         else
         {
             Error = result.Error;
-            ShowErrors = true;
-        }
+        return await Task.FromResult(true);
     }
 }
-
-
 
