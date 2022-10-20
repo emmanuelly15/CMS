@@ -1,5 +1,9 @@
 ﻿@page "/Login"
+<<<<<<< HEAD
 @using BlazorApp1.Authentication
+=======
+@layout LoginLayout
+>>>>>>> 37b89117cee59e3a6b24c8a292b8d04e5a7a9bd7
 @using CommonModels.Model
 @using Microsoft.JSInterop
 @using BlazorApp1.Data
@@ -36,7 +40,28 @@
             <button type="submit" class="btn btn-primary">Submit</button>
         </EditForm>
     </div>
+<<<<<<< HEAD
 </div>
+=======
+    <div>
+        <br />
+    </div>
+    <div class="col-12 row">
+        <input class="form-control col-12" @bind="adminuser.Email" placeholder="email address" />
+    </div>
+    <br />
+    <div class="col-12 row">
+        <input type="password" class="form-control col-12" @bind="adminuser.Password" placeholder="password" />
+    </div>
+    <br />
+    <div class="col-12 row">
+        <span class="col-12"></span>
+        <input type="submit" class="form-control col-6 btn btn-primary" value="Login" />
+        <a href="/Login" class="col-3">Login</a>
+    </div>
+
+</EditForm>
+>>>>>>> 37b89117cee59e3a6b24c8a292b8d04e5a7a9bd7
 
 @code {
 
@@ -64,3 +89,46 @@
 
 
 
+<<<<<<< HEAD
+=======
+        return await Task.FromResult(true);
+    }
+
+    protected async override Task OnInitializedAsync()
+    {
+        adminuser = new AdminUser();
+
+        claimsPrincipal = (await authenticationStateTask).Admin;
+
+        if (claimsPrincipal.Identity.IsAuthenticated)
+        {
+            NavigationManager.NavigateTo("/index");
+        }
+        {
+            adminuser.Email = "brad";
+            adminuser.Password = "brad";
+        }
+
+    } 
+
+    private async Task<bool> ValidateUser()
+    {
+        //assume that user is valid
+        //call an API
+
+        var returnedUser = await AdminUserService.Login(adminuser);
+
+        if (returnedUser.EmailAddress != null)
+        {
+            await ((CustomAuthenticationStateProvider)AuthenticationStateProvider).MarkUserAsAuthenticated(returnedUser);
+            NavigationManager.NavigateTo("/index");
+        }
+        else
+        {
+            LoginMesssage = "Invalid username or password";
+        }
+
+        return await Task.FromResult(true);
+    }
+}
+>>>>>>> 37b89117cee59e3a6b24c8a292b8d04e5a7a9bd7
