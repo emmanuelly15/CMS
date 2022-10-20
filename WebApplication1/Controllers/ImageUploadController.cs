@@ -71,6 +71,7 @@ namespace Api.Controllers
                             imageupload.Amount = amt;
 
                         }
+                        imageupload.Reason= "D";
                         dbaseContext.Imageuploads.Add(imageupload); //reference each column in table properly
                         dbaseContext.SaveChanges();
 

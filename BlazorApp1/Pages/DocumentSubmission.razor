@@ -24,7 +24,6 @@
                     <th width="20%">Location</th>
                     <th width="20%">Status</th>
                     <th width="20%">Amount</th>
-
                 </tr>
             </thead>
             <tbody>
@@ -49,6 +48,35 @@
                        }
                           
                         </td>
+                        <td>
+                             
+                        @if (@p.Status=="Rejected" && p.Reason=="No Reason")
+                       {
+                           <button @onclick="@(k => Blurry(k,@p.Id))">Blurry</button>
+                           <button @onclick="@(k => NAmountR(k,@p.Id))">Amount not shown</button>
+                           <button @onclick="@(k => IInfoR(k,@p.Id))">Incorrect Information</button>
+                           <button @onclick="@(k => CommentR(k,@p.Id))">No comment found</button>
+                       }
+                       @if (@p.Reason=="Blurry")
+                       {
+                           <p>Blurry</p>
+                       }
+                       @if (@p.Reason=="Amount Not Shown")
+                       {
+                           <p>Amount Not Shown</p>
+                       }
+                       @if (@p.Reason=="Incorrect Information")
+                       {
+                           <p>Incorrect Information</p>
+                       }@if (@p.Reason=="Commment Not Shown")
+                       {
+                           <p>Commment Not Shown</p>
+                       }
+                       @if (@p.Status=="Accepted")
+                       {
+                           <p>No Reason</p>
+                       }
+                        </td>
                     </tr>
                 }
             </tbody>
@@ -69,15 +97,35 @@
     {
         await DocumentService.ApproveDocumentById(Id);
         Console.WriteLine(Id);
-        NavigationManager.NavigateTo("dashboard");
+        NavigationManager.NavigateTo(NavigationManager.Uri, forceLoad: true); //Buttons to approve a document
     }
 
     protected async Task Reject(MouseEventArgs args, int Id)
     {
         await DocumentService.RejectDocumentById(Id);
         Console.WriteLine(Id);
-        NavigationManager.NavigateTo("dashboard");
+        NavigationManager.NavigateTo(NavigationManager.Uri, forceLoad: true); //Buttons to reject a document
     }
-
+    protected async Task Blurry(MouseEventArgs args, int Id)
+    {
+        await DocumentService.BlurryRById(Id);
+        Console.WriteLine(Id);
+        NavigationManager.NavigateTo(NavigationManager.Uri, forceLoad: true); //Buttons for giving a reason when a document is rejected.
+    }protected async Task NAmountR(MouseEventArgs args, int Id)
+    {
+        await DocumentService.AmountRById(Id);
+        Console.WriteLine(Id);
+        NavigationManager.NavigateTo(NavigationManager.Uri, forceLoad: true);
+    }protected async Task IInfoR(MouseEventArgs args, int Id)
+    {
+        await DocumentService.InfoRById(Id);
+        Console.WriteLine(Id);
+        NavigationManager.NavigateTo(NavigationManager.Uri, forceLoad: true);
+    }protected async Task CommentR(MouseEventArgs args, int Id)
+    {
+        await DocumentService.CommentRById(Id);
+        Console.WriteLine(Id);
+        NavigationManager.NavigateTo(NavigationManager.Uri, forceLoad: true);
+    }
 
 }
