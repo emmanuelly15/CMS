@@ -34,5 +34,7 @@ namespace Api.Model.Database
         public string Status { get; set; }
         [Required]
         public Decimal Amount { get; set; }
+        
+        public string Reason { get; set; }
     }
 }
