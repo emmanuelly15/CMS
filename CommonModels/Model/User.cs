@@ -44,4 +44,28 @@ namespace CommonModels.Model
 
         
     }
+    public class UserLogin
+    {
+        [Required(ErrorMessage = "Email is required")]
+        public string Email { get; set; }
+
+        [Required(ErrorMessage = "Password is required")]
+        public string Password { get; set; }
+    }
+
+    public class UserProfile
+    {
+        public string ErrorMessage { get; set; }
+
+        public string Name { get; set; }
+
+
+        public string Email { get; set; }
+
+        public string Telephone { get; set; }
+
+        public string EmpId { get; set; }
+
+
+    }
 }
