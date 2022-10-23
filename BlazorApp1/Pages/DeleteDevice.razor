@@ -1,10 +1,16 @@
 ﻿@page "/DeleteDevice/{Id}"
-@layout NoMenuLayout
 @using CommonModels.Model
 @using BlazorApp1.Data
 @inject NavigationManager NavigationManager
 @inject IJSRuntime JsRuntime
 @inject DeviceService DeviceService
+
+<style>
+    body {
+        background-color: #F9F6EE;
+    }
+</style>
+
 <h2>Delete Group</h2>
 @if(device != null)
 {

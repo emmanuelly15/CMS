@@ -1,37 +1,42 @@
 ﻿@page "/AdminUserManagement"
-@layout NoMenuLayout
 @using BlazorApp1.Data
 @using CommonModels.Model
 @inject NavigationManager NavigationManager
 @inject IJSRuntime JsRuntime
 @inject AdminUserService AdminUserService
 
+<style>
+    body {
+        background-color: #F9F6EE;
+    }
+</style>
+
 <EditForm Model="@adminuser" OnValidSubmit="@HandleValidSubmit">
 
     <DataAnnotationsValidator />
 
     <ValidationSummary />
-<h1>Admin User Management</h1>
+    <h1>Admin User Management</h1>
+    <h2>Add an Administrator</h2>
 
-<h2>Add an Administrator</h2>
-<p>Note: All fields marked with '*' are required.</p>
+    <p>Note: All fields marked with '*' are required.</p>
+
 <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-3">
                 <div class="form-group">
                         <label for="Name">  Name *</label>
                         <p>Enter the name and surname of the administrator.</p>
                         <input form="Name" class="form-control" @bind="@adminuser.Name" />
                     </div>
-            </div>
-        
-        <div class="col-md-6">
+            </div>      
+        <div class="col-md-3">
                 <div class="form-group">
                         <label for="Email"> Email *</label>
                         <p>Enter the email address of the administrator.</p>
                         <input form="Email" class="form-control" @bind="@adminuser.Email" />
                     </div>
             </div>
-                <div class="col-md-6">
+                <div class="col-md-3">
                 <div class="form-group">
                         <label for="Password"> Password *</label>
                         <p>Enter the password that the administrator will be using when logging into the Payco system.</p>
@@ -42,7 +47,6 @@
 <p>
     Is Authorised?
     <p>This field decides if an administrator has higher level authorisation.</p>
-    <br />
     <label>
         <input type="radio" value="Yes" name="@adminuser.Authorize" checked="@(adminuser.Authorize == true)" @onclick="@(()=>adminuser.Authorize = true)" /> yes
     </label>
@@ -53,14 +57,13 @@
     <br />
     @adminuser.Authorize
 </p>
-
 <div class="row">
-        <div class="col-md-4">
-                <div class="form-group">
-                        <button type="submit">Submit</button>
-                        <input type="button" class="btn" @onclick="@Cancel" value="Cancel" />
-                    </div>
-            </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <button class="btn btn-primary" type="submit">Submit</button>
+            <input type="button" class="btn btn-outline-dark" @onclick="@Cancel" value="Cancel" />
+        </div>
+    </div>
 </div>
 </EditForm>
 
