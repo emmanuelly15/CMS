@@ -63,5 +63,29 @@ namespace BlazorApp1.DbServices
             var response = await client.GetAsync(apiUrl + "RejectDoc/" + id);
 
         }
+        public async Task BlurryRById(int id)
+        {
+            var client = new HttpClient();
+            var response = await client.GetAsync(apiUrl + "BlurryR/" + id);
+
+        }
+        public async Task AmountRById(int id)
+        {
+            var client = new HttpClient();
+            var response = await client.GetAsync(apiUrl + "AmountR/" + id);
+
+        }
+        public async Task InfoRById(int id)
+        {
+            var client = new HttpClient();
+            var response = await client.GetAsync(apiUrl + "InfoR/" + id);
+
+        }
+        public async Task CommentRById(int id)
+        {
+            var client = new HttpClient();
+            var response = await client.GetAsync(apiUrl + "CommentR/" + id);
+
+        }
     }
 }

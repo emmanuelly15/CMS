@@ -60,7 +60,7 @@ namespace Api.Controllers
                 Groups = group.Groups,
     
             };          
-
+            db.Groups.Add(dbGroup);
             db.SaveChanges();
             return dbGroup.Id;
         }

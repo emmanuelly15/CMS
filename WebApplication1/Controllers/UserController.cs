@@ -97,36 +97,32 @@ namespace Api.Controllers
 
         }
 
-        /*public JsonResult IsAlreadySignedUpStudent(string Email)
+        //Authentification Login
+        [HttpPost("/login")]
+        public UserProfile LoginUser(UserLogin ul)
         {
-            DbUser user_Details = new DbUser();
-
-            using (var user = new User())
+            var dbUser = db.Users.FirstOrDefault(u => u.Email == ul.Email);
+            UserProfile ud = new UserProfile();
+            if (dbUser == null || dbUser.Id <= 0)
             {
-
-                user_Details = db.Users.Where(a => a.Email.ToLower() == Email.ToLower()).FirstOrDefault();
+                //throw new System.Exception("Invalid User"); 
+                ud.ErrorMessage = "Invalid Email Address";
+                return ud;
             }
 
-
-            bool status;
-            if (user_Details != null)
+            if (dbUser.Password != ul.Password)
             {
-                //Already registered  
-                status = false;
-            }
-            else
-            {
-                //Available to use  
-                status = true;
+                ud.ErrorMessage = "Invalid Password";
+                return ud;
             }
 
-            return Json(status, System.Web.Mvc.JsonRequestBehavior.AllowGet);
-
+            ud.Name = dbUser.Name;
+            ud.Email = dbUser.Email;
+            ud.Telephone = dbUser.Telephone;
+            ud.EmpId = dbUser.EmpId;
+            ud.ErrorMessage = "";
+            return ud;
+            //System.Console.WriteLine(ul.ToString());
         }
-
-        private JsonResult Json(bool status, object allowGet)
-        {
-            throw new NotImplementedException();
-        }*/
     }
 }
