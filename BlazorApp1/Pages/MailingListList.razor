@@ -2,19 +2,28 @@
 @using BlazorApp1.Data
 @using CommonModels.Model
 @inject MailingListService MailingListService
+@inject NavigationManager NavigationManager
 
+<style>
+    body {
+        background-color: #F9F6EE;
+    }
+</style>
 
 <h1>Mailing List</h1>
 <div>
-    <a href="/MailingList"> Add an email</a>
+     <RadzenButton Text="Add New Mailing List" Click=@OnButtonClick  Icon="add_circle_outline" ButtonStyle="ButtonStyle.Secondary" />
+    <br>
+    <br>
     @if (mailinglists != null)
     {
-        <table class="table-bordered">
+        <table style="color: #000000" class="table-bordered" BorderColor="Black">
             <thead>
-                <tr>
-                    <th width = "30%">Email</th>
-                    <th width = "30%">Group</th>
-                    
+                <tr style="height: 30px; background-color:#336699 ; color:#FFFFFF ;">
+                    <th >Email</th>
+                    <th >Group</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
                 </tr>
             </thead>
             <tbody>
@@ -24,9 +33,15 @@
                         <td>@v.Email</td>
                     <td>@v.Groups</td>
                     
-                    <td>
-                        <a href="/EditML/@v.Id">Edit</a> 
-                        <a href="/DeleteML/@v.Id">Delete</a>
+                   <td>
+                        <button class="btn btn-primary">
+                                <span class="oi oi-pencil"></span>
+                                <a style="color: #FFFFFF" href="/EditML/@v.Id">Edit</a>
+                        </button></td> <td>
+                        <button  class="btn btn-danger">
+                                <span class="oi oi-trash"></span>
+                                <a style="color: #FFFFFF" href="/DeleteML/@v.Id">Delete</a>
+                        </button>
                     </td>
                     </tr>
                 }
@@ -41,5 +56,8 @@
     {
         mailinglists = await MailingListService.GetMLAsync();
     }
-
+    void OnButtonClick()
+    {
+        NavigationManager.NavigateTo("MailingList");
+    }
 }

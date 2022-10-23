@@ -4,6 +4,11 @@
 @inject DocumentService DocumentService
 @inject NavigationManager NavigationManager
 
+<style>
+    body {
+        background-color: #F9F6EE;
+    }
+</style>
 
 
 <h3>Document Submission</h3>
@@ -14,7 +19,7 @@
     {
         <table class="table-bordered">
             <thead>
-                <tr>
+                <tr style="height: 30px; background-color:#336699 ; color:#FFFFFF ;">
                     <th width="30%">Email</th>
                     <th width="20%">Title</th>
                     <th width="20%">Inserted On</th>
@@ -24,6 +29,8 @@
                     <th width="20%">Location</th>
                     <th width="20%">Status</th>
                     <th width="20%">Amount</th>
+                    <th width="20%">Action</th>
+                    <th >Reason</th>
                 </tr>
             </thead>
             <tbody>
@@ -43,8 +50,16 @@
                              
                         @if (@p.Status=="Pending")
                        {
-                           <button @onclick="@(k => Approve(k,@p.Id))">Approve</button>
-                           <button @onclick="@(k => Reject(k,@p.Id))">Reject</button>
+                          <td>
+                        <button class="btn btn-success">
+                                <span class="oi oi-check"></span>
+                                <a style="color: #FFFFFF" @onclick="@(k => Approve(k,@p.Id))">Accept</a>
+                        </button></td>
+                           <td>
+                        <button class="btn btn-danger">
+                                <span class="oi oi-x"></span>
+                                <a style="color: #FFFFFF" @onclick="@(k => Reject(k,@p.Id))">Reject</a>
+                        </button></td>
                        }
                           
                         </td>
@@ -52,6 +67,23 @@
                              
                         @if (@p.Status=="Rejected" && p.Reason=="No Reason")
                        {
+                          
+                        <button class="btn btn-outline-secondary">
+                               
+                                <a @onclick="@(k => Blurry(k,@p.Id))">Blurry</a>
+                        </button> 
+                        <button class="btn btn-outline-secondary">
+                               
+                                <a @onclick="@(k => NAmountR(k,@p.Id))">Amount not shown</a>
+                        </button>
+                        <button class="btn btn-outline-secondary">
+                               
+                                <a @onclick="@(k => IInfoR(k,@p.Id))">Incorrect Information</a>
+                        </button>
+                        <button class="btn btn-outline-secondary">
+                               
+                                <a @onclick="@(k => CommentR(k,@p.Id))">No comment found</a>
+                        </button>
                            <button @onclick="@(k => Blurry(k,@p.Id))">Blurry</button>
                            <button @onclick="@(k => NAmountR(k,@p.Id))">Amount not shown</button>
                            <button @onclick="@(k => IInfoR(k,@p.Id))">Incorrect Information</button>
