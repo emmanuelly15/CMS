@@ -11,15 +11,14 @@
     <a href="/UserManagement"> Add New User</a>
     @if (users != null)
     {
-        <table class="table-bordered">
+    <table class="table-bordered">
             <thead>
                 <tr>
                     <th width = "30%">Name</th>
                     <th width = "20%">Email</th>
                     <th width = "20%">Telephone</th>
-                    <th width = "20%">Employee_ID</th>
-                    <th width = "20%">Password</th>
-                    <th width = "30%">Action</th>
+                    <th width="20%">Employee_ID</th>
+                    <th width="30%">Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -30,9 +29,8 @@
                     <td>@v.Email</td>
                     <td>@v.Telephone</td>
                     <td>@v.EmpId</td>
-                    <td>@v.Password</td>
-                    <td>
-                        <a href="/EditUser/@v.Id">Edit</a> 
+                    <td>                       
+                        <a href="/EditUser/@v.Id">Edit</a>
                         <a href="/DeleteUser/@v.Id">Delete</a>
                     </td>
                     </tr>
@@ -41,6 +39,7 @@
         </table>
     }
 </div>
+
 @code {
     
    private User[] users;

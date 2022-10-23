@@ -1,10 +1,16 @@
 ﻿@page "/DeleteAdminUser/{Id}"
-@layout NoMenuLayout
 @using CommonModels.Model
 @using BlazorApp1.Data
 @inject NavigationManager NavigationManager
 @inject IJSRuntime JsRuntime
 @inject AdminUserService AdminUserService
+
+<style>
+    body {
+        background-color: #F9F6EE;
+    }
+</style>
+
 <h2>Delete Admin User</h2>
 @if(adminuser != null)
 {
@@ -31,8 +37,8 @@
                 <div class="form-group">
                         <input type="button" class="btn btn-primary" @onclick="@Delete" value="Delete" />
                         <input type="button" class="btn" @onclick="@Cancel" value="Cancel" />
-                    </div>
-            </div>
+                </div>
+        </div>
 </div>
 @code {
     [Parameter]

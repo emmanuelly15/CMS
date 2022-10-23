@@ -1,40 +1,42 @@
 ﻿@page "/GroupManagement"
-@layout NoMenuLayout
 @using BlazorApp1.Data
 @using CommonModels.Model
 @inject NavigationManager NavigationManager
 @inject IJSRuntime JsRuntime
 @inject GroupService GroupService
 
+<style>
+    body {
+        background-color: #F9F6EE;
+    }
+</style>
+
 <EditForm Model="@group" OnValidSubmit="@HandleValidSubmit">
 
     <DataAnnotationsValidator />
 
     <ValidationSummary />
-<h1>Group Management</h1>
+    <h1>Group Management</h1>
+    <h2>Add Group</h2>
 
-<p>Add Group</p>
-<p>Note: All fields marked with '*' are required.</p>
+    <p>Note: All fields marked with '*' are required.</p>
     
 <div class="row">
-        <div class="col-md-6">
-                <div class="form-group">
+        <div class="col-md-4">
+                <div class="form-group" style="width:15rem;">
                         <label for="Groups">  Group *</label>
                         <p>Please enter the group department.</p>
                         <input form="Group name" class="form-control" @bind="@group.Groups" />
-                        
                     </div>
-            </div>
-        
-        
+            </div>       
 </div>
 <div class="row">
         <div class="col-md-4">
                 <div class="form-group">
-                        <button type="submit">Submit</button>
-                        <input type="button" class="btn" @onclick="@Cancel" value="Cancel" />
+                        <button class="btn btn-primary" type="submit">Submit</button>
+                        <input type="button" class="btn btn-outline-dark" @onclick="@Cancel" value="Cancel" />
                     </div>
-            </div>
+        </div>
 </div>
 </EditForm>
 

@@ -35,10 +35,10 @@ namespace CommonModels.Model
 
         [Required(ErrorMessage = "Password is required")]
         [RegularExpression(@"^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\w\d\s:])([^\s]){8,32}$", ErrorMessage = "Password doesn't meet security rules." +
-            "Password must contain numbers between 0-9." +
-            "Password must contain uppercase and lowercase letters " +
-            "Password must contain non-alphanumeric characters. Eg. !@#$%&" +
-            "Password must have a length of minimum 8 characters and a maximum of 32 characters.")] //validate that password meets standard requirements
+            " Password must contain numbers between 0-9." +
+            " Password must contain uppercase and lowercase letters " +
+            " Password must contain non-alphanumeric characters. Eg. !@#$%&" +
+            " Password must have a length of minimum 8 characters and a maximum of 32 characters.")] //validate that password meets standard requirements
         [StringLength(32, MinimumLength = 8, ErrorMessage = "Password must have a length of minimum 8 characters and a maximum of 32 characters.")] //validate max and minimum amount of characters entered and error message
         public string Password { get; set; }
 

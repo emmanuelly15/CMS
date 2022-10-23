@@ -1,5 +1,4 @@
 ﻿@page "/EditDevice/{Id}"
-@layout NoMenuLayout
 @using BlazorApp1.Models
 @using CommonModels.Model
 @using BlazorApp1.Services
@@ -9,16 +8,22 @@
 @inject IJSRuntime JsRuntime
 @inject DeviceService DeviceService
 
+<style>
+    body {
+        background-color: #F9F6EE;
+    }
+</style>
+
 <EditForm Model="@device" OnValidSubmit="@HandleValidSubmit">
 
     <DataAnnotationsValidator />
 
     <ValidationSummary />
 
- <h2>Edit Device</h2>
+    <h1>Edit Device</h1>
  
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-4">
         <div class="form-group">
             <label for="IMEI">  IMEI </label>
             <p>A device's IMEI contains a 15-digit number. You can find it at the back of the device or in the settings.</p>
@@ -26,10 +31,11 @@
         </div>
     </div>
     <br>
-    <div class="col-md-6">
+    <div class="col-md-4">
         <div class="form-group">
             <label for="User"> User </label>
             @*<input form="User" class="form-control" @bind="@device.User" />*@
+                <p>Assign a user to the Device.</p>
             <select class="form-control" @bind="@device.User">
                 <option value="">-- Select User --</option>
                 @if (usrobj != null)
@@ -44,10 +50,11 @@
         </div>
     </div>
     <br>
-    <div class="col-md-6">
+    <div class="col-md-3">
         <div class="form-group">
             <label for="Group"> Select Group </label>
             @*<input form="Group" class="form-control" @bind="@device.Groups" />*@
+            <p>Assign a group.</p>
             <select class="form-control" @bind="@device.Groups">
                 <option value="">-- Select Group --</option>
                 @if (grobj != null)
@@ -61,28 +68,29 @@
         </div>
     </div>
     <br>
-    <p>
-        Is Authorised?       
-        <p>This field authorizes devices to use the Payco mobile application.</p>
-        <br />
-        <label>
-            <input type="radio" value="Yes" name="@device.Authorisation" checked="@(device.Authorisation == true)" @onclick="@(()=>device.Authorisation = true)" /> yes
-        </label>
-        <label>
-            <input type="radio" value="No" name="@device.Authorisation" checked="@(device.Authorisation == false)" @onclick="@(()=>device.Authorisation = false)" /> no
-        </label>
-
-        <br />
-        @device.Authorisation
-    </p>
+        <div class="col-md-3">
+            <div class="form-group">
+                    <p>Is Authorised?</p>
+                    <p>This field authorizes devices to use the Payco mobile application.</p>
+            <br />
+            <label>
+                <input type="radio" value="Yes" name="@device.Authorisation" checked="@(device.Authorisation == true)" @onclick="@(()=>device.Authorisation = true)" /> yes
+            </label>
+            <label>
+                <input type="radio" value="No" name="@device.Authorisation" checked="@(device.Authorisation == false)" @onclick="@(()=>device.Authorisation = false)" /> no
+            </label>
+            @device.Authorisation
+                     
+            </div>
+        </div>
 </div>      
 <div class="row">
         <div class="col-md-4">
                 <div class="form-group">
-                        <button type="submit">Save</button>
-                        <input type="button" class="btn" @onclick="@Cancel" value="Cancel" />
-                    </div>
-            </div>
+                    <button class="btn btn-primary" type="submit">Save</button>
+                    <input type="button" class="btn btn-outline-dark" @onclick="@Cancel" value="Cancel" />
+                </div>
+        </div>
 </div>
 </EditForm>
 
