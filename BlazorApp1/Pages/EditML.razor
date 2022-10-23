@@ -1,5 +1,4 @@
 ﻿@page "/EditML/{Id}"
-@layout NoMenuLayout
 @using CommonModels.Model
 @using BlazorApp1.Data
 @using BlazorApp1.Services
@@ -10,25 +9,31 @@
 @inject IJSRuntime JsRuntime
 @inject MailingListService MailingListService
 
+<style>
+    body {
+        background-color: #F9F6EE;
+    }
+</style>
+
 <EditForm Model="@ml" OnValidSubmit="@HandleValidSubmit">
 
     <DataAnnotationsValidator />
 
     <ValidationSummary />
 
-<h2>Edit Mailing List</h2>
+    <h1>Edit Mailing List</h1>
 
-<div class="col-md-6">
-    <div class="form-group">
+<div class="col-md-5">
+            <div class="form-group">
         <label for="User"> User email:  </label>
         @*<input form="User" class="form-control" @bind="@device.User" />*@
         <label for="User">@ml.Email</label>
     </div>
 </div>
 
-<div class="col-md-6">
-    <div class="form-group">
-        <label for="Groups">Edit Group</label>
+<div class="col-md-4">
+            <div class="form-group" style="width:11rem;">
+        <label for="Groups">Edit Group: </label>
         @*<input form="Groups" class="form-control" @bind="@ml.Groups" />*@
         <select class="form-control" @bind="@ml.Groups">
             <option value="">-- Select Group --</option>
@@ -46,10 +51,10 @@
 <div class="row">
         <div class="col-md-4">
                 <div class="form-group">
-                       <button type="submit">Save</button>
-                        <input type="button" class="btn" @onclick="@Cancel" value="Cancel" />
-                    </div>
-            </div>
+                    <button class="btn btn-primary" type="submit">Save</button>
+                    <input type="button" class="btn btn-outline-dark" @onclick="@Cancel" value="Cancel" />
+                </div>
+        </div>
 </div>
 </EditForm>
 

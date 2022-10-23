@@ -1,5 +1,4 @@
 ﻿@page "/MailingList"
-@layout NoMenuLayout
 @using BlazorApp1.Data
 @using CommonModels.Model
 @using BlazorApp1.Services
@@ -9,18 +8,25 @@
 @inject IJSRuntime JsRuntime
 @inject MailingListService MailingListService
 
+<style>
+    body {
+        background-color: #F9F6EE;
+    }
+</style>
+
 <EditForm Model="@ml" OnValidSubmit="@HandleValidSubmit">
 
     <DataAnnotationsValidator />
 
     <ValidationSummary />
 
-<h1>Mailing List</h1>
+    <h1>Mailing List</h1>
+    <h2>Add an Email</h2>
 
-<h2>Add an Email</h2>
-
-<div class="col-md-6">
-        <div class="form-group">
+    <p>Note: All fields marked with '*' are required.</p>
+    
+<div class="col-md-5">
+            <div class="form-group" style="width:18em;">
             <label for="User"> User *</label>
             @*<input form="User" class="form-control" @bind="@device.User" />*@
         <select class="form-control" @bind="@ml.Email">
@@ -34,12 +40,10 @@
                 }
             }
         </select>
-
-
-        </div>
     </div>
-        <div class="col-md-6">
-        <div class="form-group">
+</div>
+        <div class="col-md-4">
+            <div class="form-group" style="width:11rem;">
             <label for="Groups">  Group *</label>
             @*<input form="Groups" class="form-control" @bind="@ml.Groups" />*@
         <select class="form-control" @bind="@ml.Groups">
@@ -54,15 +58,13 @@
         </select>
         </div>
     </div>
-        
-
 <div class="row">
         <div class="col-md-4">
-                <div class="form-group">
-                        <button type="submit">Submit</button>                       
-                        <input type="button" class="btn" @onclick="@Cancel" value="Cancel" />
-                    </div>
+            <div class="form-group">
+                <button class="btn btn-primary" type="submit">Submit</button>
+                <input type="button" class="btn btn-outline-dark" @onclick="@Cancel" value="Cancel" />
             </div>
+        </div>
 </div>
 </EditForm>
 

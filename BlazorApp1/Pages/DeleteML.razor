@@ -1,10 +1,16 @@
 ﻿@page "/DeleteML/{Id}"
-@layout NoMenuLayout
 @using CommonModels.Model
 @using BlazorApp1.Data
 @inject NavigationManager NavigationManager
 @inject IJSRuntime JsRuntime
 @inject MailingListService MailingListService
+
+<style>
+    body {
+        background-color: #F9F6EE;
+    }
+</style>
+
 <h2>Delete Mailing List</h2>
 @if(ml != null)
 {
