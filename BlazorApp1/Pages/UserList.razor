@@ -2,24 +2,33 @@
 @using BlazorApp1.Data
 @using CommonModels.Model
 @inject UserService UserService
+@inject NavigationManager NavigationManager
 
+<style>
+    body {
+        background-color: #F9F6EE;
+    }
+</style>
 
 <h1>User Management</h1>
 
 <p>Add, edit, or delete a user.</p>
 <div>
-    <a href="/UserManagement"> Add New User</a>
+    <RadzenButton Text="Add New User" Click=@OnButtonClick  Icon="add_circle_outline" ButtonStyle="ButtonStyle.Secondary" />
+    <br>
+    <br>
     @if (users != null)
     {
-        <table class="table-bordered">
+        <table style="color: #000000" class="table-bordered" BorderColor="Black">
             <thead>
-                <tr>
-                    <th width = "30%">Name</th>
-                    <th width = "20%">Email</th>
-                    <th width = "20%">Telephone</th>
-                    <th width = "20%">Employee_ID</th>
-                    <th width = "20%">Password</th>
-                    <th width = "30%">Action</th>
+                <tr style="height: 30px; background-color:#336699 ; color:#FFFFFF ;">
+                    <th >Name</th>
+                    <th >Email</th>
+                    <th >Telephone</th>
+                    <th >Employee_ID</th>
+                    <th >Password</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
                 </tr>
             </thead>
             <tbody>
@@ -32,8 +41,14 @@
                     <td>@v.EmpId</td>
                     <td>@v.Password</td>
                     <td>
-                        <a href="/EditUser/@v.Id">Edit</a> 
-                        <a href="/DeleteUser/@v.Id">Delete</a>
+                        <button class="btn btn-primary">
+                                <span class="oi oi-pencil"></span>
+                                <a style="color: #FFFFFF" href="/EditUser/@v.Id">Edit</a>
+                        </button></td> <td>
+                        <button  class="btn btn-danger">
+                                <span class="oi oi-trash"></span>
+                                <a style="color: #FFFFFF" href="/DeleteUser/@v.Id">Delete</a>
+                        </button>
                     </td>
                     </tr>
                 }
@@ -50,5 +65,8 @@
         users = await UserService.GetUsersAsync();
         
     }
-    
+    void OnButtonClick()
+    {
+        NavigationManager.NavigateTo("UserManagement");
+    }
 }
