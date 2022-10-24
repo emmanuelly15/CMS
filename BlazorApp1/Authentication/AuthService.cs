@@ -2,9 +2,11 @@
 using CommonModels.Model;
 using Microsoft.AspNetCore.Components.Authorization;
 using System.Net.Http;
+using System.Net.Http.Formatting;
 using System.Net.Http.Headers;
-using System.Text.Json;
+
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace BlazorApp1.Authentication
@@ -24,10 +26,12 @@ namespace BlazorApp1.Authentication
             _localStorage = localStorage;
         }
 
+
+
         public async Task<LoginResult> Login(LoginModel loginModel)
         {
             var loginAsJson = JsonSerializer.Serialize(loginModel);
-            var response = await _httpClient.PostAsync("api/Login", new StringContent(loginAsJson, Encoding.UTF8, "application/json"));
+            var response = await _httpClient.GetAsync("https://localhost:44310/api/login");
             var loginResult = JsonSerializer.Deserialize<LoginResult>(await response.Content.ReadAsStringAsync(), new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
 
             if (!response.IsSuccessStatusCode)
