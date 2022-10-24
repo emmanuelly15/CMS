@@ -2,7 +2,6 @@ using BlazorApp1.Areas.Identity;
 using BlazorApp1.Data;
 using Microsoft.AspNetCore.Builder;
 using BlazorApp1.Services;
-
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Hosting;
@@ -20,6 +19,11 @@ using System.Threading.Tasks;
 using BlazorApp1.DbServices;
 using BlazorApp1.Authentication;
 using Blazored.LocalStorage;
+using Microsoft.AspNetCore.Authentication;
+using System.Net.Http;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace BlazorApp1
 {
@@ -36,6 +40,7 @@ namespace BlazorApp1
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+
             string mySqlConnectionStr = Configuration["ConnectionStrings:Default"];
             services.AddDbContextPool<ApplicationDbContext>(options => options.UseMySql(mySqlConnectionStr, ServerVersion.AutoDetect(mySqlConnectionStr)));
             services.AddControllers();
@@ -43,15 +48,19 @@ namespace BlazorApp1
                 .AddCookie();
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
+
             services.AddRazorPages();
             services.AddServerSideBlazor();
             services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<IdentityUser>>();
             services.AddBlazoredLocalStorage();
 
-           
-            services.AddSingleton<UserService>();
-           
-            services.AddSingleton<AdminAccountService>();
+            services.AddAuthentication();
+            services.AddHttpClient();
+            services.AddHttpClient<HttpClient>();
+            services.AddScoped<HttpClient>();
+            services.AddHttpClient<IAuthService, AuthService>();
+            services.AddScoped<IAuthService, AuthService>();
+            services.AddScoped<CustomAuthenticationStateProvider>();
             services.AddAuthenticationCore();
             services.AddSingleton<DeviceService>();
             services.AddSingleton<GroupService>();

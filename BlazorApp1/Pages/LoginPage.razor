@@ -20,7 +20,7 @@
 <div class="card">
     <div class="card-body">
         <h5 class="card-title">Please enter your details</h5>
-        <EditForm Model="loginModel" OnValidSubmit="HandleLogin">
+        <EditForm Model="loginModel" OnValidSubmit="@HandleLogin">
             <DataAnnotationsValidator />
             <ValidationSummary />
 
@@ -34,12 +34,11 @@
                 <InputText Id="password" type="password" Class="form-control" @bind-Value="loginModel.password" />
                 <ValidationMessage For="@(() => loginModel.password)" />
             </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
-    <div>
-</EditForm>
-
+           
+            <a href="DocumentSubmission">Login Admin</a>
+        </EditForm>
+    </div>
 </div>
-
 
 @code {
 
@@ -55,12 +54,13 @@
 
         if (result.Successful)
         {
-            NavigationManager.NavigateTo("/Admin");
+            NavigationManager.NavigateTo("/");
         }
         else
         {
             Error = result.Error;
-        return await Task.FromResult(true);
+            ShowErrors = true;
+        }
     }
-}
 
+}

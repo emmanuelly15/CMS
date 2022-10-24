@@ -1,24 +1,22 @@
 ﻿@page "/Admin"
-@attribute [Authorize(Roles = "1,0")]
-
 @using CommonModels.Model
 @using BlazorApp1.Data
 @inject NavigationManager NavigationManager
 @inject IJSRuntime JsRuntime
 @inject AdminUserService AdminUserService
 <h2> Admin Profile</h2>
-@if(adminusers != null)
+@if(loginModel != null)
 {
-<p>Admin Information: <b>@adminusers.Name</b></p>
+<p>Admin Information: <b>Gilbert</b>b></p>
 <div class="row">
        <table class="table">
                <tr>
                        <td>Name</td>
-                       <td>@adminusers.Name </td>
+                       <td>Gilbert </td>
                    </tr>
                <tr>
                        <td>Email</td>
-                       <td>@adminusers.Email</td>
+                       <td>Gilbert@gngengineering.com</td>
                    </tr>
                
            </table>
@@ -29,8 +27,8 @@
 @code {
     [Parameter]
     public string Id{ get; set; }
-    AdminUser adminusers = new AdminUser();
-   
+    LoginModel loginModel = new LoginModel();
+
         
    
         }
