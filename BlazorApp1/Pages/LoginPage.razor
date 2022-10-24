@@ -1,5 +1,6 @@
-﻿@page "/Login"
+﻿@page "/"
 @layout LoginLayout
+@inherits NoMenuLayout
 @using BlazorApp1.Authentication
 @using CommonModels.Model
 @using Microsoft.JSInterop
@@ -54,7 +55,7 @@
 
         if (result.Successful)
         {
-            NavigationManager.NavigateTo("/");
+            NavigationManager.NavigateTo("/dashboard");
         }
         else
         {
