@@ -25,5 +25,15 @@ namespace BlazorApp1.Services
         {
             return _dbcontext.User.ToList();
         }
+
+        public List<DeviceListClass> devobj()
+        {
+            return _dbcontext.Device.ToList();
+        }
+
+        public List<DocumentListClass> docobj()
+        {
+            return _dbcontext.Imageuploads.ToList();
+        }
     }
 }

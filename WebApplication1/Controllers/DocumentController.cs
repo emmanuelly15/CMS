@@ -8,6 +8,7 @@ using System;
 using Microsoft.Extensions.Hosting.Internal;
 using Microsoft.AspNetCore.Hosting;
 using System.Threading.Tasks;
+using Microsoft.VisualBasic;
 
 namespace WebApplication1.Controllers
 {
@@ -43,8 +44,8 @@ namespace WebApplication1.Controllers
                 Comment = v.Comment,
                 Location = v.Location,
                 Status = v.Status == "A"? "Accepted" :(v.Status == "R" ? "Rejected" : "Pending" ),
-                Amount = v.Amount
-
+                Amount = v.Amount,
+                Reason = v.Reason == "B" ? "Blurry" : (v.Reason == "N" ? "Amount Not Shown" : v.Reason == "I" ? "Incorrect Information" : v.Reason == "C" ? "Commment Not Shown" : "No Reason")
             });
 
             return allImageuploads; //} End of block 1. getting device data
@@ -67,11 +68,13 @@ namespace WebApplication1.Controllers
                 Location = imageupload.Location,
                 Status = imageupload.Status == "A" ? "Accepted" : (imageupload.Status == "R" ? "Rejected" : "Pending"),
                 Amount = imageupload.Amount,
+                Reason = imageupload.Reason == "B" ? "Blurry" : (imageupload.Reason == "N" ? "Amount Not Shown" : imageupload.Reason == "I" ? "Incorrect Information" : imageupload.Reason == "C" ? "Commment Not Shown"  : "No Reason")
+
             };
 
             return imageuploadview;
         }
-        [HttpGet("/ApproveDoc/{id}")]
+        [HttpGet("ApproveDoc/{id}")]
         public void ApproveDoc(int id)
         {
           var imageupload = db.Documents.FirstOrDefault(u => u.Id == id);
@@ -79,7 +82,7 @@ namespace WebApplication1.Controllers
             db.Update(imageupload);
             db.SaveChanges();
         }
-        [HttpGet("/RejectDoc/{id}")]
+        [HttpGet("RejectDoc/{id}")]
         public void RejectDoc(int id)
         {
             var imageupload = db.Documents.FirstOrDefault(u => u.Id == id);
@@ -87,6 +90,37 @@ namespace WebApplication1.Controllers
             db.Update(imageupload);
             db.SaveChanges();
         }
-        
+        [HttpGet("BlurryR/{id}")]
+        public void Blurry(int id)
+        {
+            var imageupload = db.Documents.FirstOrDefault(u => u.Id == id);
+            imageupload.Reason = "B";
+            db.Update(imageupload);
+            db.SaveChanges();
+        }
+        [HttpGet("AmountR/{id}")]
+        public void NAmountS(int id)
+        {
+            var imageupload = db.Documents.FirstOrDefault(u => u.Id == id);
+            imageupload.Reason = "N";
+            db.Update(imageupload);
+            db.SaveChanges();
+        }
+        [HttpGet("InfoR/{id}")]
+        public void IInfo(int id)
+        {
+            var imageupload = db.Documents.FirstOrDefault(u => u.Id == id);
+            imageupload.Reason = "I";
+            db.Update(imageupload);
+            db.SaveChanges();
+        }
+        [HttpGet("CommentR/{id}")]
+        public void CommentNS(int id)
+        {
+            var imageupload = db.Documents.FirstOrDefault(u => u.Id == id);
+            imageupload.Reason = "C";
+            db.Update(imageupload);
+            db.SaveChanges();
+        }
     }
 }

@@ -12,6 +12,7 @@ namespace CommonModels.Model
         public int Id { get; set; }
 
         [Required(ErrorMessage = "Group is required")]
+        [RegularExpression(@"^[a-zA-Z\s.\-']{2,}$", ErrorMessage = "Group contains invalid characters.")] //ensures that user enters alphabet characters 
         public string Groups { get; set; }
 
     }

@@ -9,11 +9,26 @@
 @inject NavigationManager NavigationManager
 @inject IJSRuntime JsRuntime
 @inject MailingListService MailingListService
-<h1>Mailing List</h1>
-<h2>Add an Email</h2>
 
-<div class="col-md-6">
-        <div class="form-group">
+<style>
+    body {
+        background-color: #F9F6EE;
+    }
+</style>
+
+<EditForm Model="@ml" OnValidSubmit="@HandleValidSubmit">
+
+    <DataAnnotationsValidator />
+
+    <ValidationSummary />
+
+    <h1>Mailing List</h1>
+    <h2>Add an Email</h2>
+
+    <p>Note: All fields marked with '*' are required.</p>
+    
+<div class="col-md-5">
+            <div class="form-group" style="width:18em;">
             <label for="User"> User *</label>
             @*<input form="User" class="form-control" @bind="@device.User" />*@
         <select class="form-control" @bind="@ml.Email">
@@ -27,12 +42,10 @@
                 }
             }
         </select>
-
-
-        </div>
     </div>
-        <div class="col-md-6">
-        <div class="form-group">
+</div>
+        <div class="col-md-4">
+            <div class="form-group" style="width:11rem;">
             <label for="Groups">  Group *</label>
             @*<input form="Groups" class="form-control" @bind="@ml.Groups" />*@
         <select class="form-control" @bind="@ml.Groups">
@@ -47,36 +60,48 @@
         </select>
         </div>
     </div>
-        
-
 <div class="row">
         <div class="col-md-4">
-                <div class="form-group">
-                        <input type="button" class="btn btn-primary" @onclick="@Save" value="Save" />
-                        <input type="button" class="btn" @onclick="@Cancel" value="Cancel" />
-                    </div>
+            <div class="form-group">
+                <button class="btn btn-primary" type="submit">Submit</button>
+                <input type="button" class="btn btn-outline-dark" @onclick="@Cancel" value="Cancel" />
             </div>
+        </div>
 </div>
+</EditForm>
+
 @code {
     [Parameter]
     public string Id{ get; set; }
     MailingListC ml = new MailingListC();
     List<GroupsListClass> grobj;
     List<UserListClass> usrobj;
+
     protected override void OnInitialized()
     {
         //base.OnInitialized();
         grobj = Service.groupsobj();
         usrobj = Service.usersobj();
     }
-    protected async Task Save()
+
+    private async void HandleValidSubmit() //handles user exception to ensure valid information is entered before saving
+
     {
         await MailingListService.SaveAsync(ml);
         NavigationManager.NavigateTo("MailingListList");
+        Console.WriteLine("OnValidSubmit");
+
     }
-            void Cancel()
-            {
-                NavigationManager.NavigateTo("MailingListList");
-            }
+    /* <input type="button" class="btn btn-primary" @onclick="@Save" value="Save" />
+    * protected async Task Save()
+    {
+        await MailingListService.SaveAsync(ml);
+        NavigationManager.NavigateTo("MailingListList");
+    }*/
+         
+    void Cancel()
+    {
+        NavigationManager.NavigateTo("MailingListList");
+    }
 }
 

@@ -10,6 +10,7 @@ namespace BlazorApp1.Models
     {
         [Key]
         public int Id { get; set; }
+        
         public string Groups { get; set; }
     }
 }

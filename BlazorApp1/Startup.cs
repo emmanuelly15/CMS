@@ -42,7 +42,11 @@ namespace BlazorApp1
         {
 
             string mySqlConnectionStr = Configuration["ConnectionStrings:Default"];
-            services.AddDbContextPool<ApplicationDbContext>(options => options.UseMySql(mySqlConnectionStr, ServerVersion.AutoDetect(mySqlConnectionStr)));
+            services.AddDbContextPool<ApplicationDbContext>(options => { options.UseMySql(mySqlConnectionStr, ServerVersion.AutoDetect(mySqlConnectionStr), options => options.EnableRetryOnFailure(
+                    maxRetryCount: 5,
+                    maxRetryDelay: System.TimeSpan.FromSeconds(30),
+                    errorNumbersToAdd: null));
+            });
             services.AddControllers();
             services.AddAuthentication("Identity.Application")
                 .AddCookie();
@@ -70,8 +74,7 @@ namespace BlazorApp1
             services.AddSingleton<ImageUploadService>();
             services.AddScoped<GroupsListService>();
             services.AddScoped<UserListService>();
-          
-
+            services.AddSingleton<DashboardService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

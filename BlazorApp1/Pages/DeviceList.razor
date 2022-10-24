@@ -2,20 +2,32 @@
 @using BlazorApp1.Data
 @using CommonModels.Model
 @inject DeviceService DeviceService
+@inject NavigationManager NavigationManager
+
+<style>
+    body {
+        background-color: #F9F6EE;
+    }
+</style>
 
 <h1>Device Management</h1>
+
+<p>Add, edit, or delete a device.</p>
 <div>
-    <a href="/DeviceManagement"> Add New Device</a>
+     <RadzenButton Text="Add New Device" Click=@OnButtonClick  Icon="add_circle_outline" ButtonStyle="ButtonStyle.Secondary" />
+    <br>
+    <br>
     @if (devices != null)
     {
-        <table class="table-bordered">
+        <table style="color: #000000" class="table-bordered" BorderColor="Black">
             <thead>
-                <tr>
-                    <th width="30%">IMEI</th>
-                    <th width="20%">User</th>
-                    <th width="20%">Group</th>
-                    <th width="20%">Authorisation</th>
-                    <th width="30%">Action</th>
+                <tr style="height: 30px; background-color:#336699 ; color:#FFFFFF ;">
+                    <th>IMEI</th>
+                    <th>User</th>
+                    <th>Group</th>
+                    <th>Authorisation</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
                 </tr>
             </thead>
             <tbody>
@@ -27,9 +39,15 @@
                         <td>@p.Groups</td>
                         <td>@p.Authorisation</td>
                         <td>
-                            <a href="/EditDevice/@p.Id">Edit</a> |
-                            <a href="/DeleteDevice/@p.Id">Delete</a>
-                        </td>
+                        <button class="btn btn-primary">
+                                <span class="oi oi-pencil"></span>
+                                <a style="color: #FFFFFF" href="/EditDevice/@p.Id">Edit</a>
+                        </button></td> <td>
+                        <button  class="btn btn-danger">
+                                <span class="oi oi-trash"></span>
+                                <a style="color: #FFFFFF" href="/DeleteDevice/@p.Id">Delete</a>
+                        </button>
+                    </td>
                     </tr>
                 }
             </tbody>
@@ -43,5 +61,9 @@
     protected override async Task OnInitializedAsync()
     {
         devices = await DeviceService.GetDevicesAsync();
+    }
+    void OnButtonClick()
+    {
+        NavigationManager.NavigateTo("DeviceManagement");
     }
 }

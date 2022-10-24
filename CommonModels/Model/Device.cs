@@ -11,8 +11,10 @@ namespace CommonModels.Model
     {
 
         public int Id { get; set; }
-
+       
+        [RegularExpression(@"[^a-zA-Z''-'\s]+$", ErrorMessage = "Only numbers or digits are allowed for IMEI.")] //validate only digits enters for IMEI
         [Required(ErrorMessage = "IMEI is required")]
+        [StringLength(15, MinimumLength = 15, ErrorMessage = "IMEI must contain 15 digits.")] //validate max and minimum amount of characters entered and error message
         public string IMEI { get; set; }
 
         [Required(ErrorMessage = "User is required")]

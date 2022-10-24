@@ -1,4 +1,5 @@
-﻿using CommonModels.Model;
+﻿using BlazorApp1.Services;
+using CommonModels.Model;
 using Newtonsoft.Json;
 using System.Net.Http;
 using System.Text;
@@ -8,9 +9,9 @@ namespace BlazorApp1.Data
 
 {
 
-    public class MailingListService
+    public class MailingListService : BaseServices
     {
-        string apiurls = "https://localhost:44304/mailinglist/";
+        string apiurls = BaseApiUrl + "mailinglist/";
         public async Task<int> SaveAsync(MailingListC ml)
         {
             var client = new HttpClient();
