@@ -2,18 +2,29 @@
 @using BlazorApp1.Data
 @using CommonModels.Model
 @inject GroupService GroupService
+@inject NavigationManager NavigationManager
 
+<style>
+    body {
+        background-color: #F9F6EE;
+    }
+</style>
 
 <h1>Group Management</h1>
+
+<p>Add, edit, or delete a group.</p>
 <div>
-    <a href="/GroupManagement"> Add New Groups</a>
+    <RadzenButton Text="Add New Group" Click=@OnButtonClick  Icon="add_circle_outline" ButtonStyle="ButtonStyle.Secondary" />
+    <br>
+
     @if (groups != null)
     {
-        <table class="table-bordered">
+        <table style="color: #000000" class="table-bordered" BorderColor="Black">
             <thead>
-                <tr>
-                    <th width = "30%">Group</th>
-                    
+                <tr style="height: 30px; background-color:#336699 ; color:#FFFFFF ;">
+                    <th>Group</th>
+                    <th >Edit</th>
+                    <th >Delete</th>
                 </tr>
             </thead>
             <tbody>
@@ -23,8 +34,14 @@
                     <td>@p.Groups</td>
                     
                     <td>
-                        <a href="/EditGroup/@p.Id">Edit</a> 
-                        <a href="/DeleteGroup/@p.Id">Delete</a>
+                        <button class="btn btn-primary">
+                                <span class="oi oi-pencil"></span>
+                                <a style="color: #FFFFFF" href="/EditGroup/@p.Id">Edit</a>
+                        </button></td> <td>
+                        <button  class="btn btn-danger">
+                                <span class="oi oi-trash"></span>
+                                <a style="color: #FFFFFF" href="/DeleteGroup/@p.Id">Delete</a>
+                        </button>
                     </td>
                     </tr>
                 }
@@ -38,6 +55,10 @@
     protected override async Task OnInitializedAsync()
     {
         groups = await GroupService.GetGroupsAsync();
+    }
+    void OnButtonClick()
+    {
+        NavigationManager.NavigateTo("GroupManagement");
     }
 
 }

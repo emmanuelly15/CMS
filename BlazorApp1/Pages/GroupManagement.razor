@@ -6,40 +6,59 @@
 @inject NavigationManager NavigationManager
 @inject IJSRuntime JsRuntime
 @inject GroupService GroupService
-<h1>Group Management</h1>
-<h2>Add Group</h2>
 
+<style>
+    body {
+        background-color: #F9F6EE;
+    }
+</style>
+
+<EditForm Model="@group" OnValidSubmit="@HandleValidSubmit">
+
+    <DataAnnotationsValidator />
+
+    <ValidationSummary />
+    <h1>Group Management</h1>
+    <h2>Add Group</h2>
+
+    <p>Note: All fields marked with '*' are required.</p>
+    
 <div class="row">
-        <div class="col-md-6">
-                <div class="form-group">
+        <div class="col-md-4">
+                <div class="form-group" style="width:15rem;">
                         <label for="Groups">  Group *</label>
-                        <input form="Groups" class="form-control" @bind="@group.Groups" />
+                        <p>Please enter the group department.</p>
+                        <input form="Group name" class="form-control" @bind="@group.Groups" />
                     </div>
-            </div>
-        
-        
+            </div>       
 </div>
 <div class="row">
         <div class="col-md-4">
                 <div class="form-group">
-                        <input type="button" class="btn btn-primary" @onclick="@Save" value="Save" />
-                        <input type="button" class="btn" @onclick="@Cancel" value="Cancel" />
+                        <button class="btn btn-primary" type="submit">Submit</button>
+                        <input type="button" class="btn btn-outline-dark" @onclick="@Cancel" value="Cancel" />
                     </div>
-            </div>
+        </div>
 </div>
+</EditForm>
+
 @code {
     [Parameter]
     public string Id{ get; set; }
     Group group = new Group();
     
-    protected async Task Save()
+    private async void HandleValidSubmit() //handles user exception to ensure valid information is entered before saving
+
     {
         await GroupService.SaveAsync(group);
         NavigationManager.NavigateTo("GroupList");
+        Console.WriteLine("OnValidSubmit");
+
     }
-            void Cancel()
-            {
-                NavigationManager.NavigateTo("GroupList");
-            }
+
+    void Cancel()
+    {
+         NavigationManager.NavigateTo("GroupList");
+    }
 }
 

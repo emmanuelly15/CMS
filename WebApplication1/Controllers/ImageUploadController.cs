@@ -1,5 +1,4 @@
 ﻿using Api.Model.Database;
-using Api.Model;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using CommonModels.Model;
@@ -7,23 +6,31 @@ using System.IO;
 using System;
 using Microsoft.AspNetCore.Hosting;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using System.Globalization;
+using Microsoft.VisualBasic;
+using System.Security.Principal;
+using CloudinaryDotNet;
+using CloudinaryDotNet.Actions;
 
 namespace Api.Controllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
-    public class ImageUploadController : Controller
+    public class ImageUploadController : ControllerBase
     {
-        public IHostingEnvironment hostingEnvironment; 
         public DatabaseContext dbaseContext;
-
-        public ImageUploadController(IHostingEnvironment hostingEnv, DatabaseContext db)
+        private Account account;
+        private Cloudinary cloudinary;
+        public ImageUploadController(DatabaseContext db)
         {
-            hostingEnvironment = hostingEnv;
             dbaseContext = db;
+            account = new Account(
+              "ducsowt3l",
+              "258279323544422",
+              "v9x1HtBtd0SjPqZIU4Mx3FT9cFw");
+
+            cloudinary = new Cloudinary(account);
         }
 
         [HttpPost]
@@ -46,16 +53,26 @@ namespace Api.Controllers
                     {
                         FileInfo fi = new FileInfo(file.FileName);
                         var newfilename = "File_" + DateTime.Now.TimeOfDay.Milliseconds + fi.Extension;
-                        var path = Path.Combine("\\Users\\shank\\Source\\Repos\\emmanuelly15\\CMS\\BlazorApp1\\wwwroot\\Images\\" + newfilename);
+                        var path = Path.Combine("\\Users\\alber\\source\\repos\\CMS\\BlazorApp1\\wwwroot\\Images\\" + newfilename);
                         var dbPath = Path.Combine("",  "Images/" + newfilename);
+
+                        //var path = Path.Combine(@"wwwroot/images/" + newfilename); path for the server
+                        //var dbPath = Path.Combine("",  newfilename);
+                        ImageUploadResult uploadResult;
                         using (var stream = new FileStream(path, FileMode.Create))
                         {
-                            file.CopyTo(stream); //copying url to stream
-                        }
 
+                            file.CopyTo(stream); //copying url to stream
+                        
+                        }
+                        var upload = new ImageUploadParams()
+                        {
+                            File = new FileDescription(file.FileName, path),
+                        };
+                        uploadResult = cloudinary.Upload(upload);//copying url to s
                         Imageupload imageupload = new Imageupload();
-                       
-                        imageupload.ImagePath = dbPath;
+
+                        imageupload.ImagePath = uploadResult.Url.ToString();
                         imageupload.InsertedOn = DateTime.Now;
                         if(hasEmail) imageupload.Email = email;
                         if(hasTitle) imageupload.Title = title;
@@ -69,6 +86,7 @@ namespace Api.Controllers
                             imageupload.Amount = amt;
 
                         }
+                        imageupload.Reason= "D"; //Standard for No Reason.
                         dbaseContext.Imageuploads.Add(imageupload); //reference each column in table properly
                         dbaseContext.SaveChanges();
 

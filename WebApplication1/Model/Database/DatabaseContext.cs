@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Api.Model.Database;
 using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
 
 namespace Api.Model.Database
 {
@@ -19,6 +20,7 @@ namespace Api.Model.Database
         public DbSet<DbMailingList> ML { get; set; }
         public DbSet<DbImageuploads> Documents { get; set; }
         public DbSet<Imageupload> Imageuploads { get; set; }
+       // public DbSet<DbDashboard> Dashboards { get; set; }
 
 
         public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options)
@@ -31,5 +33,6 @@ namespace Api.Model.Database
 
             
         }
+       
     }
 }

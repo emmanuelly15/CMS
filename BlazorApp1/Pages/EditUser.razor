@@ -4,49 +4,72 @@
 @inject NavigationManager NavigationManager
 @inject IJSRuntime JsRuntime
 @inject UserService UserService 
-<h2>Edit User</h2>
-@*Form to bring users information from the db and display it, so the user can decide what to edit.*@
+
+<style>
+    body {
+        background-color: #F9F6EE;
+    }
+</style>
+
+<EditForm Model="@user" OnValidSubmit="@HandleValidSubmit">
+
+    <DataAnnotationsValidator />
+
+    <ValidationSummary />
+    <h1>Edit User</h1>
+    @*Form to bring users information from the db and display it, so the user can decide what to edit.*@
+
 <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-3">
                 <div class="form-group">
-                        <label for="Name">  Name *</label>
+                        <label for="Name">  Name: </label>
+                        <p>Enter the name and surname of the user.</p>
                         <input form="Name" class="form-control" @bind="@user.Name" /> @*The bind function is what binds the user(from the user class, to the fields for example Name, Email...)*@ 
                  </div>
             </div>
-        
-        <div class="col-md-6">
+        <br>
+        <div class="col-md-3">
                 <div class="form-group">
-                        <label for="Email"> Email *</label>
+                        <label for="Email"> Email: </label>
+                        <p>Enter the email address of the user.</p>
                         <input form="Email" class="form-control" @bind="@user.Email" />
                     </div>
             </div>
-        <div class="col-md-6">
+        <br>
+        <div class="col-md-3">
                 <div class="form-group">
-                        <label for="Telephone"> Telephone *</label>
+                        <label for="Telephone"> Telephone: </label>
+                        <p>Enter the phone number of the user.</p>
                         <input form="Telephone" class="form-control" @bind="@user.Telephone" />
                     </div>
             </div>
-            <div class="col-md-6">
+        <br>
+            <div class="col-md-3">
                 <div class="form-group">
-                        <label for="EmpId"> Employee_ID *</label>
+                        <label for="EmpId"> Employee_ID: </label>
+                        <p>Enter the employee ID that the user will be assigned.</p>
                         <input form="EmpId" class="form-control" @bind="@user.EmpId" />
                     </div>
             </div>
-            <div class="col-md-6">
+        <br>
+            <div class="col-md-3">
                 <div class="form-group">
-                        <label for="Password"> Password *</label>
+                        <label for="Password"> Password: </label>
+                        <p>Enter the password that the user will be using when logging into the Payco mobile application.</p>
                         <input form="Password" class="form-control" @bind="@user.Password" />
                     </div>
             </div>
     </div>       
 <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-6">
                 <div class="form-group">
-                        <input type="button" class="btn btn-primary" @onclick="@UpdateUser" value="Save" />
-                        <input type="button" class="btn" @onclick="@Cancel" value="Cancel" />
-                    </div>
-            </div>
+                    <button class="btn btn-primary" type="submit">Save</button>
+                    <input type="button" class="btn btn-outline-dark" @onclick="@Cancel" value="Cancel" />
+                </div>
+        </div>
 </div>
+</EditForm>
+
 @code {
     [Parameter]
     public string Id{ get; set; }
@@ -56,12 +79,16 @@
     {
         user = await UserService.GetUserById(int.Parse(Id)); //getting users information from db to display in edit boxes.
     }
-    protected async Task UpdateUser() //calling the controller
+
+    private async void HandleValidSubmit() //handles user exception to ensure valid information is entered before saving
+
     {
-        await UserService.EditUser(user); //calling the service to edit.
-        NavigationManager.NavigateTo("UserList"); //taking user back to the list once save is pressed.
-                
-            }
+        await UserService.EditUser(user);
+        NavigationManager.NavigateTo("UserList");
+        Console.WriteLine("OnValidSubmit");
+
+    }
+
             void Cancel()
             {
                 NavigationManager.NavigateTo("UserList");// taking user back to UserList if cancel button is pressed.

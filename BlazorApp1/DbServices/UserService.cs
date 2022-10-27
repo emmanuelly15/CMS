@@ -6,13 +6,14 @@ using System.Security.Cryptography;
 using System.Threading.Tasks;
 using static System.Console;
 using System;
+using BlazorApp1.Services;
 
 namespace BlazorApp1.Data
 
 {
-    public class UserService
+    public class UserService : BaseServices
     {
-        string apiurl = "https://localhost:44304/user/";
+        string apiurl = BaseApiUrl + "user/";
         public async Task<int> SaveAsync(User user)
         {
             var client = new HttpClient();

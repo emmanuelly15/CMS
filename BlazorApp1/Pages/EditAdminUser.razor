@@ -4,37 +4,68 @@
 @inject NavigationManager NavigationManager
 @inject IJSRuntime JsRuntime
 @inject AdminUserService AdminUserService
-<h2>Edit Admin User</h2>
+
+<style>
+    body {
+        background-color: #F9F6EE;
+    }
+</style>
+
+<EditForm Model="@adminuser" OnValidSubmit="@HandleValidSubmit">
+
+    <DataAnnotationsValidator />
+
+    <ValidationSummary />
+
+    <h1>Edit Admin User</h1>
 
 <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-3">
                 <div class="form-group">
-                        <label for="Name">  Name *</label>
+                        <label for="Name">  Name: </label>
+                        <p>Enter the name and surname of the administrator.</p>
                         <input form="Name" class="form-control" @bind="@adminuser.Name" />
                     </div>
             </div>
         
-        <div class="col-md-6">
+        <div class="col-md-3">
                 <div class="form-group">
-                        <label for="Email"> Email *</label>
+                        <label for="Email"> Email: </label>
+                        <p>Enter the email address of the administrator.</p>
                         <input form="Email" class="form-control" @bind="@adminuser.Email" />
                     </div>
             </div>
-                <div class="col-md-6">
+                <div class="col-md-3">
                 <div class="form-group">
-                        <label for="Password"> Password *</label>
+                        <label for="Password"> Password: </label>
+                        <p>Enter the password that the administrator will be using when logging into the Payco system.</p>
                         <input form="Password" class="form-control" @bind="@adminuser.Password" />
                     </div>
             </div>
-</div>      
+</div>  
+<p>
+    Is Authorised?
+    <br />
+    <label>
+        <input type="radio" value="Yes" name="@adminuser.Authorize" checked="@(adminuser.Authorize == true)" @onclick="@(()=>adminuser.Authorize = true)" /> yes
+    </label>
+    <label>
+        <input type="radio" value="No" name="@adminuser.Authorize" checked="@(adminuser.Authorize == false)" @onclick="@(()=>adminuser.Authorize = false)" /> no
+    </label>
+
+    <br />
+    @adminuser.Authorize
+</p>
 <div class="row">
         <div class="col-md-4">
                 <div class="form-group">
-                        <input type="button" class="btn btn-primary" @onclick="@UpdateAdminUser" value="Save" />
-                        <input type="button" class="btn" @onclick="@Cancel" value="Cancel" />
+                    <button class="btn btn-primary" type="submit">Submit</button>
+                    <input type="button" class="btn btn-outline-dark" @onclick="@Cancel" value="Cancel" />
                     </div>
             </div>
 </div>
+</EditForm>
+
 @code {
     [Parameter]
     public string Id{ get; set; }
@@ -43,12 +74,14 @@
     {
         adminuser = await AdminUserService.GetAdminUserById(int.Parse(Id));
     }
-        protected async Task UpdateAdminUser()
-        {
-           await AdminUserService.EditAdminUser(adminuser);
-            NavigationManager.NavigateTo("AdminUserList");
-                
-            }
+    private async void HandleValidSubmit() //handles user exception to ensure valid information is entered before saving
+
+    {
+        await AdminUserService.EditAdminUser(adminuser);
+        NavigationManager.NavigateTo("AdminUserList");
+        Console.WriteLine("OnValidSubmit");
+
+    }
             void Cancel()
             {
                 NavigationManager.NavigateTo("AdminUserList");

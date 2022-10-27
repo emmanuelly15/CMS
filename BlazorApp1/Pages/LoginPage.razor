@@ -1,5 +1,6 @@
-﻿@page "/Login"
+﻿@page "/login"
 @layout LoginLayout
+@inherits NoMenuLayout
 @using BlazorApp1.Authentication
 @using CommonModels.Model
 @using Microsoft.JSInterop
@@ -35,7 +36,7 @@
                 <ValidationMessage For="@(() => loginModel.password)" />
             </div>
            
-            <a href="DocumentSubmission">Login Admin</a>
+            <a href="Admin">Login Admin</a>
         </EditForm>
     </div>
 </div>
@@ -54,7 +55,7 @@
 
         if (result.Successful)
         {
-            NavigationManager.NavigateTo("/");
+            NavigationManager.NavigateTo("/admin");
         }
         else
         {
