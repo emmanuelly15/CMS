@@ -5,6 +5,13 @@
 @inject IJSRuntime JsRuntime
 @inject UserService UserService
 
+
+<style>
+    body {
+        background-color: #F9F6EE;
+    }
+</style>
+
 <EditForm Model="@user" OnValidSubmit="@HandleValidSubmit">
 
     <DataAnnotationsValidator />
@@ -15,7 +22,7 @@
     <p>Note: All fields marked with '*' are required.</p>
 
 <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-3">
                 <div class="form-group">
                         <label for="Name">  Name *</label>
                         <input form="Name" class="form-control" @bind="@user.Name" aria-describedby="NameHelpBlock"/>
@@ -23,9 +30,8 @@
   Full name must begin with a capital letter.
 </small>
                     </div>
-            </div>
-        
-        <div class="col-md-6">
+            </div>        
+        <div class="col-md-3">
                 <div class="form-group">
                         <label for="Email"> Email *</label>
                         <input form="Email" class="form-control" @bind="@user.Email" aria-describedby="EmailHelpBlock"/>
@@ -34,7 +40,7 @@
 </small>
                     </div>
             </div>
-        <div class="col-md-6">
+        <div class="col-md-3">
                 <div class="form-group">
                         <label for="Telephone"> Telephone *</label>
                         
@@ -44,7 +50,7 @@
 </small>
                     </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-3">
                 <div class="form-group">
                         <label for="EmpId"> Employee_ID *</label>
                         
@@ -54,7 +60,7 @@
 </small>
                     </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-3">
                 <div class="form-group">
                         <label for="Password"> Password *</label>
                         

@@ -1,11 +1,16 @@
 @page "/EditGroup/{Id}"
-@layout NoMenuLayout
 @using CommonModels.Model
 @using BlazorApp1.Data
 @using Services
 @inject NavigationManager NavigationManager
 @inject IJSRuntime JsRuntime
 @inject GroupService GroupService
+
+<style>
+    body {
+        background-color: #F9F6EE;
+    }
+</style>
 
 <EditForm Model="@groups" OnValidSubmit="@HandleValidSubmit">
 

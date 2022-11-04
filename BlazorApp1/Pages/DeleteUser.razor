@@ -1,10 +1,16 @@
 ﻿@page "/DeleteUser/{Id}"
-@layout NoMenuLayout
 @using CommonModels.Model
 @using BlazorApp1.Data
 @inject NavigationManager NavigationManager
 @inject IJSRuntime JsRuntime
 @inject UserService UserService
+
+<style>
+    body {
+        background-color: #F9F6EE;
+    }
+</style>
+
 <h2>Delete User</h2>
 @if(user != null)
 {

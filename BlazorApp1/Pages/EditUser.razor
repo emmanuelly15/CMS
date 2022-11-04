@@ -1,5 +1,4 @@
 ﻿@page "/EditUser/{Id}"
-@layout NoMenuLayout
 @using CommonModels.Model
 @using BlazorApp1.Data
 @inject NavigationManager NavigationManager
@@ -14,8 +13,11 @@
     <DataAnnotationsValidator />
 
     <ValidationSummary />
+    <h1>Edit User</h1>
+    @*Form to bring users information from the db and display it, so the user can decide what to edit.*@
+
 <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-3">
                 <div class="form-group">
                         <label for="Name">  Name </label>
                         <input form="Name" class="form-control" @bind="@user.Name" aria-describedby="NameHelpBlock"/>
@@ -24,8 +26,8 @@
 </small> @*The bind function is what binds the user(from the user class, to the fields for example Name, Email...)*@ 
                  </div>
             </div>
-        
-        <div class="col-md-6">
+        <br>
+        <div class="col-md-3">
                 <div class="form-group">
                         <label for="Email"> Email </label>
                         <input form="Email" class="form-control" @bind="@user.Email" aria-describedby="EmailHelpBlock"/>
@@ -34,7 +36,8 @@
 </small>
                     </div>
             </div>
-        <div class="col-md-6">
+        <br>
+        <div class="col-md-3">
                 <div class="form-group">
                         <label for="Telephone"> Telephone </label>
                         <input form="Telephone" class="form-control" @bind="@user.Telephone" aria-describedby="PhoneHelpBlock"/>
@@ -43,7 +46,8 @@
 </small>
                     </div>
             </div>
-            <div class="col-md-6">
+        <br>
+            <div class="col-md-3">
                 <div class="form-group">
                         <label for="EmpId"> Employee_ID </label>
                         <input form="EmpId" class="form-control" @bind="@user.EmpId" aria-describedby="IDHelpBlock"/>
@@ -52,7 +56,8 @@
 </small>
                     </div>
             </div>
-            <div class="col-md-6">
+        <br>
+            <div class="col-md-3">
                 <div class="form-group">
                         <label for="Password"> Password </label>
                         <input form="Password" class="form-control" @bind="@user.Password" aria-describedby="PasswordHelpBlock"/>

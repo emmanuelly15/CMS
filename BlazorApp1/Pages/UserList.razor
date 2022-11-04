@@ -19,14 +19,14 @@
     <br>
     @if (users != null)
     {
-        <table style="color: #000000" class="table-bordered" BorderColor="Black">
+    <table style="color: #000000" class="table-bordered" BorderColor="Black">
             <thead>
                 <tr style="height: 30px; background-color:#336699 ; color:#FFFFFF ;">
                     <th >Name</th>
                     <th >Email</th>
                     <th >Telephone</th>
                     <th >Employee_ID</th>
-                    <th >Password</th>
+                    
                     <th>Edit</th>
                     <th>Delete</th>
                 </tr>
@@ -39,7 +39,6 @@
                     <td>@v.Email</td>
                     <td>@v.Telephone</td>
                     <td>@v.EmpId</td>
-                    <td>@v.Password</td>
                     <td>
                         <button class="btn btn-primary">
                                 <span class="oi oi-pencil"></span>
@@ -56,6 +55,7 @@
         </table>
     }
 </div>
+
 @code {
     
    private User[] users;

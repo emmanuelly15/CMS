@@ -8,6 +8,12 @@
 @inject IJSRuntime JsRuntime
 @inject MailingListService MailingListService
 
+<style>
+    body {
+        background-color: #F9F6EE;
+    }
+</style>
+
 <EditForm Model="@ml" OnValidSubmit="@HandleValidSubmit">
 
     <DataAnnotationsValidator />
@@ -33,9 +39,6 @@
                 }
             }
         </select>
-
-
-        </div>
     </div>
         <div class="form-row">
         <div class="form-group">

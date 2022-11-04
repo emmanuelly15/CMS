@@ -8,6 +8,12 @@
 @inject IJSRuntime JsRuntime
 @inject DeviceService DeviceService
 
+<style>
+    body {
+        background-color: #F9F6EE;
+    }
+</style>
+
 <!-- Edit form for the device management -->
 <EditForm Model="@device" OnValidSubmit="@HandleValidSubmit">
 
@@ -21,7 +27,7 @@
 <p>Note: All fields marked with '*' are required.</p>
 
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-4">
         <div class="form-group">
             <label for="IMEI">  IMEI *</label>
             <input form="IMEI" class="form-control" @bind="@device.IMEI" aria-describedby="IMEIHelpBlock"/>
@@ -31,9 +37,10 @@
         </div>
     </div>
     <br>
-    <div class="col-md-6">
+    <div class="col-md-4">
         <div class="form-group">
             <label for="User"> User *</label>
+                <p>Assign a user to the Device.</p>
             @*<input form="User" class="form-control" @bind="@device.User" />*@
         <select class="form-control" @bind="@device.User">
             <option value="">-- Select User --</option>
@@ -45,16 +52,14 @@
                 }
             }
         </select>
-
-
-        </div>
+       </div>
     </div>
     <br>
-    <div class="col-md-6">
+    <div class="col-md-3">
         <div class="form-group">
             <label for="Group"> Select Group *</label>
             @*<input form="Group" class="form-control" @bind="@device.Groups" />*@
-
+                <p>Assign a group.</p>
         <select class="form-control" @bind="@device.Groups" >
             <option value="">-- Select Group --</option>
             @if (grobj != null)
@@ -68,20 +73,19 @@
         </div>
     </div>
     <br>
-<p>
-    Is Authorised?
-    <p>This field authorizes devices to use the Payco mobile application.</p>
-    <br />
- <label>
-            <input type="radio" value="Yes" name="@device.Authorisation" checked="@(device.Authorisation == true)" @onclick="@(()=>device.Authorisation = true)" /> yes
- </label>
-        <label>
-            <input type="radio" value="No" name="@device.Authorisation" checked="@(device.Authorisation == false)" @onclick="@(()=>device.Authorisation = false)" /> no
-        </label>
-
-        <br />
-        @device.Authorisation
- </p>   
+    <div class="col-md-3">
+        <div class="form-group">
+            <p> Is Authorised?</p>
+            <p>This field authorizes devices to use the Payco mobile application.</p>
+             <label>
+                <input class="text-right" type="radio" value="Yes" name="@device.Authorisation" checked="@(device.Authorisation == true)" @onclick="@(()=>device.Authorisation = true)" /> yes
+             </label>
+             <label>
+                <input class="text-right" type="radio" value="No" name="@device.Authorisation" checked="@(device.Authorisation == false)" @onclick="@(()=>device.Authorisation = false)" /> no
+             </label>
+            @device.Authorisation
+        </div>
+    </div>
 </div>
 
                 <!-- Button to save the device -->

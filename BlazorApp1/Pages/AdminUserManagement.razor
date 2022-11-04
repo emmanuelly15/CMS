@@ -5,6 +5,12 @@
 @inject IJSRuntime JsRuntime
 @inject AdminUserService AdminUserService
 
+<style>
+    body {
+        background-color: #F9F6EE;
+    }
+</style>
+
 <EditForm Model="@adminuser" OnValidSubmit="@HandleValidSubmit">
 
     <DataAnnotationsValidator />

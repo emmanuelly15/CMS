@@ -1,10 +1,15 @@
 ﻿@page "/EditAdminUser/{Id}"
-@layout NoMenuLayout
 @using CommonModels.Model
 @using BlazorApp1.Data
 @inject NavigationManager NavigationManager
 @inject IJSRuntime JsRuntime
 @inject AdminUserService AdminUserService
+
+<style>
+    body {
+        background-color: #F9F6EE;
+    }
+</style>
 
 <EditForm Model="@adminuser" OnValidSubmit="@HandleValidSubmit">
 
@@ -14,7 +19,7 @@
 <h1 style="font-family: Arial, Helvetica, sans-serif; color:#4682B4;">Edit Admin User</h1>
 
 <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-3">
                 <div class="form-group">
                         <label for="Name">  Name </label>
                         <input form="Name" class="form-control" @bind="@adminuser.Name" aria-describedby="NameHelpBlock"/>
@@ -24,7 +29,7 @@
                     </div>
             </div>
         
-        <div class="col-md-6">
+        <div class="col-md-3">
                 <div class="form-group">
                         <label for="Email"> Email </label>
                         <input form="Email" class="form-control" @bind="@adminuser.Email" aria-describedby="emailHelpBlock"/>
@@ -33,7 +38,7 @@
 </small>
                     </div>
             </div>
-                <div class="col-md-6">
+                <div class="col-md-3">
                 <div class="form-group">
                         <label for="Password"> Password *</label>
                         <input form="Password" class="form-control" @bind="@adminuser.Password" aria-describedby="passwordHelpBlock"/>
