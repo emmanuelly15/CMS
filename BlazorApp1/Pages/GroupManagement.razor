@@ -16,28 +16,29 @@
     <DataAnnotationsValidator />
 
     <ValidationSummary />
-    <h1>Group Management</h1>
-    <h2>Add Group</h2>
-
-    <p>Note: All fields marked with '*' are required.</p>
+<h1 style="font-family: Arial, Helvetica, sans-serif; color:#4682B4;">Add a new Group</h1>
+<p>Note: All fields marked with '*' are required.</p>
     
 <div class="row">
         <div class="col-md-4">
                 <div class="form-group" style="width:15rem;">
                         <label for="Groups">  Group *</label>
-                        <p>Please enter the group department.</p>
-                        <input form="Group name" class="form-control" @bind="@group.Groups" />
+                        <input form="Group name" class="form-control" @bind="@group.Groups" aria-describedby="GroupHelpBlock"/>
+                        <small id="GroupHelpBlock" class="form-text text-muted">
+  Please start the group department with a Capital.
+</small>
+                        
                     </div>
             </div>       
 </div>
-<div class="row">
-        <div class="col-md-4">
-                <div class="form-group">
-                        <button class="btn btn-primary" type="submit">Submit</button>
-                        <input type="button" class="btn btn-outline-dark" @onclick="@Cancel" value="Cancel" />
-                    </div>
-        </div>
-</div>
+<button type="submit" class="btn btn-success">
+                                <span class="oi oi-circle-check"></span>
+                                <a style="color: #FFFFFF" >Submit</a>
+                        </button>
+                        <button type="button" class="btn btn-danger" @onclick="@Cancel" value="Cancel">
+                                <span class="oi oi-circle-x"></span>
+                                <a style="color: #FFFFFF" >Cancel</a>
+                        </button>
 </EditForm>
 
 @code {
