@@ -24,18 +24,18 @@
 
     <!-- This will show any validation errors -->
     <ValidationSummary />
+    <h1 style="font-family: Arial, Helvetica, sans-serif; color:#4682B4;">Add a new Device</h1>
 
-    <h1>Device Management Page</h1>
-    <h2>Add a device.</h2>
-
-    <p>Note: All fields marked with '*' are required.</p>
+<p>Note: All fields marked with '*' are required.</p>
 
 <div class="row">
     <div class="col-md-4">
         <div class="form-group">
             <label for="IMEI">  IMEI *</label>
-            <p>A device's IMEI contains a 15-digit number. You can find it at the back of the device or in the settings.</p>
-            <input form="IMEI" class="form-control" @bind="@device.IMEI" />
+            <input form="IMEI" class="form-control" @bind="@device.IMEI" aria-describedby="IMEIHelpBlock"/>
+                        <small id="IMEIHelpBlock" class="form-text text-muted">
+  A device's IMEI contains a 15-digit number. You can find it at the back of the device or in the settings.
+</small>
         </div>
     </div>
     <br>
@@ -89,17 +89,18 @@
         </div>
     </div>
 </div>
-<br>
-<div class="row">
-    <div class="col-md-6">
-        <div class="form-group">
-            <!-- Button to save the device -->
-            <button class="btn btn-primary" type="submit">Submit</button>
-            <!-- Button to cancel adding a new device -->
-            <input type="button" class="btn btn-outline-dark" @onclick="@Cancel" value="Cancel" />
-        </div>
-    </div>
-</div>
+
+                <!-- Button to save the device -->
+           <button type="submit" class="btn btn-success">
+                                <span class="oi oi-circle-check"></span>
+                                <a style="color: #FFFFFF" >Submit</a>
+                        </button>
+                <!-- Button to cancel adding a new device -->
+             <button type="button" class="btn btn-danger" @onclick="@Cancel" value="Cancel">
+                                <span class="oi oi-circle-x"></span>
+                                <a style="color: #FFFFFF" >Cancel</a>
+                        </button>
+        
 </EditForm>
 
 @code {

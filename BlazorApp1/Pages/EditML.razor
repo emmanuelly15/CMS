@@ -21,7 +21,7 @@
 
     <ValidationSummary />
 
-    <h1>Edit Mailing List</h1>
+<h1 style="font-family: Arial, Helvetica, sans-serif; color:#4682B4;">Edit Mailing List</h1>
 
 <div class="col-md-5">
             <div class="form-group">
@@ -48,14 +48,14 @@
     </div>
 </div>
 
-<div class="row">
-        <div class="col-md-4">
-                <div class="form-group">
-                    <button class="btn btn-primary" type="submit">Save</button>
-                    <input type="button" class="btn btn-outline-dark" @onclick="@Cancel" value="Cancel" />
-                </div>
-        </div>
-</div>
+<button type="submit" class="btn btn-success">
+                                <span class="oi oi-circle-check"></span>
+                                <a style="color: #FFFFFF" >Submit</a>
+                        </button>
+                        <button type="button" class="btn btn-danger" @onclick="@Cancel" value="Cancel">
+                                <span class="oi oi-circle-x"></span>
+                                <a style="color: #FFFFFF" >Cancel</a>
+                        </button>
 </EditForm>
 
 @code {
