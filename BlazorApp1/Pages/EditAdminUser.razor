@@ -11,28 +11,35 @@
     <DataAnnotationsValidator />
 
     <ValidationSummary />
-<h2>Edit Admin User</h2>
+<h1 style="font-family: Arial, Helvetica, sans-serif; color:#4682B4;">Edit Admin User</h1>
 
 <div class="row">
         <div class="col-md-6">
                 <div class="form-group">
                         <label for="Name">  Name </label>
-                        <p>Enter the name and surname of the administrator.</p>
-                        <input form="Name" class="form-control" @bind="@adminuser.Name" />
+                        <input form="Name" class="form-control" @bind="@adminuser.Name" aria-describedby="NameHelpBlock"/>
+                        <small id="NameHelpBlock" class="form-text text-muted">
+  Full name must begin with a capital letter.
+</small>
                     </div>
             </div>
         
         <div class="col-md-6">
                 <div class="form-group">
                         <label for="Email"> Email </label>
-                        <p>Enter the email address of the administrator.</p>
-                        <input form="Email" class="form-control" @bind="@adminuser.Email" />
+                        <input form="Email" class="form-control" @bind="@adminuser.Email" aria-describedby="emailHelpBlock"/>
+                        <small id="emailHelpBlock" class="form-text text-muted">
+  Email address must be valid. Eg: JohnSmith@gmail.com
+</small>
                     </div>
             </div>
                 <div class="col-md-6">
                 <div class="form-group">
                         <label for="Password"> Password *</label>
-                        <input form="Password" class="form-control" @bind="@adminuser.Password" />
+                        <input form="Password" class="form-control" @bind="@adminuser.Password" aria-describedby="passwordHelpBlock"/>
+                        <small id="passwordHelpBlock" class="form-text text-muted">
+  Password must contain 8 Characters including: Upper case, lowercase, symbol and number.
+</small>
                     </div>
             </div>
 </div>  
@@ -49,14 +56,14 @@
     <br />
     @adminuser.Authorize
 </p>
-<div class="row">
-        <div class="col-md-4">
-                <div class="form-group">
-                        <button type="submit">Submit</button>
-                        <input type="button" class="btn" @onclick="@Cancel" value="Cancel" />
-                    </div>
-            </div>
-</div>
+<button type="submit" class="btn btn-success">
+                                <span class="oi oi-circle-check"></span>
+                                <a style="color: #FFFFFF" >Submit</a>
+                        </button>
+                        <button type="button" class="btn btn-danger" @onclick="@Cancel" value="Cancel">
+                                <span class="oi oi-circle-x"></span>
+                                <a style="color: #FFFFFF" >Cancel</a>
+                        </button>
 </EditForm>
 
 @code {

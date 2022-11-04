@@ -15,14 +15,16 @@
 
     <ValidationSummary />
 
- <h2>Edit Device</h2>
+ <h1 style="font-family: Arial, Helvetica, sans-serif; color:#4682B4;">Edit Device</h1>
  
 <div class="row">
     <div class="col-md-6">
         <div class="form-group">
             <label for="IMEI">  IMEI </label>
-            <p>A device's IMEI contains a 15-digit number. You can find it at the back of the device or in the settings.</p>
-            <input form="IMEI" class="form-control" @bind="@device.IMEI" />
+            <input form="IMEI" class="form-control" @bind="@device.IMEI" aria-describedby="IMEIHelpBlock"/>
+                        <small id="IMEIHelpBlock" class="form-text text-muted">
+  A device's IMEI contains a 15-digit number. You can find it at the back of the device or in the settings.
+</small>
         </div>
     </div>
     <br>
@@ -76,14 +78,16 @@
         @device.Authorisation
     </p>
 </div>      
-<div class="row">
-        <div class="col-md-4">
-                <div class="form-group">
-                        <button type="submit">Save</button>
-                        <input type="button" class="btn" @onclick="@Cancel" value="Cancel" />
-                    </div>
-            </div>
-</div>
+ <!-- Button to save the device -->
+           <button type="submit" class="btn btn-success">
+                                <span class="oi oi-circle-check"></span>
+                                <a style="color: #FFFFFF" >Submit</a>
+                        </button>
+                <!-- Button to cancel adding a new device -->
+             <button type="button" class="btn btn-danger" @onclick="@Cancel" value="Cancel">
+                                <span class="oi oi-circle-x"></span>
+                                <a style="color: #FFFFFF" >Cancel</a>
+                        </button>
 </EditForm>
 
 @code {

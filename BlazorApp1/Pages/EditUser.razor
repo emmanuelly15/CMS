@@ -6,7 +6,7 @@
 @inject IJSRuntime JsRuntime
 @inject UserService UserService 
 
-<h2>Edit User</h2>
+<h1 style="font-family: Arial, Helvetica, sans-serif; color:#4682B4;">Edit User</h1>
 @*Form to bring users information from the db and display it, so the user can decide what to edit.*@
 
 <EditForm Model="@user" OnValidSubmit="@HandleValidSubmit">
@@ -18,48 +18,58 @@
         <div class="col-md-6">
                 <div class="form-group">
                         <label for="Name">  Name </label>
-                        <p>Enter the name and surname of the user.</p>
-                        <input form="Name" class="form-control" @bind="@user.Name" /> @*The bind function is what binds the user(from the user class, to the fields for example Name, Email...)*@ 
+                        <input form="Name" class="form-control" @bind="@user.Name" aria-describedby="NameHelpBlock"/>
+                        <small id="NameHelpBlock" class="form-text text-muted">
+  Full name must begin with a capital letter.
+</small> @*The bind function is what binds the user(from the user class, to the fields for example Name, Email...)*@ 
                  </div>
             </div>
         
         <div class="col-md-6">
                 <div class="form-group">
                         <label for="Email"> Email </label>
-                        <p>Enter the email address of the user.</p>
-                        <input form="Email" class="form-control" @bind="@user.Email" />
+                        <input form="Email" class="form-control" @bind="@user.Email" aria-describedby="EmailHelpBlock"/>
+                        <small id="EmailHelpBlock" class="form-text text-muted">
+  Email address must be valid. Eg: JohnSmith@gmail.com
+</small>
                     </div>
             </div>
         <div class="col-md-6">
                 <div class="form-group">
                         <label for="Telephone"> Telephone </label>
-                        <p>Enter the phone number of the user.</p>
-                        <input form="Telephone" class="form-control" @bind="@user.Telephone" />
+                        <input form="Telephone" class="form-control" @bind="@user.Telephone" aria-describedby="PhoneHelpBlock"/>
+                        <small id="PhoneHelpBlock" class="form-text text-muted">
+  Phone number cannot contain characters or symbols. Eg: 0123456789
+</small>
                     </div>
             </div>
             <div class="col-md-6">
                 <div class="form-group">
                         <label for="EmpId"> Employee_ID </label>
-                        <input form="EmpId" class="form-control" @bind="@user.EmpId" />
+                        <input form="EmpId" class="form-control" @bind="@user.EmpId" aria-describedby="IDHelpBlock"/>
+                        <small id="IDHelpBlock" class="form-text text-muted">
+  Employee ID must contain 8 numbers. Eg: 01234567
+</small>
                     </div>
             </div>
             <div class="col-md-6">
                 <div class="form-group">
                         <label for="Password"> Password </label>
-                        <p>Enter the password that the user will be using when logging into the Payco mobile application.</p>
-                        <input form="Password" class="form-control" @bind="@user.Password" />
+                        <input form="Password" class="form-control" @bind="@user.Password" aria-describedby="PasswordHelpBlock"/>
+                        <small id="PasswordHelpBlock" class="form-text text-muted">
+ Password must contain 8 Characters including: Upper case, lowercase, symbol and number.
+</small>
                     </div>
             </div>
     </div>       
-<div class="row">
-        <div class="col-md-4">
-                <div class="form-group">
-                        <button type="submit">Save</button>
-                        
-                        <input type="button" class="btn" @onclick="@Cancel" value="Cancel" />
-                    </div>
-            </div>
-</div>
+<button type="submit" class="btn btn-success">
+                                <span class="oi oi-circle-check"></span>
+                                <a style="color: #FFFFFF" >Submit</a>
+                        </button>
+                        <button type="button" class="btn btn-danger" @onclick="@Cancel" value="Cancel">
+                                <span class="oi oi-circle-x"></span>
+                                <a style="color: #FFFFFF" >Cancel</a>
+                        </button>
 </EditForm>
 
 @code {

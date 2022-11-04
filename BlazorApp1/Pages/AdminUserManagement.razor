@@ -1,5 +1,4 @@
 ﻿@page "/AdminUserManagement"
-@layout NoMenuLayout
 @using BlazorApp1.Data
 @using CommonModels.Model
 @inject NavigationManager NavigationManager
@@ -11,57 +10,61 @@
     <DataAnnotationsValidator />
 
     <ValidationSummary />
-<h1>Admin User Management</h1>
+<h1 style="font-family: Arial, Helvetica, sans-serif; color:#4682B4;">Add a new CMS Administrator</h1>
 
-<h2>Add an Administrator</h2>
+
 <p>Note: All fields marked with '*' are required.</p>
+
 <div class="row">
-        <div class="col-md-6">
-                <div class="form-group">
-                        <label for="Name">  Name *</label>
-                        <p>Enter the name and surname of the administrator.</p>
-                        <input form="Name" class="form-control" @bind="@adminuser.Name" />
+        <div class="form-group col-md-4">
+                        <label for="Name"> Full Name *</label>
+                        <input form="Name" class="form-control" @bind="@adminuser.Name" aria-describedby="NameHelpBlock"/>
+                        <small id="NameHelpBlock" class="form-text text-muted">
+  Full name must begin with a capital letter.
+</small>
                     </div>
-            </div>
-        
-        <div class="col-md-6">
-                <div class="form-group">
+            
+        <br>
+        <div class="form-group col-md-4">
                         <label for="Email"> Email *</label>
-                        <p>Enter the email address of the administrator.</p>
-                        <input form="Email" class="form-control" @bind="@adminuser.Email" />
+                        <input form="Email" class="form-control" @bind="@adminuser.Email" aria-describedby="emailHelpBlock"/>
+                        <small id="emailHelpBlock" class="form-text text-muted">
+  Email address must be valid. Eg: JohnSmith@gmail.com
+</small>
                     </div>
-            </div>
-                <div class="col-md-6">
-                <div class="form-group">
+            
+                <div class="form-group col-md-6">
                         <label for="Password"> Password *</label>
-                        <p>Enter the password that the administrator will be using when logging into the Payco system.</p>
-                        <input form="Password" class="form-control" @bind="@adminuser.Password" />
+                        <input form="Password" class="form-control" @bind="@adminuser.Password" aria-describedby="passwordHelpBlock"/>
+                        <small id="passwordHelpBlock" class="form-text text-muted">
+  Password must contain 8 Characters including: Upper case, lowercase, symbol and number.
+</small>
                     </div>
             </div>
-</div>
-<p>
-    Is Authorised?
-    <p>This field decides if an administrator has higher level authorisation.</p>
-    <br />
-    <label>
-        <input type="radio" value="Yes" name="@adminuser.Authorize" checked="@(adminuser.Authorize == true)" @onclick="@(()=>adminuser.Authorize = true)" /> yes
-    </label>
-    <label>
-        <input type="radio" value="No" name="@adminuser.Authorize" checked="@(adminuser.Authorize == false)" @onclick="@(()=>adminuser.Authorize = false)" /> no
-    </label>
 
-    <br />
+<div class="form-group col-md-6">
+    
+    
+    <label for="Authorize"> Is Authorised? </label>
+        <input type="radio" value="Yes" name="@adminuser.Authorize" checked="@(adminuser.Authorize == true)" @onclick="@(()=>adminuser.Authorize = true)" /> Yes
+    
+    
+        <input type="radio" value="No" name="@adminuser.Authorize" checked="@(adminuser.Authorize == false)" @onclick="@(()=>adminuser.Authorize = false)" /> No
+    <br>
     @adminuser.Authorize
-</p>
-
-<div class="row">
-        <div class="col-md-4">
-                <div class="form-group">
-                        <button type="submit">Submit</button>
-                        <input type="button" class="btn" @onclick="@Cancel" value="Cancel" />
-                    </div>
-            </div>
 </div>
+
+
+                        
+                        <button type="submit" class="btn btn-success">
+                                <span class="oi oi-circle-check"></span>
+                                <a style="color: #FFFFFF" >Submit</a>
+                        </button>
+                        <button type="button" class="btn btn-danger" @onclick="@Cancel" value="Cancel">
+                                <span class="oi oi-circle-x"></span>
+                                <a style="color: #FFFFFF" >Cancel</a>
+                        </button>
+                    
 </EditForm>
 
 @code {
