@@ -1,4 +1,5 @@
 ﻿using BlazorApp1.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -14,10 +15,14 @@ namespace BlazorApp1.Data
         {
         }
 
+        
+
         public DbSet<GroupsListClass> Groups { get; set; }
         public DbSet<UserListClass> User { get; set; }
         public DbSet<DeviceListClass> Device { get; set; }
         public DbSet<DocumentListClass> Imageuploads { get; set; }
     }
+
+
 }
 

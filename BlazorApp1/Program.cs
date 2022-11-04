@@ -24,5 +24,6 @@ namespace BlazorApp1
                 {
                     webBuilder.UseStartup<Startup>();
                 });
+
     }
 }

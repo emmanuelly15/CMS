@@ -1,0 +1,37 @@
+﻿@page "/Admin2"
+@using CommonModels.Model
+@using BlazorApp1.Data
+@inject NavigationManager NavigationManager
+@inject IJSRuntime JsRuntime
+@inject AdminUserService AdminUserService
+@attribute [Authorize(Roles = "HigherAdmin,LowerAdmin")]
+<h2> Admin Profile</h2>
+@if (loginModel != null)
+{
+    <p>Admin Information: </p>
+    <div class="row">
+        <table class="table">
+            <tr>
+                <td>Name</td>
+                <td>Gilbert </td>
+            </tr>
+            <tr>
+                <td>Email</td>
+                <td>Gilbert@gngengineering.com</td>
+            </tr>
+
+        </table>
+    </div>
+}
+
+
+@code {
+    [Parameter]
+    public string Id { get; set; }
+    LoginModel loginModel = new LoginModel();
+}
+<h3>Admin</h3>
+
+@code {
+
+}
