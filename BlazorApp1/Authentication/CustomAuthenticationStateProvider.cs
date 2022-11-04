@@ -9,11 +9,98 @@ using System.Net.Http;
 using System;
 using System.Text.Json;
 using System.Linq;
+using Blazored.SessionStorage;
+using BlazorApp1.Extensions;
+using Api.Authentication;
+using CommonModels.Model;
 
 namespace BlazorApp1.Authentication
 {
     public class CustomAuthenticationStateProvider : AuthenticationStateProvider
     {
+        private readonly ISessionStorageService _sessionStorage;
+        private ClaimsPrincipal _anonymous = new ClaimsPrincipal(new ClaimsIdentity());
+
+        public CustomAuthenticationStateProvider(ISessionStorageService sessionStorage)
+        {
+            _sessionStorage = sessionStorage;
+        }
+
+        public override async Task<AuthenticationState> GetAuthenticationStateAsync()
+        {
+            try
+            {
+                var adminSession = await _sessionStorage.ReadEncryptedItemAsync<AdminSession>("AdminSession");
+                if (adminSession == null)
+                    return await Task.FromResult(new AuthenticationState(_anonymous));
+                var claimsPrincipal = new ClaimsPrincipal(new ClaimsIdentity(new List<Claim>
+                {
+                    new Claim(ClaimTypes.Name, adminSession.UserName),
+                    new Claim(ClaimTypes.Role, adminSession.Role)
+                }, "JwtAuth"));
+
+                return await Task.FromResult(new AuthenticationState(claimsPrincipal));
+            }
+            catch
+            {
+                return await Task.FromResult(new AuthenticationState(_anonymous));
+            }
+        }
+
+        public async Task UpdateAuthenticationState(AdminSession? adminSession)
+        {
+            ClaimsPrincipal claimsPrincipal;
+
+            if (adminSession != null)
+            {
+                claimsPrincipal = new ClaimsPrincipal(new ClaimsIdentity(new List<Claim>
+                {
+                    new Claim(ClaimTypes.Name, adminSession.UserName),
+                    new Claim(ClaimTypes.Role, adminSession.Role)
+                }));
+                adminSession.ExpiryTimeStamp = DateTime.Now.AddSeconds(adminSession.ExpiresIn);
+                await _sessionStorage.SaveItemEncryptedAsync("AdminSession", adminSession);
+            }
+            else
+            {
+                claimsPrincipal = _anonymous;
+                await _sessionStorage.RemoveItemAsync("AdminSession");
+            }
+
+            NotifyAuthenticationStateChanged(Task.FromResult(new AuthenticationState(claimsPrincipal)));
+        }
+
+        public async Task<string> GetToken()
+        {
+            var result = string.Empty;
+            try
+            {
+                var adminSession = await _sessionStorage.ReadEncryptedItemAsync<AdminSession>("AdminSession");
+                if (adminSession != null && DateTime.Now < adminSession.ExpiryTimeStamp)
+                    result = adminSession.Token;
+            }
+            catch { }
+
+            return result;
+
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        /*
         private readonly HttpClient _httpClient;
         private readonly ILocalStorageService _localStorage;
 
@@ -95,3 +182,4 @@ namespace BlazorApp1.Authentication
     }
     }
 
+*/

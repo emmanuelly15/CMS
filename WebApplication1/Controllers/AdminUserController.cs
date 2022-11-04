@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using CommonModels.Model;
 using System.Linq;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Api.Controllers
 {
@@ -18,7 +19,7 @@ namespace Api.Controllers
 
 
         [HttpGet]
-
+        [Authorize(Roles = "HigherAdmin")]
         public IEnumerable<AdminUser> Get()
         {
             var docList = new List<AdminUser>();

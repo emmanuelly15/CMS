@@ -24,17 +24,25 @@ using System.Net.Http;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Api.Authentication;
+using Blazored.SessionStorage;
+using Topshelf.Runtime;
+using Api.Controllers;
+using BlazorApp1.Pages;
+
 
 namespace BlazorApp1
 {
     public class Startup
     {
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
         }
 
         public IConfiguration Configuration { get; }
+        
 
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
@@ -47,23 +55,40 @@ namespace BlazorApp1
                     maxRetryDelay: System.TimeSpan.FromSeconds(30),
                     errorNumbersToAdd: null));
             });
+            
+
             services.AddControllers();
-            services.AddAuthentication("Identity.Application")
-                .AddCookie();
+            services.AddAuthentication(o =>
+            {
+                o.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                o.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(o =>
+            {
+                o.RequireHttpsMetadata = false;
+                o.SaveToken = true;
+                o.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(JwtAuthenticationManager.JWT_SECURITY_KEY)),
+                    ValidateIssuer = false,
+                    ValidateAudience = false
+                };
+            });
+                
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
-
+            
             services.AddRazorPages();
             services.AddServerSideBlazor();
-            services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<IdentityUser>>();
+            services.AddScoped<AuthenticationStateProvider, CustomAuthenticationStateProvider>();
             services.AddBlazoredLocalStorage();
-
+            services.AddBlazoredSessionStorage();
+            services.AddSingleton<AdminAccountService>();
             services.AddAuthentication();
             services.AddHttpClient();
             services.AddHttpClient<HttpClient>();
             services.AddScoped<HttpClient>();
-            services.AddHttpClient<IAuthService, AuthService>();
-            services.AddScoped<IAuthService, AuthService>();
+           
             services.AddScoped<CustomAuthenticationStateProvider>();
             services.AddAuthenticationCore();
             services.AddSingleton<DeviceService>();

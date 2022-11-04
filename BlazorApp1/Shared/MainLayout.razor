@@ -1,7 +1,8 @@
 ﻿@using BlazorApp1.Authentication
 @using BlazorApp1.Data
 @inherits LayoutComponentBase
-@inject NavigationManager navManager;
+@inject NavigationManager navManager
+@inject AuthenticationStateProvider authStateProvider
 
 
     <div class="sidebar">
@@ -10,7 +11,14 @@
 
 <div class="main">
     <div class="top-row px-4">
-        <LoginDisplay />
+       
+        <AuthorizeView>
+            <NotAuthorized>
+
+                <a href="/login">Logout</a>
+            </NotAuthorized>
+            
+        </AuthorizeView>
     </div>
 
     <div class="content px-4">
@@ -20,5 +28,11 @@
 
 @code
 {
-
+    private async Task Logout()
+    {
+        var customAuthStateProvider = (CustomAuthenticationStateProvider)authStateProvider;
+        await customAuthStateProvider.UpdateAuthenticationState(null);
+        navManager.NavigateTo("/login", true);
+    }
+    
 }

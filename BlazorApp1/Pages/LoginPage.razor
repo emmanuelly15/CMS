@@ -1,15 +1,23 @@
 ﻿@page "/login"
 @layout LoginLayout
 @inherits NoMenuLayout
+@using Api.Model.Database
 @using BlazorApp1.Authentication
 @using CommonModels.Model
 @using Microsoft.JSInterop
 @using BlazorApp1.Data
-@inject IJSRuntime JsRuntime
-@inject NavigationManager NavigationManager
-@inject IAuthService AuthService
+@using System.Net
+@inject HttpClient httpClient
+@inject IJSRuntime js
+@inject NavigationManager navManager
+@inject AuthenticationStateProvider authStateProvider
 
-<h1>Login</h1>
+<style>
+    body
+    {
+        background-color: #3A0647;
+    }
+</style>
 
 @if (ShowErrors)
 {
@@ -18,50 +26,75 @@
     </div>
 }
 
-<div class="card">
-    <div class="card-body">
-        <h5 class="card-title">Please enter your details</h5>
-        <EditForm Model="loginModel" OnValidSubmit="@HandleLogin">
+<div class="row">
+    <div class="col-lg-4 offset-lg-4 pt-4 pb-4 border">
+        <div class="mb-3 text-center">
+            <h1 style= "color: white" >PAYCO LOGIN</h1>
+            <img src ="~/Image_225.jpg"/>
+        </div>
+        <EditForm Model="adminuser">
             <DataAnnotationsValidator />
             <ValidationSummary />
-
-            <div class="form-group">
-                <label for="email">Email address</label>
-                <InputText Id="email" Class="form-control" @bind-Value="loginModel.email" />
-                <ValidationMessage For="@(() => loginModel.email)" />
-            </div>
-            <div class="form-group">
-                <label for="password">Password</label>
-                <InputText Id="password" type="password" Class="form-control" @bind-Value="loginModel.password" />
-                <ValidationMessage For="@(() => loginModel.password)" />
-            </div>
-           
-            <a href="Admin">Login Admin</a>
+        <div class="mb-3">
+            <label >User Name</label>
+            <InputText @bind-Value="adminuser.Email" class="form-control" placeholder="User Name" />
+            <ValidationMessage For="@(() => adminuserInput.Email)" />
+        </div>
+        <div class="mb-3">
+            <label>Password</label>
+            <InputText @bind-Value="adminuser.Password" type="password" class="form-control" placeholder="Password" />
+            <ValidationMessage For="@(() => adminuserInput.Password)" />
+        </div>
+        
+            <button type="submit" @onclick="Submit" class="btn btn-primary" background-color=pink>Login</button>
+       
         </EditForm>
     </div>
 </div>
 
 @code {
 
-    private LoginModel loginModel = new LoginModel();
+    public AdminUser adminuserInput = new AdminUser();
+    public DbAdminUser adminuser = new DbAdminUser();
+
     private bool ShowErrors;
+
     private string Error = "";
 
-    private async Task HandleLogin()
+    string text = "Welcome";
+
+    private void Submit()
     {
-        ShowErrors = false;
-
-        var result = await AuthService.Login(loginModel);
-
-        if (result.Successful)
+        if (adminuser.Email == adminuser.Email && adminuser.Password == adminuser.Password)
         {
-            NavigationManager.NavigateTo("/Dashboard");
+            navManager.NavigateTo("/Dashboard");
+            
         }
         else
         {
-            Error = result.Error;
             ShowErrors = true;
         }
     }
+   
 
+    /*private LoginRequest loginRequest = new LoginRequest();
+
+    private async Task Authenticate()
+    {
+        var loginResponse = await httpClient.PostAsJsonAsync<LoginRequest>("/api/Account/Login", loginRequest);
+
+        if (loginResponse.IsSuccessStatusCode)
+        {
+            var adminSession = await loginResponse.Content.ReadAsAsync<AdminSession>();
+            var customAuthStateProvider = (CustomAuthenticationStateProvider)authStateProvider;
+            await customAuthStateProvider.UpdateAuthenticationState(adminSession);
+            navManager.NavigateTo("/", true);
+        }
+        else if (loginResponse.StatusCode == HttpStatusCode.Unauthorized)
+        {
+            await js.InvokeVoidAsync("alert", "Invalid User Name or Password");
+            return;
+        }
+    }
+    */
 }
