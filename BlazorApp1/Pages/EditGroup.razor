@@ -6,6 +6,12 @@
 @inject IJSRuntime JsRuntime
 @inject GroupService GroupService
 
+<style>
+    body {
+        background-color: #F9F6EE;
+    }
+</style>
+
 <EditForm Model="@groups" OnValidSubmit="@HandleValidSubmit">
 
     <DataAnnotationsValidator />

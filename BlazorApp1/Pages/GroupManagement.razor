@@ -5,6 +5,12 @@
 @inject IJSRuntime JsRuntime
 @inject GroupService GroupService
 
+<style>
+    body {
+        background-color: #F9F6EE;
+    }
+</style>
+
 <EditForm Model="@group" OnValidSubmit="@HandleValidSubmit">
 
     <DataAnnotationsValidator />
@@ -14,8 +20,8 @@
 <p>Note: All fields marked with '*' are required.</p>
     
 <div class="row">
-        <div class="col-md-6">
-                <div class="form-group">
+        <div class="col-md-4">
+                <div class="form-group" style="width:15rem;">
                         <label for="Groups">  Group *</label>
                         <input form="Group name" class="form-control" @bind="@group.Groups" aria-describedby="GroupHelpBlock"/>
                         <small id="GroupHelpBlock" class="form-text text-muted">
@@ -23,9 +29,7 @@
 </small>
                         
                     </div>
-            </div>
-        
-        
+            </div>       
 </div>
 <button type="submit" class="btn btn-success">
                                 <span class="oi oi-circle-check"></span>
