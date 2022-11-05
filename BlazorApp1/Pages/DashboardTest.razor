@@ -8,6 +8,7 @@
 @inject NavigationManager NavigationManager
 @inject IJSRuntime JsRuntime
 @inject DashboardService DashboardService 
+@inject DocumentService DocumentService
 
 <style>
     body {
@@ -20,87 +21,110 @@
 
 
 
-<div class="col-md-6">
-    <div class="form-group">
-        @*<input form="User" class="form-control" @bind="@device.User" />*@
-        <th>-- Active Emails --</th>
-        <tbody>
-            @foreach (var item in usrobj.GroupBy(e => e.GetType()).OrderByDescending(s => s.Count()))
-            {
-                <td>@item.Count()</td>
-            }
-        </tbody>
-    </div>
+<b>@currentDate</b>
+
+
+
+<div class="container-fluid">
+<div class="card-deck">
+<div class="row-3">
+            <RadzenCard Style="width: 100%; height: 230px; padding: 0.0rem;" Fill="#F9F6EE" >
+        <RadzenArcGauge Style="width: 100%; height: 200px;">
+            <RadzenArcGaugeScale Step="2" Min="0" Max="20" MinorStep="2" Radius="1.3" TickPosition=@tickPosition Y="0.9" Margin="0">      
+                <RadzenArcGaugeScaleValue Value=@usrobj.Count() ShowValue=@showValue Fill="#FC1050">
+                <Template Context="pointer">
+                    <h4>
+                        <h4>Active Emails</h4>
+                        @pointer.Value
+                    </h4>
+                </Template>
+            </RadzenArcGaugeScaleValue>
+        </RadzenArcGaugeScale>
+    </RadzenArcGauge>
+    </RadzenCard>
+</div>
+<div class="row-3">
+            <RadzenCard Style="width: 100%; height: 230px; padding: 0.0rem;">
+        <RadzenArcGauge Style="width: 100%; height: 200px;">
+            <RadzenArcGaugeScale Step="2" Min="0" Max="20" MinorStep="2" Radius="1.3" TickPosition=@tickPosition Y="0.9"  Margin="0" >
+                <RadzenArcGaugeScaleValue Value=@devobj.Count() ShowValue=@showValue Fill="blue">
+                <Template Context="pointer">
+                    <h4>
+                        <h4>Active Devices</h4>
+                        @pointer.Value
+                    </h4>
+                </Template>
+            </RadzenArcGaugeScaleValue>
+        </RadzenArcGaugeScale>
+    </RadzenArcGauge>
+    </RadzenCard>
+</div>
+</div>
 </div>
 
-<div class="col-md-6">
-    <div class="form-group">
-        @*<input form="User" class="form-control" @bind="@device.User" />*@
-        <th>-- Active Devices --</th>
-        <tbody>
-            @foreach (var devitem in devobj.GroupBy(e => e.GetType()).OrderByDescending(s => s.Count()))
-            {
-                <td>@devitem.Count()</td>
-            }
-        </tbody>
-    </div>
-</div>
-
-<div class="col-md-6">
-    <div class="form-group">
-        @*<input form="User" class="form-control" @bind="@device.User" />*@
-        <th>-- Documents --</th>
-        <tbody>
-            @foreach (var docitem in docobj.GroupBy(e => e.GetType()).OrderByDescending(s => s.Count()))
-            {
-                <td>@docitem.Count()</td>
-            }
-        </tbody>
-    </div>
-</div>
-
-<p>Document Submissions List</p>
+<h2 style="font-family: Arial, Helvetica, sans-serif; color:#4682B4;">Pending Document Submissions</h2> 
+<RadzenButton Text="Document Submission Page" Click=@OnButtonClick  Icon="assignment" ButtonStyle="ButtonStyle.Secondary" />
 <div>
+    @if (imageuploads != null)
+    {
         <table class="table-bordered">
             <thead>
-                <tr>
-                    <th width="20%">ID</th>
+                <tr style="height: 30px; background-color:#336699 ; color:#FFFFFF ;">
+                    <th width="30%">Email</th>
+                    <th width="20%">Title</th>
                     <th width="20%">Inserted On</th>
+                    <th width="20%">Status</th>
                 </tr>
             </thead>
             <tbody>
-            @foreach (var p in docobj)
-            {
-                        <tr>
-                            <td>@p.Id</td>
-                            <td>@p.InsertedOn</td>
-                        </tr>
-            }
+                @foreach (var p in imageuploads)
+                {
+                @if (@p.Status=="Pending")
+                {
+                    <tr>
+                        <td>@p.Email</td>
+                        <td>@p.Title</td>
+                        <td>@p.InsertedOn</td>
+                        <td>@p.Status</td>
+                    </tr>
+                }}
             </tbody>
 
         </table>
+        }
 </div>
 
 
 
 
 @code{
-
+     private Imageupload[] imageuploads;
+     
     private Dashboard[] dashboards;
     Dashboard dashboard = new Dashboard();
     List<UserListClass> usrobj;
     List<DeviceListClass> devobj;
     List<DocumentListClass> docobj;
+    private string currentDate;
     //defining the fields that hold the data for the charts
 
     //load the data when the component is initialized on the screen
+   bool showValue = true;
+    IEnumerable<GaugeTickPosition> tickPositions = Enum.GetValues(typeof(GaugeTickPosition)).Cast<GaugeTickPosition>();
+    GaugeTickPosition tickPosition = GaugeTickPosition.Inside;
     protected override async Task OnInitializedAsync()
     {
+        
         //base.OnInitialized();
         usrobj = Service.usersobj();
         devobj = Service.devobj();
         docobj = Service.docobj();
+        currentDate = DateTime.Now.ToString();
         //dashboards = await DashboardService.GetDashboardsAsync();
+        imageuploads = await DocumentService.GetDocumentsAsync();
     }
-
+    void OnButtonClick()
+    {
+        NavigationManager.NavigateTo("DocumentSubmission");
+    }
 }
