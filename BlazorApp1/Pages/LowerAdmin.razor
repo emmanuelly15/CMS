@@ -1,5 +1,4 @@
-﻿@page "/Admin"
-@using Api.Model.Database
+﻿@page "/lowerAdmin"
 @using CommonModels.Model
 @using BlazorApp1.Data
 @inject NavigationManager NavigationManager
@@ -9,16 +8,16 @@
 <h2> Admin Profile</h2>
 @if(adminuser != null)
 {
-<p>Admin Information: </p>
+<p>Admin Information: Lower Admin</p>
 <div class="row">
        <table class="table">
                <tr>
                        <td>Name</td>
-                       <td>@adminuser.Name </td>
+                       <td>Jabulani </td>
                    </tr>
                <tr>
                        <td>Email</td>
-                        <td>@adminuser.Email</td>
+                        <td>Jabulani53@gmail.com</td>
                    </tr>
                
            </table>
@@ -29,7 +28,7 @@
 @code {
     [Parameter]
     public string Id{ get; set; }
-    DbAdminUser adminuser = new DbAdminUser();
+    AdminUser adminuser = new AdminUser();
 
         
    

@@ -1,19 +1,26 @@
-﻿@inherits LayoutComponentBase
-@inject NavigationManager navManager;
+﻿@using BlazorApp1.Authentication
+@using BlazorApp1.Data
+@inherits LayoutComponentBase
+@inject NavigationManager navManager
+@inject AuthenticationStateProvider authStateProvider
 
 
     <div class="sidebar">
         <NavMenu />
     </div>
 
-
 <div class="main">
-   
-        @*<div class="top-row px-4 auth">
-            <LoginDisplay />
-        <a href="https://docs.microsoft.com/aspnet/" target="_blank">About</a>
-    </div>*@
-    
+    <div class="top-row px-4">
+       
+        <AuthorizeView>
+            <NotAuthorized>
+
+                <a href="/login">Logout</a>
+            </NotAuthorized>
+            
+        </AuthorizeView>
+    </div>
+
     <div class="content px-4">
         @Body
     </div>
@@ -21,6 +28,11 @@
 
 @code
 {
-   // public bool isAdminLoggedIn = false;
-   
+    private async Task Logout()
+    {
+        var customAuthStateProvider = (CustomAuthenticationStateProvider)authStateProvider;
+        await customAuthStateProvider.UpdateAuthenticationState(null);
+        navManager.NavigateTo("/login", true);
+    }
+    
 }
