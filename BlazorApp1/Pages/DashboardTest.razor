@@ -1,5 +1,6 @@
 ﻿@page "/Dashboard"
 @using BlazorApp1.Data
+@using Api.Model.Database
 @using BlazorApp1.DbServices
 @using CommonModels.Model
 @using BlazorApp1.Services
@@ -9,6 +10,7 @@
 @inject IJSRuntime JsRuntime
 @inject DashboardService DashboardService 
 @inject DocumentService DocumentService
+@inject AdminUserService AdminUserService
 
 <style>
     body {
@@ -18,8 +20,6 @@
 
 
 <h1 style="font-family: Arial, Helvetica, sans-serif; color:#4682B4;">Dashboard</h1>
-
-
 
 <b>@currentDate</b>
 
@@ -99,8 +99,9 @@
 
 @code{
      private Imageupload[] imageuploads;
-     
+     private AdminUser[] adminusers;
     private Dashboard[] dashboards;
+    public DbAdminUser adminuser = new DbAdminUser();
     Dashboard dashboard = new Dashboard();
     List<UserListClass> usrobj;
     List<DeviceListClass> devobj;
@@ -122,6 +123,7 @@
         currentDate = DateTime.Now.ToString();
         //dashboards = await DashboardService.GetDashboardsAsync();
         imageuploads = await DocumentService.GetDocumentsAsync();
+        adminusers = await AdminUserService.GetAdminUsersAsync();
     }
     void OnButtonClick()
     {

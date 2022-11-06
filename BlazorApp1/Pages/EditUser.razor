@@ -5,7 +5,7 @@
 @inject IJSRuntime JsRuntime
 @inject UserService UserService 
 
-<h1 style="font-family: Arial, Helvetica, sans-serif; color:#4682B4;">Edit User</h1>
+
 @*Form to bring users information from the db and display it, so the user can decide what to edit.*@
 
 <EditForm Model="@user" OnValidSubmit="@HandleValidSubmit">
@@ -13,16 +13,17 @@
     <DataAnnotationsValidator />
 
     <ValidationSummary />
-    <h1>Edit User</h1>
+   
     @*Form to bring users information from the db and display it, so the user can decide what to edit.*@
-
+    <h1 style="font-family: Arial, Helvetica, sans-serif; color: #4682B4;" > Edit User</h1>
+    
 <div class="row">
         <div class="col-md-3">
                 <div class="form-group">
                         <label for="Name">  Name </label>
                         <input form="Name" class="form-control" @bind="@user.Name" aria-describedby="NameHelpBlock"/>
                         <small id="NameHelpBlock" class="form-text text-muted">
-  Full name must begin with a capital letter.
+  Name cannot contain symbols or numbers. Eg: #Salah11.
 </small> @*The bind function is what binds the user(from the user class, to the fields for example Name, Email...)*@ 
                  </div>
             </div>

@@ -5,6 +5,7 @@
 @inject AuthenticationStateProvider authStateProvider
 
 
+
     <div class="sidebar">
         <NavMenu />
     </div>
@@ -14,8 +15,8 @@
        
         <AuthorizeView>
             <NotAuthorized>
-
-                <a href="/login">Logout</a>
+                
+                <a href="/">Logout</a>
             </NotAuthorized>
             
         </AuthorizeView>
@@ -28,6 +29,7 @@
 
 @code
 {
+    
     private async Task Logout()
     {
         var customAuthStateProvider = (CustomAuthenticationStateProvider)authStateProvider;
