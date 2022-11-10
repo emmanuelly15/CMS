@@ -1,20 +1,19 @@
-﻿<div class="top-row pl-4 navbar navbar-dark">
-    <a class="navbar-brand" href="">Payco</a>
+﻿<div class="top-row pl-4 navbar navbar-dark navbar-expand">
+
+    <RadzenImage Path="Images\MicrosoftTeams-image-removebg-preview.png" Style="width: 60%; margin: 3rem;" />
+</div>
+<div class="col-xl-6">
+
     <button class="navbar-toggler" @onclick="ToggleNavMenu">
         <span class="navbar-toggler-icon"></span>
     </button>
 </div>
-
-<div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
+<div class="@NavMenuCssClass" @onclick="ToggleNavMenu" navbar-expand>
 
    
     <ul class="nav flex-column">
               
-         <li class="nav-item px-3">
-                <NavLink class="nav-link" href="login">
-                    <span class="oi oi-person" aria-hidden="true"></span> Login
-                </NavLink>
-            </li> 
+        
 
             <li class="nav-item px-3">
                 <NavLink class="nav-link" href="Admin">
@@ -23,7 +22,7 @@
             </li>
 
             <li class="nav-item px-3">
-                <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
+                <NavLink class="nav-link" href="Dashboard" Match="NavLinkMatch.All">
                     <span class="oi oi-home" aria-hidden="true"></span> Dashboard
                 </NavLink>
             </li>

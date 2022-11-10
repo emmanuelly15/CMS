@@ -19,7 +19,7 @@ namespace Api.Controllers
 
 
         [HttpGet]
-        [Authorize(Roles = "HigherAdmin")]
+        
         public IEnumerable<AdminUser> Get()
         {
             var docList = new List<AdminUser>();

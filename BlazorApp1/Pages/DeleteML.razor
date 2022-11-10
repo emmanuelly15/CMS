@@ -30,14 +30,14 @@
            </table>
 </div>
 }
-<div class="row">
-        <div class="col-md-4">
-                <div class="form-group">
-                        <input type="button" class="btn btn-primary" @onclick="@Delete" value="Delete" />
-                        <input type="button" class="btn" @onclick="@Cancel" value="Cancel" />
-                    </div>
-            </div>
-</div>
+<button type="button" class="btn btn-danger" @onclick="@Delete" value="Delete">
+                                <span class="oi oi-trash"></span>
+                                <a style="color: #FFFFFF" >Delete</a>
+                        </button>
+                        <button type="button" class="btn btn-primary" @onclick="@Cancel" value="Cancel">
+                                <span class="oi oi-circle-x"></span>
+                                <a style="color: #FFFFFF" >Cancel</a>
+                        </button>
 @code {
     [Parameter]
     public string Id{ get; set; }

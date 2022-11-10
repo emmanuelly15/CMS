@@ -30,7 +30,7 @@
                     <th >User</th>
                     <th >Email</th>
                     
-                    <th >Auhtorisation</th>
+                    <th >Authorization</th>
                     <th>Edit</th>
                     <th>Delete</th>
                 </tr>
@@ -65,7 +65,8 @@
 
     protected override async Task OnInitializedAsync()
     {
-        var customAuthStateProvider = (CustomAuthenticationStateProvider)authenticationStateProvider;
+        adminusers = await AdminUserService.GetAdminUsersAsync();
+       /* var customAuthStateProvider = (CustomAuthenticationStateProvider)authenticationStateProvider;
         var token = await customAuthStateProvider.GetToken();
         if (!string.IsNullOrWhiteSpace(token))
         {
@@ -73,7 +74,7 @@
             adminusers = await AdminUserService.GetAdminUsersAsync();
         }
         else
-            NavigationManager.NavigateTo("/login");
+            NavigationManager.NavigateTo("/login");*/
        
         
     }

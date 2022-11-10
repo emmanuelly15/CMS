@@ -33,7 +33,7 @@ namespace WebApplication1.Controllers
 
             var docList = new List<Imageupload>();
 
-            var allImageuploads = db.Documents.ToList().Select(v => new Imageupload
+            var allImageuploads = db.Documents.OrderByDescending(i=>i.Id).ToList().Select(v => new Imageupload
             {
                 Id =v.Id,
                 Email = v.Email,

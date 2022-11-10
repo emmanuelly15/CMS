@@ -22,23 +22,17 @@
 
  <h1 style="font-family: Arial, Helvetica, sans-serif; color:#4682B4;">Edit Device</h1>
  
-<div class="row">
-    <div class="col-md-4">
-        <div class="form-group">
-            <label for="IMEI">  IMEI </label>
-            <input form="IMEI" class="form-control" @bind="@device.IMEI" aria-describedby="IMEIHelpBlock"/>
-                        <small id="IMEIHelpBlock" class="form-text text-muted">
-  A device's IMEI contains a 15-digit number. You can find it at the back of the device or in the settings.
-</small>
-        </div>
-    </div>
+
+    <tr>
+                       <td>IMEI: @device.IMEI</td>
+               </tr>
     <br>
     <div class="col-md-4">
         <div class="form-group">
             <label for="User"> User </label>
             @*<input form="User" class="form-control" @bind="@device.User" />*@
-                <p>Assign a user to the Device.</p>
-            <select class="form-control" @bind="@device.User">
+                
+            <select class="form-control" @bind="@device.User" aria-describedby="DUserHelpBlock">
                 <option value="">-- Select User --</option>
                 @if (usrobj != null)
                 {
@@ -48,7 +42,11 @@
 
                     }
                 }
+
             </select>
+            <small id="DUserHelpBlock" class="form-text text-muted">
+  Assign a user to the Device.
+</small>
         </div>
     </div>
     <br>
@@ -56,8 +54,8 @@
         <div class="form-group">
             <label for="Group"> Select Group </label>
             @*<input form="Group" class="form-control" @bind="@device.Groups" />*@
-            <p>Assign a group.</p>
-            <select class="form-control" @bind="@device.Groups">
+            
+            <select class="form-control" @bind="@device.Groups" aria-describedby="DGroupHelpBlock">
                 <option value="">-- Select Group --</option>
                 @if (grobj != null)
                     @foreach (var item in grobj)
@@ -67,6 +65,9 @@
                     }
                 }
             </select>
+            <small id="DGroupHelpBlock" class="form-text text-muted">
+  Assign a group.
+</small>
         </div>
     </div>
     <br>
@@ -85,7 +86,7 @@
                      
             </div>
         </div>
-</div>      
+     
  <!-- Button to save the device -->
            <button type="submit" class="btn btn-success">
                                 <span class="oi oi-circle-check"></span>
